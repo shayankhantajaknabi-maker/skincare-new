@@ -149,6 +149,8 @@ export default async function AdminDashboardPage() {
     productCount,
     orderCount,
     pendingCount,
+    lowStockCount,
+    outOfStockCount,
     deliveredOrders,
     recentOrdersRaw,
     chartOrdersRaw,
@@ -160,6 +162,14 @@ export default async function AdminDashboardPage() {
 
     Order.countDocuments({
       status: "pending",
+    }),
+
+    Product.countDocuments({
+      stock: { $gt: 0, $lte: 5 },
+    }),
+
+    Product.countDocuments({
+      stock: { $lte: 0 },
     }),
 
     Order.find({
@@ -417,6 +427,169 @@ export default async function AdminDashboardPage() {
           </article>
         </section>
 
+        {/* NEEDS ATTENTION */}
+
+        <section className="mt-6 overflow-hidden rounded-[26px] border border-[#123529]/10 bg-white shadow-[0_16px_50px_rgba(18,53,41,0.05)]">
+          <div className="flex flex-col gap-3 border-b border-[#123529]/10 bg-[#fbfaf6] px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#8a9a86]">
+                Priority Center
+              </p>
+
+              <h2 className="mt-1 font-serif text-2xl font-semibold">
+                Needs Attention
+              </h2>
+
+              <p className="mt-1 text-xs text-[#8a938f]">
+                Important store tasks that may need action.
+              </p>
+            </div>
+
+            {pendingCount === 0 &&
+            lowStockCount === 0 &&
+            outOfStockCount === 0 ? (
+              <span className="w-fit rounded-full border border-emerald-100 bg-emerald-50 px-3 py-1.5 text-[10px] font-semibold text-emerald-700">
+                Everything looks good
+              </span>
+            ) : (
+              <span className="w-fit rounded-full border border-[#ead9a4] bg-[#fff8e7] px-3 py-1.5 text-[10px] font-semibold text-[#9a741a]">
+                Action recommended
+              </span>
+            )}
+          </div>
+
+          <div className="grid gap-4 p-4 sm:p-5 md:grid-cols-3">
+            <Link
+              href="/admin/orders"
+              className={`group rounded-[20px] border p-5 transition hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(18,53,41,0.06)] ${
+                pendingCount > 0
+                  ? "border-[#ead9a4] bg-[#fffaf0]"
+                  : "border-[#123529]/10 bg-[#fbfaf7]"
+              }`}
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8a938f]">
+                    Orders
+                  </p>
+
+                  <p className="mt-3 text-3xl font-semibold text-[#123529]">
+                    {pendingCount}
+                  </p>
+
+                  <p className="mt-1 text-sm font-semibold">
+                    Pending orders
+                  </p>
+                </div>
+
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#fff4d1] text-[#987117]">
+                  <StatIcon type="pending" />
+                </div>
+              </div>
+
+              <p className="mt-4 text-xs leading-5 text-[#747d78]">
+                {pendingCount > 0
+                  ? "Review and process orders waiting for action."
+                  : "No pending orders right now."}
+              </p>
+
+              <p className="mt-4 text-xs font-semibold text-[#073c31]">
+                Review Orders →
+              </p>
+            </Link>
+
+            <Link
+              href="/admin/products"
+              className={`group rounded-[20px] border p-5 transition hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(18,53,41,0.06)] ${
+                lowStockCount > 0
+                  ? "border-amber-200 bg-amber-50/50"
+                  : "border-[#123529]/10 bg-[#fbfaf7]"
+              }`}
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8a938f]">
+                    Inventory
+                  </p>
+
+                  <p className="mt-3 text-3xl font-semibold text-[#123529]">
+                    {lowStockCount}
+                  </p>
+
+                  <p className="mt-1 text-sm font-semibold">
+                    Low stock products
+                  </p>
+                </div>
+
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#fff4d1] text-[#987117]">
+                  <StatIcon type="products" />
+                </div>
+              </div>
+
+              <p className="mt-4 text-xs leading-5 text-[#747d78]">
+                {lowStockCount > 0
+                  ? "Products with 1–5 units remaining may need restocking."
+                  : "No products are currently low on stock."}
+              </p>
+
+              <p className="mt-4 text-xs font-semibold text-[#073c31]">
+                Manage Stock →
+              </p>
+            </Link>
+
+            <Link
+              href="/admin/products"
+              className={`group rounded-[20px] border p-5 transition hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(18,53,41,0.06)] ${
+                outOfStockCount > 0
+                  ? "border-red-200 bg-red-50/50"
+                  : "border-[#123529]/10 bg-[#fbfaf7]"
+              }`}
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8a938f]">
+                    Critical Stock
+                  </p>
+
+                  <p
+                    className={`mt-3 text-3xl font-semibold ${
+                      outOfStockCount > 0
+                        ? "text-red-700"
+                        : "text-[#123529]"
+                    }`}
+                  >
+                    {outOfStockCount}
+                  </p>
+
+                  <p className="mt-1 text-sm font-semibold">
+                    Out of stock
+                  </p>
+                </div>
+
+                <div
+                  className={`flex h-10 w-10 items-center justify-center rounded-full ${
+                    outOfStockCount > 0
+                      ? "bg-red-100 text-red-700"
+                      : "bg-[#edf3ef] text-[#073c31]"
+                  }`}
+                >
+                  <StatIcon type="products" />
+                </div>
+              </div>
+
+              <p className="mt-4 text-xs leading-5 text-[#747d78]">
+                {outOfStockCount > 0
+                  ? "These products have no stock available and need attention."
+                  : "All products currently have stock available."}
+              </p>
+
+              <p className="mt-4 text-xs font-semibold text-[#073c31]">
+                Manage Products →
+              </p>
+            </Link>
+          </div>
+        </section>
+
         {/* GRAPH + FEATURED PRODUCT */}
 
         <section className="mt-6 grid gap-6 xl:grid-cols-[1.55fr_0.75fr]">
@@ -445,8 +618,6 @@ export default async function AdminDashboardPage() {
 
             <div className="p-4 sm:p-6">
               <div className="relative h-[260px] overflow-hidden rounded-[20px] border border-[#123529]/8 bg-[#fbfaf7] p-4 sm:h-[310px] sm:p-5">
-                {/* background lines */}
-
                 <div className="pointer-events-none absolute inset-x-5 top-[25%] border-t border-[#123529]/6" />
                 <div className="pointer-events-none absolute inset-x-5 top-[50%] border-t border-[#123529]/6" />
                 <div className="pointer-events-none absolute inset-x-5 top-[75%] border-t border-[#123529]/6" />
@@ -764,6 +935,7 @@ export default async function AdminDashboardPage() {
                 className="group flex items-center justify-between rounded-2xl border border-[#123529]/10 bg-[#fbfaf7] px-4 py-4 text-sm font-semibold transition hover:border-[#d4af37]/50 hover:bg-white"
               >
                 <span>Add Product</span>
+
                 <span className="transition-transform group-hover:translate-x-1">
                   →
                 </span>
@@ -774,6 +946,7 @@ export default async function AdminDashboardPage() {
                 className="group flex items-center justify-between rounded-2xl border border-[#123529]/10 bg-[#fbfaf7] px-4 py-4 text-sm font-semibold transition hover:border-[#d4af37]/50 hover:bg-white"
               >
                 <span>Review Orders</span>
+
                 <span className="transition-transform group-hover:translate-x-1">
                   →
                 </span>
@@ -784,6 +957,7 @@ export default async function AdminDashboardPage() {
                 className="group flex items-center justify-between rounded-2xl border border-[#123529]/10 bg-[#fbfaf7] px-4 py-4 text-sm font-semibold transition hover:border-[#d4af37]/50 hover:bg-white"
               >
                 <span>Create Promo</span>
+
                 <span className="transition-transform group-hover:translate-x-1">
                   →
                 </span>
