@@ -15,7 +15,7 @@ export default async function OrderConfirmedPage({
         </div>
 
         <p className="mt-7 text-sm font-semibold uppercase tracking-[0.2em] text-[#8a9a86]">
-          NM Skin Care
+          ORINOCA NATURAL
         </p>
 
         <h1 className="mt-3 text-4xl font-semibold">

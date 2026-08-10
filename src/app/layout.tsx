@@ -4,7 +4,7 @@ import { CartProvider } from "./cart-provider";
 import FloatingWhatsApp from "./floating-whatsapp";
 
 export const metadata: Metadata = {
-  title: "NM Skin Care",
+  title: "ORINOCA NATURAL",
   description: "Pure and natural skin care products in Pakistan.",
 };
 

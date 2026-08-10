@@ -6,7 +6,7 @@ export async function GET() {
 
     return Response.json({
       success: true,
-      message: "NM Skin Care database is connected",
+      message: "ORINOCA NATURAL database is connected",
     });
   } catch (error) {
     console.error(error);

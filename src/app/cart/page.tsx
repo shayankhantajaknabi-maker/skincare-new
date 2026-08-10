@@ -105,7 +105,7 @@ export default function CartPage() {
               <p>Browse our serum packs and find what fits your routine.</p>
 
               <Link href="/shop" className="nm-button nm-button-primary">
-                Shop NM Skin Care
+                Shop ORINOCA NATURAL
               </Link>
             </section>
           ) : (

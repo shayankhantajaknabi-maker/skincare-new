@@ -21,7 +21,7 @@ export async function GET(request: Request) {
   try {
     await connectToDatabase();
 
-    const order = await Order.findOne({
+    const order: any = await Order.findOne({
       orderNumber,
       "customer.phone": phone,
     }).lean();

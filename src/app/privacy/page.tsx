@@ -7,7 +7,7 @@ export default function PrivacyPage() {
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#8a9a86]">
-              NM Skin Care
+              ORINOCA NATURAL
             </p>
             <h1 className="mt-2 text-4xl font-semibold">Privacy Policy</h1>
             <p className="mt-3 text-neutral-600">Last updated: August 2026</p>

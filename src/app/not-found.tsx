@@ -5,7 +5,7 @@ export default function NotFound() {
     <main className="flex min-h-screen items-center justify-center bg-[#f5f2eb] px-5 text-[#123529]">
       <section className="w-full max-w-xl rounded-3xl bg-white p-8 text-center shadow-sm">
         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#8a9a86]">
-          NM Skin Care
+          ORINOCA NATURAL
         </p>
 
         <h1 className="mt-4 text-5xl font-semibold">404</h1>

@@ -18,77 +18,113 @@ export default function StoreFooter({
   return (
     <>
       {showCta ? (
-        <section className="bg-[#005b49] px-5 py-20 text-center text-white">
-          <div className="mx-auto max-w-3xl">
-            <h2
-               className="font-serif text-4xl leading-tight md:text-5xl"
-               style={{ color: "#ffffff" }}
-            >
-              {ctaTitle}
-            </h2>
+        <section className="nm-footer-cta">
+          <div className="nm-wrap">
+            <h2>{ctaTitle}</h2>
+            <p>{ctaDescription}</p>
 
-            <p className="mx-auto mt-5 max-w-2xl text-white/80">
-              {ctaDescription}
-            </p>
-
-            <Link
-              href={ctaHref}
-              className="mt-8 inline-flex rounded-full bg-[#e5b52d] px-9 py-4 font-semibold text-[#123529] transition hover:bg-[#f0c44a]"
-            >
+            <Link href={ctaHref} className="nm-btn nm-btn-gold">
               {ctaButtonText}
             </Link>
           </div>
         </section>
       ) : null}
 
-      <footer className="bg-[#003d32] px-5 py-14 text-white">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
-            <div>
-              <Link href="/" className="font-serif text-3xl text-white">
-                NM <span className="text-sm tracking-[0.28em] text-[#9db4a8]">SKIN CARE</span>
+      <footer className="nm-footer">
+        <div className="nm-wrap">
+          <div className="nm-foot-grid">
+            <div className="nm-foot-brand">
+              <Link href="/" className="nm-logo">
+                NM <span>Skin Care</span>
               </Link>
 
-              <p className="mt-5 max-w-xs text-sm leading-7 text-white/70">
+              <p>
                 A pure &amp; natural skincare serum, formulated and lab-tested
                 for everyday radiance. Proudly registered in Pakistan.
               </p>
             </div>
 
-            <div className="flex flex-col gap-3 text-sm">
-              <h3 className="mb-2 font-semibold uppercase tracking-[0.18em] text-[#e5b52d]">
-                Shop
-              </h3>
-              <Link className="text-white/80 hover:text-white" href="/shop">All Packs</Link>
-              <Link className="text-white/80 hover:text-white" href="/shop">Product Details</Link>
-              <Link className="text-white/80 hover:text-white" href="/cart">Your Cart</Link>
+            <div className="nm-foot-col">
+              <h3>Shop</h3>
+
+              <ul>
+                <li>
+                  <Link href="/shop">All Packs</Link>
+                </li>
+                <li>
+                  <Link href="/shop">Product Details</Link>
+                </li>
+                <li>
+                  <Link href="/cart">Your Cart</Link>
+                </li>
+              </ul>
             </div>
 
-            <div className="flex flex-col gap-3 text-sm">
-              <h3 className="mb-2 font-semibold uppercase tracking-[0.18em] text-[#e5b52d]">
-                Support
-              </h3>
-              <Link className="text-white/80 hover:text-white" href="/track-order">Order Tracking</Link>
-              <Link className="text-white/80 hover:text-white" href="/shipping-returns">Delivery Info</Link>
-              <Link className="text-white/80 hover:text-white" href="/contact">Contact Us</Link>
+            <div className="nm-foot-col">
+              <h3>Support</h3>
+
+              <ul>
+                <li>
+                  <Link href="/track-order">Order Tracking</Link>
+                </li>
+                <li>
+                  <Link href="/shipping-returns">Delivery Info</Link>
+                </li>
+                <li>
+                  <Link href="/contact">Contact Us</Link>
+                </li>
+              </ul>
             </div>
 
-            <div>
-              <h3 className="mb-5 text-sm font-semibold uppercase tracking-[0.18em] text-[#e5b52d]">
-                Connect
-              </h3>
+            <div className="nm-foot-col">
+              <h3>Connect</h3>
 
-              <div className="flex gap-3">
-                <a href="#" aria-label="Facebook" className="grid h-10 w-10 place-items-center rounded-full border border-white/20 text-white/80 hover:bg-white hover:text-[#003d32]">f</a>
-                <a href="#" aria-label="Instagram" className="grid h-10 w-10 place-items-center rounded-full border border-white/20 text-white/80 hover:bg-white hover:text-[#003d32]">◎</a>
-                <a href="#" aria-label="WhatsApp" className="grid h-10 w-10 place-items-center rounded-full border border-white/20 text-white/80 hover:bg-white hover:text-[#003d32]">◔</a>
+              <div className="nm-foot-social">
+                <a href="#" aria-label="Facebook">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                  >
+                    <path d="M15 8h-2a2 2 0 0 0-2 2v10M8 12h6" />
+                  </svg>
+                </a>
+
+                <a href="#" aria-label="Instagram">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                  >
+                    <rect x="4" y="4" width="16" height="16" rx="4" />
+                    <circle cx="12" cy="12" r="3.4" />
+                  </svg>
+                </a>
+
+                <a href="#" aria-label="WhatsApp">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                  >
+                    <path d="M4 20l1.4-4A8 8 0 1 1 9 19l-5 1Z" />
+                  </svg>
+                </a>
               </div>
             </div>
           </div>
 
-          <div className="mt-12 flex flex-col gap-3 border-t border-white/15 pt-7 text-xs text-white/60 md:flex-row md:items-center md:justify-between">
-            <span>© {new Date().getFullYear()} NM Skin Care. All rights reserved.</span>
-            <span>Pure &amp; Natural · Lab Tested · Registered in Pakistan</span>
+          <div className="nm-foot-bottom">
+            <span>
+              © {new Date().getFullYear()} ORINOCA NATURAL. All rights reserved.
+            </span>
+
+            <span>
+              Pure &amp; Natural · Lab Tested · Registered in Pakistan
+            </span>
           </div>
         </div>
       </footer>

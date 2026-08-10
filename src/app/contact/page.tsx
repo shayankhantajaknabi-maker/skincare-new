@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "";
 const whatsappMessage = encodeURIComponent(
-  "Assalam-o-Alaikum, mujhe NM Skin Care ke bare mein help chahiye."
+  "Assalam-o-Alaikum, mujhe ORINOCA NATURAL ke bare mein help chahiye."
 );
 
 export default function ContactPage() {
@@ -12,7 +12,7 @@ export default function ContactPage() {
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#8a9a86]">
-              NM Skin Care
+              ORINOCA NATURAL
             </p>
             <h1 className="mt-2 text-4xl font-semibold">We are here to help</h1>
             <p className="mt-3 max-w-2xl leading-7 text-neutral-600">

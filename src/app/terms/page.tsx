@@ -7,7 +7,7 @@ export default function TermsPage() {
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#8a9a86]">
-              NM Skin Care
+              ORINOCA NATURAL
             </p>
             <h1 className="mt-2 text-4xl font-semibold">
               Terms & Conditions
@@ -29,7 +29,7 @@ export default function TermsPage() {
               Using this website
             </h2>
             <p className="mt-2">
-              By using the NM Skin Care website or placing an order, you agree
+              By using the ORINOCA NATURAL website or placing an order, you agree
               to use the store lawfully and provide accurate information for
               order processing and delivery.
             </p>

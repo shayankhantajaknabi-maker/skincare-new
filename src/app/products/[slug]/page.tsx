@@ -92,7 +92,7 @@ export default async function ProductPage({
               </div>
 
               <div className="pt-2">
-                <p className="text-[13px] font-semibold uppercase tracking-[0.2em] text-[#005746]">— NM Skin Care · Pure &amp; Natural</p>
+                <p className="text-[13px] font-semibold uppercase tracking-[0.2em] text-[#005746]">— ORINOCA NATURAL · Pure &amp; Natural</p>
                 <div className="mt-5 flex items-center gap-3 text-sm">
                   <span className="tracking-[0.12em] text-[#e5ad1b]">★★★★★</span>
                   <span className="text-[#8a8f8b]">4.9 out of 5 · 1,240 reviews</span>
@@ -144,7 +144,7 @@ export default async function ProductPage({
               </div>
             </div>
             <div className="max-w-[850px] py-10 text-[15.5px] leading-8 text-[#5b605d]">
-              <p>{product.description || "NM Skin Care Serum is crafted in small batches from natural plant extracts and oils. It is made to nourish dry patches, support an even-looking tone and help your skin feel soft and refreshed."}</p>
+              <p>{product.description || "ORINOCA NATURAL Serum is crafted in small batches from natural plant extracts and oils. It is made to nourish dry patches, support an even-looking tone and help your skin feel soft and refreshed."}</p>
               <ul className="mt-7 space-y-2"><li>— 100% pure &amp; natural formula</li><li>— Lightweight, fast-absorbing texture</li><li>— Suitable for normal, dry and combination skin</li><li>— Free from parabens and synthetic fragrance</li></ul>
             </div>
           </div>
@@ -179,7 +179,7 @@ export default async function ProductPage({
         ) : null}
       </main>
 
-      <StoreFooter ctaTitle="Ready to start your skincare ritual?" ctaDescription="Join 10,000+ customers already using NM Skin Care daily." ctaButtonText="Shop Now" ctaHref="/shop" />
+      <StoreFooter ctaTitle="Ready to start your skincare ritual?" ctaDescription="Join 10,000+ customers already using ORINOCA NATURAL daily." ctaButtonText="Shop Now" ctaHref="/shop" />
     </div>
   );
 }
