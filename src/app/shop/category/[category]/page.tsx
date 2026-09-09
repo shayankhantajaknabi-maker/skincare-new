@@ -1,10 +1,11 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { connectToDatabase } from "@/lib/mongodb";
 import { Product } from "@/models/Product";
-import StoreFooter from "../store-footer";
-import StoreHeader from "../store-header";
-import StoreFilters from "./store-filters";
 import { formatPrice } from "@/lib/format-price";
+import StoreFooter from "../../../store-footer";
+import StoreHeader from "../../../store-header";
+import StoreFilters from "../../store-filters";
 
 export const dynamic = "force-dynamic";
 
@@ -23,7 +24,7 @@ type StoreProduct = {
   createdAt?: Date | string;
 };
 
-type ShopSearchParams = {
+type CategorySearchParams = {
   availability?: string;
   minPrice?: string;
   maxPrice?: string;
@@ -173,28 +174,48 @@ function sortProducts(
   });
 }
 
-export default async function ShopPage({
+export default async function CategoryPage({
+  params,
   searchParams,
 }: {
-  searchParams?: Promise<ShopSearchParams>;
+  params: Promise<{
+    category: string;
+  }>;
+
+  searchParams?: Promise<CategorySearchParams>;
 }) {
   await connectToDatabase();
 
-  const params = searchParams
-    ? await searchParams
-    : {};
+  const resolvedParams =
+    await params;
+
+  const resolvedSearchParams =
+    searchParams
+      ? await searchParams
+      : {};
+
+  const categorySlug =
+    resolvedParams.category;
 
   const availability =
-    params.availability || "all";
+    resolvedSearchParams
+      .availability ||
+    "all";
 
   const minPrice =
-    params.minPrice || "";
+    resolvedSearchParams
+      .minPrice ||
+    "";
 
   const maxPrice =
-    params.maxPrice || "";
+    resolvedSearchParams
+      .maxPrice ||
+    "";
 
   const sort =
-    params.sort || "featured";
+    resolvedSearchParams
+      .sort ||
+    "featured";
 
   const databaseProducts =
     (await Product.find({
@@ -206,8 +227,7 @@ export default async function ShopPage({
       .lean()) as unknown as StoreProduct[];
 
   /*
-    Dynamic categories based on
-    actual active products.
+    All categories stay dynamic.
   */
 
   const categories = Array.from(
@@ -231,16 +251,50 @@ export default async function ShopPage({
         ),
     }));
 
+  const currentCategory =
+    categories.find(
+      (category) =>
+        createCategorySlug(
+          category
+        ) ===
+        categorySlug
+    );
+
+  if (!currentCategory) {
+    notFound();
+  }
+
   /*
-    Dynamic filter information.
-    Nothing here is hard-coded.
+    Important:
+    first create the unfiltered
+    product collection for this
+    category.
+
+    This is what we use to calculate
+    price limits and stock counts.
+  */
+
+  const categoryProducts =
+    databaseProducts.filter(
+      (product) =>
+        createCategorySlug(
+          normalizeCategory(
+            product.category
+          )
+        ) ===
+        categorySlug
+    );
+
+  /*
+    Dynamic category-specific
+    filter information.
   */
 
   const totalProductCount =
-    databaseProducts.length;
+    categoryProducts.length;
 
   const inStockCount =
-    databaseProducts.filter(
+    categoryProducts.filter(
       (product) =>
         Number(
           product.stock || 0
@@ -248,7 +302,7 @@ export default async function ShopPage({
     ).length;
 
   const outOfStockCount =
-    databaseProducts.filter(
+    categoryProducts.filter(
       (product) =>
         Number(
           product.stock || 0
@@ -256,7 +310,7 @@ export default async function ShopPage({
     ).length;
 
   const highestPrice =
-    databaseProducts.reduce(
+    categoryProducts.reduce(
       (highest, product) =>
         Math.max(
           highest,
@@ -268,12 +322,12 @@ export default async function ShopPage({
     );
 
   /*
-    Apply filters.
+    Apply selected filters.
   */
 
   let products =
     filterAvailability(
-      databaseProducts,
+      categoryProducts,
       availability
     );
 
@@ -299,145 +353,98 @@ export default async function ShopPage({
 
         <section className="nm-page-hero nm-catalog-hero">
           <div className="nm-wrap">
+
             <div className="nm-breadcrumb">
+
               <Link href="/">
                 Home
               </Link>
 
               <span>/</span>
 
-              <span>
+              <Link href="/shop">
                 Shop
+              </Link>
+
+              <span>/</span>
+
+              <span>
+                {
+                  currentCategory
+                }
               </span>
+
             </div>
 
             <div className="mt-5">
               <span className="nm-eyebrow">
-                THE COLLECTION
+                ORINOCA COLLECTION
               </span>
             </div>
 
             <h1>
-              All Products
+              {
+                currentCategory
+              }
             </h1>
 
             <p className="nm-catalog-intro">
-              Discover ORINOCA NATURAL
-              products across every
-              category.
+              Explore our{" "}
+              {currentCategory.toLowerCase()}{" "}
+              collection.
             </p>
-          </div>
-        </section>
-
-        {/* TRUST STRIP */}
-
-        <section className="nm-trust-strip">
-          <div className="nm-wrap nm-trust-grid">
-
-            <article className="nm-trust-item">
-              <span className="nm-trust-icon">
-                ♧
-              </span>
-
-              <h2>
-                Laboratory Tested
-              </h2>
-
-              <p>
-                Verified for purity &amp;
-                safety
-              </p>
-            </article>
-
-            <article className="nm-trust-item">
-              <span className="nm-trust-icon">
-                ♢
-              </span>
-
-              <h2>
-                Registered in Pakistan
-              </h2>
-
-              <p>
-                Manufactured &amp;
-                certified locally
-              </p>
-            </article>
-
-            <article className="nm-trust-item">
-              <span className="nm-trust-icon">
-                ♡
-              </span>
-
-              <h2>
-                10,000+ Customers
-              </h2>
-
-              <p>
-                Trusted across Pakistan
-              </p>
-            </article>
-
-            <article className="nm-trust-item">
-              <span className="nm-trust-icon">
-                ≡
-              </span>
-
-              <h2>
-                Cash on Delivery
-              </h2>
-
-              <p>
-                Nationwide delivery
-              </p>
-            </article>
 
           </div>
         </section>
 
         {/* CATEGORY NAVIGATION */}
 
-        {categories.length > 0 ? (
-          <section className="nm-category-navigation">
-            <div className="nm-wrap">
-              <div className="nm-catalog-categories">
+        <section className="nm-category-navigation">
+          <div className="nm-wrap">
 
-                <Link
-                  href="/shop"
-                  className="nm-category-pill active"
-                >
-                  All Products
-                </Link>
+            <div className="nm-catalog-categories">
 
-                {categories.map(
-                  (category) => {
-                    const slug =
-                      createCategorySlug(
-                        category
-                      );
+              <Link
+                href="/shop"
+                className="nm-category-pill"
+              >
+                All Products
+              </Link>
 
-                    return (
-                      <Link
-                        key={
-                          category
-                        }
-                        href={`/shop/category/${slug}`}
-                        className="nm-category-pill"
-                      >
-                        {
-                          category
-                        }
-                      </Link>
+              {categories.map(
+                (category) => {
+                  const slug =
+                    createCategorySlug(
+                      category
                     );
-                  }
-                )}
 
-              </div>
+                  return (
+                    <Link
+                      key={
+                        category
+                      }
+                      href={`/shop/category/${slug}`}
+                      className={
+                        slug ===
+                        categorySlug
+                          ? "nm-category-pill active"
+                          : "nm-category-pill"
+                      }
+                    >
+                      {
+                        category
+                      }
+                    </Link>
+                  );
+                }
+              )}
+
             </div>
-          </section>
-        ) : null}
 
-        {/* CATALOGUE */}
+          </div>
+        </section>
+
+        {/* PRODUCTS */}
 
         <section
           className="nm-catalog-section"
@@ -476,6 +483,9 @@ export default async function ShopPage({
               categories={
                 categoryOptions
               }
+              currentCategorySlug={
+                categorySlug
+              }
             />
 
             {products.length === 0 ? (
@@ -492,7 +502,7 @@ export default async function ShopPage({
                 </p>
 
                 <Link
-                  href="/shop"
+                  href={`/shop/category/${categorySlug}`}
                   className="nm-btn nm-btn-primary"
                 >
                   Clear Filters
@@ -556,11 +566,12 @@ export default async function ShopPage({
                           className="nm-pro-card-link"
                           aria-label={`View ${product.name}`}
                         >
-                          {/* IMAGE AREA */}
+
+                          {/* IMAGE */}
 
                           <div className="nm-pro-image">
 
-                            {/* SAVE BADGE */}
+                            {/* AUTOMATIC SAVING */}
 
                             {onSale ? (
                               <span className="nm-pro-save">
@@ -581,7 +592,7 @@ export default async function ShopPage({
                               </span>
                             ) : null}
 
-                            {/* SALE LABEL */}
+                            {/* AUTOMATIC SALE */}
 
                             {onSale ? (
                               <span className="nm-pro-sale">
@@ -589,7 +600,7 @@ export default async function ShopPage({
                               </span>
                             ) : null}
 
-                            {/* SOLD OUT */}
+                            {/* STOCK */}
 
                             {outOfStock ? (
                               <span className="nm-pro-sold">
@@ -609,6 +620,7 @@ export default async function ShopPage({
                               />
                             ) : (
                               <div className="nm-pro-placeholder">
+
                                 <strong>
                                   ORINOCA
                                 </strong>
@@ -616,12 +628,13 @@ export default async function ShopPage({
                                 <span>
                                   NATURAL
                                 </span>
+
                               </div>
                             )}
 
                           </div>
 
-                          {/* PRODUCT INFORMATION */}
+                          {/* DETAILS */}
 
                           <div className="nm-pro-info">
 

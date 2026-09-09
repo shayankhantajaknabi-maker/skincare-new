@@ -1,28 +1,7019 @@
-@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,450&family=Jost:wght@300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,450&display=swap");
+
 @import "tailwindcss";
 @import "./nm-store.css";
+
+/* =========================================================
+   GLOBAL TOKENS
+========================================================= */
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  --orinoca-green: #005a49;
+  --orinoca-deep: #073c31;
+  --orinoca-gold: #d4af37;
+  --orinoca-cream: #f7f4ed;
+
+  --font-display:
+    "Fraunces",
+    Georgia,
+    serif;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background:
+    var(--background);
+
+  --color-foreground:
+    var(--foreground);
+
+  --font-sans:
+    var(--font-geist-sans);
+
+  --font-mono:
+    var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* =========================================================
+   GLOBAL GEIST
+========================================================= */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+
+  background:
+    var(--background);
+
+  color:
+    var(--foreground);
+
+  font-family:
+    var(--font-geist-sans),
+    Arial,
+    Helvetica,
+    sans-serif;
+}
+
+button,
+input,
+textarea,
+select,
+option,
+a {
+  font-family:
+    var(--font-geist-sans),
+    Arial,
+    Helvetica,
+    sans-serif;
+}
+
+.font-serif {
+  font-family:
+    var(--font-geist-sans),
+    Arial,
+    Helvetica,
+    sans-serif !important;
+}
+
+.nm-store,
+.nm-store button,
+.nm-store input,
+.nm-store textarea,
+.nm-store select,
+.nm-store option,
+.nm-store a,
+.nm-store p,
+.nm-store span,
+.nm-store b,
+.nm-store strong,
+.nm-store h2,
+.nm-store h3,
+.nm-store h4,
+.nm-store h5,
+.nm-store h6 {
+  font-family:
+    var(--font-geist-sans),
+    Arial,
+    Helvetica,
+    sans-serif;
+}
+
+/* =========================================================
+   HERO — KEEP CURRENT PREMIUM FONT
+========================================================= */
+
+.nm-ref-hero-copy h1,
+.nm-ref-hero-copy h1 em,
+.nm-ref-hero-copy h1 i {
+  font-family:
+    var(--font-display) !important;
+}
+
+.nm-ref-hero-copy h1 em {
+  font-style: italic;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.nm-header {
+  background:
+    rgba(255,
+      255,
+      255,
+      0.98) !important;
+
+  border-bottom:
+    1px solid rgba(18,
+      53,
+      41,
+      0.075) !important;
+
+  box-shadow:
+    0 8px 30px rgba(18,
+      53,
+      41,
+      0.035);
+}
+
+.nm-nav {
+  min-height: 82px;
+
+  display: flex;
+
+  align-items: center !important;
+}
+
+/* =========================================================
+   PROFESSIONAL LOGO
+========================================================= */
+
+/*
+  Your JPG has large white margins inside it.
+
+  Therefore we use the link as a viewport
+  and zoom the image inside it.
+*/
+
+.orinoca-brand {
+  position: relative !important;
+
+  display: flex !important;
+
+  width: 235px !important;
+  height: 72px !important;
+
+  flex: 0 0 235px !important;
+
+  align-items: center !important;
+  justify-content: center !important;
+
+  overflow: hidden !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  text-decoration: none !important;
+}
+
+.orinoca-header-logo {
+  display: block !important;
+
+  width: 235px !important;
+  height: 72px !important;
+
+  max-width: none !important;
+
+  object-fit: contain !important;
+  object-position: center !important;
+
+  /*
+    Important:
+    zoom removes the visual effect of
+    the large white margins in the JPG.
+  */
+  transform: scale(2.65);
+
+  transform-origin: center;
+
+  pointer-events: none;
+}
+
+/* old handmade logo */
+
+.orinoca-brand-symbol,
+.orinoca-brand-copy {
+  display: none !important;
+}
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+.nm-nav-links {
+  display: flex !important;
+  align-items: center !important;
+  gap: 74px !important;
+  transform: translateX(-50px) !important;
+
+}
+
+.nm-nav-links a {
+  font-family:
+    var(--font-geist-sans),
+    sans-serif !important;
+
+  font-size: 14px;
+
+  font-weight: 500;
+
+  letter-spacing:
+    -0.01em;
+}
+
+.nm-btn {
+  font-family:
+    var(--font-geist-sans),
+    sans-serif !important;
+
+  font-weight: 600;
+}
+
+/* =========================================================
+   TRUST STRIP
+========================================================= */
+
+.nm-trust-strip .nm-trust-grid {
+  align-items:
+    stretch !important;
+}
+
+.nm-trust-strip .nm-trust-item {
+  display: flex !important;
+
+  min-height:
+    166px !important;
+
+  flex-direction:
+    column !important;
+
+  align-items:
+    center !important;
+
+  justify-content:
+    center !important;
+
+  padding:
+    28px 20px !important;
+
+  text-align:
+    center !important;
+}
+
+/* SVG ICON */
+
+.nm-trust-strip .nm-trust-item>svg {
+  display:
+    block !important;
+
+  width:
+    24px !important;
+
+  height:
+    24px !important;
+
+  min-width:
+    24px !important;
+
+  min-height:
+    24px !important;
+
+  flex:
+    0 0 24px !important;
+
+  margin:
+    0 auto 13px !important;
+
+  color:
+    var(--orinoca-gold) !important;
+
+  position:
+    static !important;
+
+  transform:
+    none !important;
+}
+
+/* SHOP SYMBOL ICON */
+
+.nm-trust-icon {
+  display:
+    grid !important;
+
+  width:
+    28px !important;
+
+  height:
+    28px !important;
+
+  min-width:
+    28px !important;
+
+  min-height:
+    28px !important;
+
+  flex:
+    0 0 28px !important;
+
+  place-items:
+    center !important;
+
+  margin:
+    0 auto 12px !important;
+
+  padding:
+    0 !important;
+
+  color:
+    var(--orinoca-gold) !important;
+
+  font-family:
+    var(--font-geist-sans),
+    sans-serif !important;
+
+  font-size:
+    21px !important;
+
+  line-height:
+    1 !important;
+
+  position:
+    static !important;
+
+  transform:
+    none !important;
+}
+
+.nm-trust-strip .nm-trust-item h2,
+
+.nm-trust-strip .nm-trust-item b {
+  width: 100%;
+
+  margin:
+    0 0 5px !important;
+
+  color:
+    #ffffff !important;
+
+  font-family:
+    var(--font-geist-sans),
+    sans-serif !important;
+
+  font-size:
+    15px !important;
+
+  font-weight:
+    650 !important;
+
+  line-height:
+    1.3 !important;
+
+  letter-spacing:
+    -0.015em !important;
+
+  text-align:
+    center;
+}
+
+.nm-trust-strip .nm-trust-item p,
+
+.nm-trust-strip .nm-trust-item>span:not(.nm-trust-icon) {
+  width: 100%;
+
+  margin:
+    0 !important;
+
+  color:
+    rgba(255,
+      255,
+      255,
+      0.75) !important;
+
+  font-family:
+    var(--font-geist-sans),
+    sans-serif !important;
+
+  font-size:
+    12px !important;
+
+  font-weight:
+    400;
+
+  line-height:
+    1.45 !important;
+
+  text-align:
+    center;
+}
+
+/* =========================================================
+   PRODUCT GRID
+========================================================= */
+
+.nm-product-grid {
+  align-items:
+    stretch !important;
+
+  gap:
+    26px !important;
+}
+
+.nm-product-card {
+  display:
+    flex !important;
+
+  height:
+    100% !important;
+
+  min-width:
+    0;
+
+  flex-direction:
+    column !important;
+
+  overflow:
+    hidden;
+
+  border:
+    1px solid rgba(18,
+      53,
+      41,
+      0.08) !important;
+
+  border-radius:
+    22px !important;
+
+  background:
+    #ffffff !important;
+
+  box-shadow:
+    0 8px 32px rgba(18,
+      53,
+      41,
+      0.045);
+
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease,
+    border-color 0.28s ease;
+}
+
+.nm-product-card:hover {
+  transform:
+    translateY(-4px);
+
+  border-color:
+    rgba(0,
+      90,
+      73,
+      0.16) !important;
+
+  box-shadow:
+    0 22px 48px rgba(18,
+      53,
+      41,
+      0.10);
+}
+
+/* =========================================================
+   PRODUCT IMAGE
+========================================================= */
+
+.nm-product-thumb {
+  position:
+    relative !important;
+
+  display:
+    flex !important;
+
+  width:
+    100% !important;
+
+  height:
+    330px !important;
+
+  align-items:
+    center !important;
+
+  justify-content:
+    center !important;
+
+  overflow:
+    hidden !important;
+
+  padding:
+    0 !important;
+
+  background:
+    #fbfaf7 !important;
+}
+
+.nm-product-thumb img {
+  display:
+    block;
+
+  width:
+    100% !important;
+
+  height:
+    100% !important;
+
+  max-width:
+    none !important;
+
+  object-fit:
+    contain !important;
+
+  object-position:
+    center !important;
+
+  filter:
+    none !important;
+
+  transition:
+    transform 0.35s ease;
+}
+
+.nm-product-card:hover .nm-product-thumb img {
+  transform:
+    scale(1.018);
+}
+
+/* =========================================================
+   BADGE
+========================================================= */
+
+.nm-product-tag {
+  position:
+    absolute !important;
+
+  top:
+    14px !important;
+
+  left:
+    14px !important;
+
+  z-index:
+    3;
+
+  min-height:
+    32px;
+
+  display:
+    inline-flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  border-radius:
+    8px !important;
+
+  padding:
+    7px 13px !important;
+
+  background:
+    #00624f !important;
+
+  color:
+    #ffffff !important;
+
+  font-size:
+    10px !important;
+
+  font-weight:
+    700 !important;
+
+  line-height:
+    1;
+
+  letter-spacing:
+    0.03em !important;
+
+  text-transform:
+    uppercase;
+}
+
+/* =========================================================
+   PRODUCT BODY
+========================================================= */
+
+.nm-product-body {
+  display:
+    flex !important;
+
+  flex:
+    1 !important;
+
+  flex-direction:
+    column !important;
+
+  align-items:
+    center !important;
+
+  justify-content:
+    flex-start !important;
+
+  padding:
+    28px 24px 24px !important;
+
+  text-align:
+    center !important;
+}
+
+/* =========================================================
+   CATEGORY
+========================================================= */
+
+.nm-product-body>.mb-2 {
+  min-height:
+    16px;
+
+  margin:
+    0 0 11px !important;
+
+  color:
+    #668279 !important;
+
+  font-family:
+    var(--font-geist-sans),
+    sans-serif !important;
+
+  font-size:
+    11px !important;
+
+  font-weight:
+    650 !important;
+
+  line-height:
+    1.25 !important;
+
+  letter-spacing:
+    0.14em !important;
+
+  text-transform:
+    uppercase;
+
+  text-align:
+    center;
+}
+
+/* no stars */
+
+.nm-stars {
+  display:
+    none !important;
+}
+
+/* =========================================================
+   PRODUCT NAME
+========================================================= */
+
+.nm-product-body h2 {
+  display:
+    block !important;
+
+  width:
+    100% !important;
+
+  min-height:
+    49px;
+
+  margin:
+    0 !important;
+
+  padding:
+    0 6px;
+
+  color:
+    #102f27 !important;
+
+  font-family:
+    var(--font-geist-sans),
+    Arial,
+    sans-serif !important;
+
+  /*
+    slightly bigger as requested
+  */
+  font-size:
+    19px !important;
+
+  font-weight:
+    650 !important;
+
+  line-height:
+    1.28 !important;
+
+  letter-spacing:
+    -0.025em !important;
+
+  text-align:
+    center !important;
+
+  text-wrap:
+    balance;
+}
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.nm-product-description {
+  display:
+    block !important;
+
+  width:
+    100% !important;
+
+  min-height:
+    54px;
+
+  flex:
+    1 !important;
+
+  margin:
+    8px 0 19px !important;
+
+  padding:
+    0 8px;
+
+  color:
+    #66736f !important;
+
+  font-family:
+    var(--font-geist-sans),
+    Arial,
+    sans-serif !important;
+
+  /*
+    larger and more readable
+  */
+  font-size:
+    14px !important;
+
+  font-weight:
+    400 !important;
+
+  line-height:
+    1.55 !important;
+
+  letter-spacing:
+    -0.005em !important;
+
+  text-align:
+    center !important;
+
+  text-wrap:
+    balance;
+}
+
+/* =========================================================
+   HOMEPAGE PRODUCT BRAND
+   ORINOCA NATURAL
+========================================================= */
+
+.nm-home-product-brand {
+  display:
+    block !important;
+
+  width:
+    100% !important;
+
+  margin:
+    7px 0 0 !important;
+
+  color:
+    #769087 !important;
+
+  font-family:
+    var(--font-geist-sans),
+    sans-serif !important;
+
+  font-size:
+    10.5px !important;
+
+  font-weight:
+    650 !important;
+
+  line-height:
+    1.3 !important;
+
+  letter-spacing:
+    0.16em !important;
+
+  text-transform:
+    uppercase;
+
+  text-align:
+    center !important;
+}
+
+/* HOME PRODUCT NAME */
+
+.nm-home-product-name {
+  display:
+    block !important;
+
+  width:
+    100% !important;
+
+  color:
+    #102f27 !important;
+
+  font-family:
+    var(--font-geist-sans),
+    sans-serif !important;
+
+  font-size:
+    19px !important;
+
+  font-weight:
+    650 !important;
+
+  line-height:
+    1.3 !important;
+
+  letter-spacing:
+    -0.025em !important;
+
+  text-decoration:
+    none !important;
+
+  text-align:
+    center !important;
+
+  text-wrap:
+    balance;
+}
+
+/* HOME DESCRIPTION */
+
+.nm-home-product-description {
+  width:
+    100% !important;
+
+  margin:
+    10px 0 18px !important;
+
+  padding:
+    0 8px;
+
+  color:
+    #66736f !important;
+
+  font-family:
+    var(--font-geist-sans),
+    sans-serif !important;
+
+  font-size:
+    14px !important;
+
+  font-weight:
+    400 !important;
+
+  line-height:
+    1.55 !important;
+
+  letter-spacing:
+    -0.005em !important;
+
+  text-align:
+    center !important;
+
+  text-wrap:
+    balance;
+}
+
+/* =========================================================
+   PRICE
+========================================================= */
+
+.nm-price-row,
+.nm-home-price-row {
+  min-height:
+    36px;
+
+  display:
+    flex !important;
+
+  width:
+    100%;
+
+  align-items:
+    baseline !important;
+
+  justify-content:
+    center !important;
+
+  gap:
+    9px !important;
+
+  margin:
+    auto 0 20px !important;
+}
+
+.nm-price-new,
+.nm-home-price-current {
+  color:
+    #005a49 !important;
+
+  font-family:
+    var(--font-geist-sans),
+    sans-serif !important;
+
+  font-size:
+    21px !important;
+
+  font-weight:
+    700 !important;
+
+  line-height:
+    1;
+
+  letter-spacing:
+    -0.035em;
+}
+
+.nm-price-old,
+.nm-home-price-old {
+  color:
+    #979f9b !important;
+
+  font-family:
+    var(--font-geist-sans),
+    sans-serif !important;
+
+  font-size:
+    12.5px !important;
+
+  font-weight:
+    450 !important;
+
+  text-decoration:
+    line-through;
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.nm-card-actions {
+  display:
+    grid !important;
+
+  width:
+    100%;
+
+  grid-template-columns:
+    1fr 1fr !important;
+
+  gap:
+    10px !important;
+
+  margin-top:
+    auto;
+}
+
+.nm-card-actions .nm-btn {
+  min-height:
+    44px;
+
+  display:
+    inline-flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  border-radius:
+    999px !important;
+
+  padding:
+    11px 16px !important;
+
+  font-family:
+    var(--font-geist-sans),
+    sans-serif !important;
+
+  font-size:
+    12.5px !important;
+
+  font-weight:
+    600 !important;
+
+  letter-spacing:
+    -0.01em;
+}
+
+.nm-card-actions .nm-btn-outline {
+  border:
+    1px solid rgba(0,
+      90,
+      73,
+      0.28) !important;
+
+  background:
+    #ffffff !important;
+
+  color:
+    #17352d !important;
+}
+
+.nm-card-actions .nm-btn-outline:hover {
+  border-color:
+    #005a49 !important;
+
+  background:
+    #f4f8f6 !important;
+}
+
+.nm-card-actions .nm-btn-primary {
+  border-color:
+    #005a49 !important;
+
+  background:
+    #005a49 !important;
+
+  color:
+    #ffffff !important;
+
+  box-shadow:
+    0 8px 18px rgba(0,
+      90,
+      73,
+      0.14);
+}
+
+.nm-card-actions .nm-btn-primary:hover {
+  background:
+    #06493c !important;
+}
+
+/* =========================================================
+   ALL OTHER STORE HEADINGS = GEIST
+========================================================= */
+
+.nm-page-hero h1,
+.nm-catalog-hero h1,
+.nm-section-heading h2,
+.nm-ref-sec-head h2,
+.nm-footer h1,
+.nm-footer h2,
+.nm-footer h3 {
+  font-family:
+    var(--font-geist-sans),
+    Arial,
+    sans-serif !important;
+}
+
+/* restore hero exception */
+
+.nm-ref-hero-copy h1,
+.nm-ref-hero-copy h1 em {
+  font-family:
+    var(--font-display) !important;
+}
+
+/* =========================================================
+   ADMIN = GEIST
+========================================================= */
+
+main,
+main button,
+main input,
+main textarea,
+main select,
+main a {
+  font-family:
+    var(--font-geist-sans),
+    Arial,
+    Helvetica,
+    sans-serif;
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 980px) {
+  .orinoca-brand {
+    width:
+      205px !important;
+
+    flex-basis:
+      205px !important;
+  }
+
+  .orinoca-header-logo {
+    width:
+      205px !important;
+
+    transform:
+      scale(2.55);
+  }
+
+  .nm-product-grid {
+    grid-template-columns:
+      repeat(2,
+        minmax(0, 1fr)) !important;
   }
 }
 
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 640px) {
+  .nm-nav {
+    min-height:
+      72px;
+  }
+
+  .orinoca-brand {
+    width:
+      175px !important;
+
+    height:
+      60px !important;
+
+    flex-basis:
+      175px !important;
+  }
+
+  .orinoca-header-logo {
+    width:
+      175px !important;
+
+    height:
+      60px !important;
+
+    transform:
+      scale(2.45);
+  }
+
+  .nm-trust-strip .nm-trust-grid {
+    grid-template-columns:
+      repeat(2,
+        minmax(0, 1fr)) !important;
+  }
+
+  .nm-trust-strip .nm-trust-item {
+    min-height:
+      145px !important;
+
+    padding:
+      23px 12px !important;
+  }
+
+  .nm-product-grid {
+    grid-template-columns:
+      1fr !important;
+  }
+
+  .nm-product-thumb {
+    height:
+      300px !important;
+  }
+
+  .nm-product-body {
+    padding:
+      25px 20px 21px !important;
+  }
+
+  .nm-product-body h2,
+  .nm-home-product-name {
+    min-height:
+      auto;
+
+    font-size:
+      18px !important;
+  }
+
+  .nm-product-description,
+  .nm-home-product-description {
+    min-height:
+      auto;
+
+    font-size:
+      13.5px !important;
+  }
+}
+
+
+
+/* =========================================================
+   ORINOCA NATURAL
+   FINAL RESPONSIVE SAFETY LAYER
+   ---------------------------------------------------------
+   Paste this WHOLE block at the END of globals.css
+
+   Targets:
+   - Desktop safety
+   - Tablet
+   - 768px
+   - 640px
+   - 430px
+   - 390px
+   - 375px
+   - 360px
+   - 320px
+
+   Nothing product-specific is hard coded.
+========================================================= */
+
+
+/* =========================================================
+   1. GLOBAL OVERFLOW / WIDTH SAFETY
+========================================================= */
+
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  min-width: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
+.nm-store,
+.nm-store main,
+.nm-wrap,
+.nm-container {
+  min-width: 0;
+}
+
+.nm-store img {
+  height: auto;
+}
+
+
+/* =========================================================
+   2. FLEX / GRID CHILD SAFETY
+========================================================= */
+
+.nm-nav>*,
+.nm-ref-hero-grid>*,
+.nm-home-hero-grid>*,
+.nm-product-grid>*,
+.nm-catalog-grid>*,
+.nm-cart-grid>*,
+.nm-checkout-grid>*,
+.nm-foot-grid>*,
+.nm-trust-grid>*,
+.nm-review-grid>*,
+.nm-feature-grid>*,
+.nm-faq-layout>* {
+  min-width: 0;
+}
+
+
+/* =========================================================
+   3. HEADER SAFETY
+========================================================= */
+
+.nm-header {
+  width: 100%;
+}
+
+.nm-nav {
+  width: 100%;
+}
+
+.nm-nav-cta {
+  flex-shrink: 0;
+}
+
+.nm-cart-icon {
+  flex-shrink: 0;
+}
+
+.orinoca-brand {
+  flex-shrink: 0 !important;
+}
+
+
+/* =========================================================
+   4. TEXT WRAPPING SAFETY
+========================================================= */
+
+.nm-store h1,
+.nm-store h2,
+.nm-store h3,
+.nm-store h4,
+.nm-store p,
+.nm-product-body,
+.nm-catalog-card,
+.nm-pro-card,
+.nm-cart-product,
+.nm-checkout-product {
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+
+/* =========================================================
+   5. TABLET — 980PX AND BELOW
+========================================================= */
+
+@media (max-width: 980px) {
+
+  .nm-wrap,
+  .nm-container {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+
+
+  /* -------------------------
+     HEADER
+  ------------------------- */
+
+  .nm-nav {
+    min-height: 72px !important;
+
+    gap: 14px !important;
+
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+  }
+
+  .orinoca-brand {
+    width: 205px !important;
+    height: 64px !important;
+
+    flex-basis: 205px !important;
+  }
+
+  .orinoca-header-logo {
+    width: 205px !important;
+    height: 64px !important;
+
+    max-width: none !important;
+  }
+
+
+  /* -------------------------
+     HERO
+  ------------------------- */
+
+  .nm-ref-hero {
+    padding:
+      38px 0 42px !important;
+  }
+
+  .nm-ref-hero-grid {
+    min-width: 0 !important;
+
+    gap: 28px !important;
+  }
+
+  .nm-ref-hero-copy {
+    min-width: 0 !important;
+  }
+
+  .nm-ref-hero-visual {
+    min-width: 0 !important;
+    min-height: 340px !important;
+  }
+
+  .nm-ref-hero-bottle {
+    width: 275px !important;
+    height: 275px !important;
+
+    max-width: 100% !important;
+  }
+
+  .nm-ref-ring {
+    width: 290px !important;
+    height: 290px !important;
+
+    max-width: 90vw !important;
+  }
+
+  .nm-ref-glow {
+    width: 315px !important;
+    height: 315px !important;
+
+    max-width: 95vw !important;
+  }
+
+
+  /* -------------------------
+     PRODUCT GRID
+  ------------------------- */
+
+  .nm-product-grid {
+    grid-template-columns:
+      repeat(2,
+        minmax(0, 1fr)) !important;
+
+    gap: 18px !important;
+  }
+
+  .nm-product-card {
+    width: 100% !important;
+    max-width: none !important;
+  }
+
+
+  /* -------------------------
+     CATALOG GRID
+  ------------------------- */
+
+  .nm-catalog-grid {
+    grid-template-columns:
+      repeat(2,
+        minmax(0, 1fr)) !important;
+
+    gap: 18px !important;
+  }
+
+
+  /* -------------------------
+     TRUST STRIP
+  ------------------------- */
+
+  .nm-trust-grid {
+    grid-template-columns:
+      repeat(2,
+        minmax(0, 1fr)) !important;
+  }
+
+
+  /* -------------------------
+     FOOTER
+  ------------------------- */
+
+  .nm-foot-grid {
+    grid-template-columns:
+      repeat(2,
+        minmax(0, 1fr)) !important;
+
+    gap: 32px !important;
+  }
+}
+
+
+/* =========================================================
+   6. TABLET / LARGE PHONE — 800PX AND BELOW
+========================================================= */
+
+@media (max-width: 800px) {
+
+  /* -------------------------
+     CART
+  ------------------------- */
+
+  .nm-cart-grid {
+    grid-template-columns:
+      minmax(0, 1fr) !important;
+
+    gap: 24px !important;
+  }
+
+  .nm-cart-table-head {
+    display: none !important;
+  }
+
+  .nm-cart-item {
+    grid-template-columns:
+      minmax(0, 1fr) !important;
+
+    gap: 14px !important;
+
+    padding:
+      18px !important;
+  }
+
+  .nm-cart-heading {
+    align-items:
+      flex-start !important;
+
+    flex-direction:
+      column !important;
+
+    gap: 14px !important;
+  }
+
+  .nm-cart-actions {
+    width: 100%;
+
+    justify-content:
+      space-between !important;
+  }
+
+  .nm-order-summary {
+    width: 100%;
+  }
+
+
+  /* -------------------------
+     CHECKOUT
+  ------------------------- */
+
+  .nm-checkout-grid {
+    grid-template-columns:
+      minmax(0, 1fr) !important;
+
+    gap: 24px !important;
+  }
+
+  .nm-checkout-form {
+    width: 100%;
+
+    padding:
+      24px 20px !important;
+  }
+
+  .nm-form-two-columns {
+    grid-template-columns:
+      minmax(0, 1fr) !important;
+
+    gap: 0 !important;
+  }
+}
+
+
+/* =========================================================
+   7. PHONE — 640PX AND BELOW
+========================================================= */
+
+@media (max-width: 640px) {
+
+  /* -------------------------
+     GLOBAL CONTAINERS
+  ------------------------- */
+
+  .nm-wrap,
+  .nm-container {
+    width: 100% !important;
+
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+
+  /* -------------------------
+     HEADER
+  ------------------------- */
+
+  .nm-nav {
+    min-height: 68px !important;
+
+    gap: 8px !important;
+
+    padding:
+      6px 16px !important;
+  }
+
+  .nm-nav-links {
+    display: none !important;
+  }
+
+  .nm-nav-cta {
+    gap: 8px !important;
+  }
+
+  .orinoca-brand {
+    width: 165px !important;
+    height: 58px !important;
+
+    flex-basis:
+      165px !important;
+  }
+
+  .orinoca-header-logo {
+    width: 165px !important;
+    height: 58px !important;
+
+    max-width: none !important;
+  }
+
+  .nm-cart-icon {
+    width: 38px !important;
+    height: 38px !important;
+  }
+
+  .nm-desktop-shop {
+    display: none !important;
+  }
+
+  .nm-burger {
+    flex-shrink: 0;
+  }
+
+
+  /* -------------------------
+     MOBILE MENU
+  ------------------------- */
+
+  .nm-mobile-menu {
+    width: 100% !important;
+
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+
+  /* -------------------------
+     HERO
+  ------------------------- */
+
+  .nm-ref-hero {
+    padding:
+      26px 0 34px !important;
+  }
+
+  .nm-ref-hero-grid {
+    display: grid !important;
+
+    grid-template-columns:
+      minmax(0, 1fr) !important;
+
+    gap: 20px !important;
+  }
+
+  .nm-ref-hero-copy {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    text-align:
+      center !important;
+  }
+
+  .nm-ref-hero-copy .nm-eyebrow {
+    justify-content:
+      center !important;
+
+    font-size:
+      9.5px !important;
+
+    letter-spacing:
+      0.15em !important;
+  }
+
+  .nm-ref-hero-copy h1 {
+    max-width: 100% !important;
+
+    margin:
+      13px auto 14px !important;
+
+    font-size:
+      clamp(35px,
+        10vw,
+        48px) !important;
+
+    line-height:
+      1.03 !important;
+  }
+
+  .nm-ref-hero-copy>p {
+    max-width:
+      520px !important;
+
+    margin-left:
+      auto !important;
+
+    margin-right:
+      auto !important;
+
+    font-size:
+      14px !important;
+
+    line-height:
+      1.65 !important;
+  }
+
+  .nm-ref-hero-actions {
+    display: flex !important;
+
+    width: 100%;
+
+    align-items:
+      stretch !important;
+
+    justify-content:
+      center !important;
+
+    flex-direction:
+      column !important;
+
+    gap: 10px !important;
+  }
+
+  .nm-ref-hero-actions .nm-btn {
+    width: 100% !important;
+
+    min-height:
+      48px !important;
+  }
+
+  .nm-ref-hero-trust {
+    justify-content:
+      center !important;
+
+    flex-wrap:
+      wrap !important;
+
+    gap:
+      14px 18px !important;
+  }
+
+  .nm-ref-hero-visual {
+    width: 100% !important;
+
+    min-height:
+      290px !important;
+
+    overflow:
+      hidden !important;
+  }
+
+  .nm-ref-hero-bottle {
+    width:
+      235px !important;
+
+    height:
+      235px !important;
+  }
+
+  .nm-ref-ring {
+    width:
+      255px !important;
+
+    height:
+      255px !important;
+  }
+
+  .nm-ref-glow {
+    width:
+      275px !important;
+
+    height:
+      275px !important;
+  }
+
+
+  /* -------------------------
+     TRUST STRIP
+  ------------------------- */
+
+  .nm-trust-grid {
+    grid-template-columns:
+      repeat(2,
+        minmax(0, 1fr)) !important;
+  }
+
+  .nm-trust-item {
+    min-height:
+      140px !important;
+
+    padding:
+      22px 10px !important;
+  }
+
+  .nm-trust-item:nth-child(2n) {
+    border-right:
+      0 !important;
+  }
+
+
+  /* -------------------------
+     NORMAL PRODUCT GRID
+  ------------------------- */
+
+  .nm-product-grid {
+    grid-template-columns:
+      minmax(0, 1fr) !important;
+
+    gap:
+      18px !important;
+  }
+
+  .nm-product-card {
+    width: 100% !important;
+
+    max-width:
+      390px !important;
+
+    margin-left:
+      auto !important;
+
+    margin-right:
+      auto !important;
+  }
+
+  .nm-product-thumb {
+    height:
+      275px !important;
+  }
+
+  .nm-product-body {
+    padding:
+      22px 18px 20px !important;
+  }
+
+  .nm-product-body h2,
+  .nm-home-product-name {
+    min-height:
+      0 !important;
+
+    font-size:
+      18px !important;
+  }
+
+  .nm-product-description,
+  .nm-home-product-description {
+    min-height:
+      0 !important;
+
+    font-size:
+      13.5px !important;
+  }
+
+  .nm-card-actions {
+    grid-template-columns:
+      repeat(2,
+        minmax(0, 1fr)) !important;
+
+    gap: 8px !important;
+  }
+
+  .nm-card-actions .nm-btn {
+    width: 100% !important;
+
+    min-width: 0 !important;
+
+    padding:
+      10px 8px !important;
+
+    font-size:
+      11.5px !important;
+  }
+
+
+  /* -------------------------
+     CATALOG TOOLBAR
+  ------------------------- */
+
+  .nm-catalog-toolbar {
+    width: 100% !important;
+
+    align-items:
+      stretch !important;
+
+    flex-direction:
+      column !important;
+
+    gap:
+      12px !important;
+  }
+
+  .nm-premium-filter-right {
+    width:
+      100% !important;
+  }
+
+  .nm-premium-product-count {
+    margin-left:
+      0 !important;
+  }
+
+
+  /* -------------------------
+     CATEGORY PILLS
+  ------------------------- */
+
+  .nm-catalog-categories {
+    width: 100%;
+
+    flex-wrap:
+      nowrap !important;
+
+    overflow-x:
+      auto !important;
+
+    overscroll-behavior-inline:
+      contain;
+
+    padding-bottom:
+      7px !important;
+
+    scrollbar-width:
+      none;
+  }
+
+  .nm-catalog-categories::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nm-category-pill {
+    flex:
+      0 0 auto !important;
+  }
+
+
+  /* -------------------------
+     CATALOG PRODUCTS
+  ------------------------- */
+
+  .nm-catalog-grid {
+    grid-template-columns:
+      repeat(2,
+        minmax(0, 1fr)) !important;
+
+    gap:
+      10px !important;
+  }
+
+  .nm-catalog-card,
+  .nm-pro-card {
+    min-width: 0 !important;
+
+    border-radius:
+      14px !important;
+  }
+
+  .nm-catalog-image-area,
+  .nm-pro-image {
+    height:
+      190px !important;
+
+    padding:
+      12px 8px !important;
+  }
+
+  .nm-catalog-image-area img,
+  .nm-pro-image img {
+    max-width:
+      94% !important;
+
+    max-height:
+      160px !important;
+  }
+
+  .nm-catalog-card-body,
+  .nm-pro-info {
+    min-height:
+      0 !important;
+
+    padding:
+      9px 9px 14px !important;
+  }
+
+  .nm-catalog-product-name,
+  .nm-pro-title {
+    font-size:
+      12px !important;
+
+    line-height:
+      1.35 !important;
+  }
+
+  .nm-catalog-description {
+    display:
+      none !important;
+  }
+
+  .nm-catalog-price strong,
+  .nm-pro-prices strong {
+    font-size:
+      14px !important;
+  }
+
+
+  /* -------------------------
+     CART
+  ------------------------- */
+
+  .nm-cart-page {
+    padding:
+      32px 0 64px !important;
+  }
+
+  .nm-cart-heading {
+    margin-bottom:
+      24px !important;
+  }
+
+  .nm-cart-heading h1,
+  .nm-page-title {
+    font-size:
+      clamp(30px,
+        9vw,
+        40px) !important;
+  }
+
+  .nm-cart-item {
+    padding:
+      16px !important;
+  }
+
+  .nm-cart-product {
+    align-items:
+      flex-start !important;
+  }
+
+  .nm-cart-image {
+    width:
+      58px !important;
+
+    height:
+      58px !important;
+
+    flex-basis:
+      58px !important;
+  }
+
+  .nm-cart-actions {
+    flex-wrap:
+      wrap !important;
+
+    gap:
+      10px !important;
+  }
+
+  .nm-order-summary {
+    padding:
+      20px !important;
+  }
+
+  .nm-promo-actions {
+    width: 100%;
+
+    align-items:
+      stretch;
+  }
+
+
+  /* -------------------------
+     CHECKOUT
+  ------------------------- */
+
+  .nm-checkout-page {
+    padding:
+      30px 0 64px !important;
+  }
+
+  .nm-checkout-form {
+    padding:
+      20px 16px !important;
+  }
+
+  .nm-checkout-form input,
+  .nm-checkout-form textarea {
+    width:
+      100% !important;
+
+    max-width:
+      100% !important;
+
+    font-size:
+      16px !important;
+  }
+
+  .nm-checkout-product {
+    align-items:
+      flex-start !important;
+
+    gap:
+      10px !important;
+  }
+
+  .nm-checkout-product strong {
+    white-space:
+      normal !important;
+
+    text-align:
+      right;
+  }
+
+
+  /* -------------------------
+     FOOTER
+  ------------------------- */
+
+  .nm-footer {
+    padding:
+      48px 0 24px !important;
+  }
+
+  .nm-foot-grid {
+    grid-template-columns:
+      minmax(0, 1fr) !important;
+
+    gap:
+      30px !important;
+  }
+
+  .nm-foot-bottom {
+    align-items:
+      flex-start !important;
+
+    flex-direction:
+      column !important;
+
+    gap:
+      10px !important;
+  }
+
+  .nm-foot-brand p {
+    max-width:
+      100% !important;
+  }
+}
+
+
+/* =========================================================
+   8. SMALL PHONE — 430PX AND BELOW
+========================================================= */
+
+@media (max-width: 430px) {
+
+  .nm-wrap,
+  .nm-container {
+    padding-left:
+      14px !important;
+
+    padding-right:
+      14px !important;
+  }
+
+
+  /* HEADER */
+
+  .nm-nav {
+    padding-left:
+      14px !important;
+
+    padding-right:
+      14px !important;
+  }
+
+  .orinoca-brand {
+    width:
+      145px !important;
+
+    height:
+      54px !important;
+
+    flex-basis:
+      145px !important;
+  }
+
+  .orinoca-header-logo {
+    width:
+      145px !important;
+
+    height:
+      54px !important;
+  }
+
+
+  /* HERO */
+
+  .nm-ref-hero-copy h1 {
+    font-size:
+      clamp(33px,
+        10vw,
+        43px) !important;
+  }
+
+  .nm-ref-hero-bottle {
+    width:
+      220px !important;
+
+    height:
+      220px !important;
+  }
+
+  .nm-ref-ring {
+    width:
+      238px !important;
+
+    height:
+      238px !important;
+  }
+
+  .nm-ref-glow {
+    width:
+      255px !important;
+
+    height:
+      255px !important;
+  }
+
+
+  /* PRODUCT CARDS */
+
+  .nm-product-card {
+    max-width:
+      360px !important;
+  }
+
+  .nm-product-thumb {
+    height:
+      250px !important;
+  }
+
+
+  /* CART PROMO */
+
+  .nm-promo-actions {
+    flex-direction:
+      column !important;
+  }
+
+  .nm-promo-actions button {
+    min-height:
+      44px;
+  }
+}
+
+
+/* =========================================================
+   9. VERY SMALL PHONE — 380PX AND BELOW
+
+   IMPORTANT:
+   Catalogue changes from 2 cards
+   to 1 card per row here.
+========================================================= */
+
+@media (max-width: 380px) {
+
+  .nm-wrap,
+  .nm-container {
+    padding-left:
+      12px !important;
+
+    padding-right:
+      12px !important;
+  }
+
+
+  /* HEADER */
+
+  .nm-nav {
+    gap:
+      6px !important;
+
+    padding:
+      6px 12px !important;
+  }
+
+  .orinoca-brand {
+    width:
+      130px !important;
+
+    height:
+      52px !important;
+
+    flex-basis:
+      130px !important;
+  }
+
+  .orinoca-header-logo {
+    width:
+      130px !important;
+
+    height:
+      52px !important;
+  }
+
+  .nm-cart-icon {
+    width:
+      36px !important;
+
+    height:
+      36px !important;
+  }
+
+
+  /* HERO */
+
+  .nm-ref-hero-copy h1 {
+    font-size:
+      34px !important;
+  }
+
+  .nm-ref-hero-copy>p {
+    font-size:
+      13.5px !important;
+  }
+
+
+  /* CATALOG:
+     1 card per row on narrow phones */
+
+  .nm-catalog-grid {
+    grid-template-columns:
+      minmax(0, 1fr) !important;
+
+    gap:
+      16px !important;
+  }
+
+  .nm-catalog-card,
+  .nm-pro-card {
+    width:
+      100% !important;
+
+    max-width:
+      340px !important;
+
+    margin-left:
+      auto !important;
+
+    margin-right:
+      auto !important;
+  }
+
+  .nm-catalog-image-area,
+  .nm-pro-image {
+    height:
+      235px !important;
+  }
+
+  .nm-catalog-image-area img,
+  .nm-pro-image img {
+    max-width:
+      190px !important;
+
+    max-height:
+      205px !important;
+  }
+
+  .nm-catalog-product-name,
+  .nm-pro-title {
+    font-size:
+      14px !important;
+  }
+
+  .nm-catalog-price strong,
+  .nm-pro-prices strong {
+    font-size:
+      17px !important;
+  }
+
+
+  /* TRUST */
+
+  .nm-trust-grid {
+    grid-template-columns:
+      minmax(0, 1fr) !important;
+  }
+
+  .nm-trust-item {
+    min-height:
+      120px !important;
+
+    border-right:
+      0 !important;
+
+    border-bottom:
+      1px solid rgba(255,
+        255,
+        255,
+        0.12);
+  }
+
+  .nm-trust-item:last-child {
+    border-bottom:
+      0;
+  }
+
+
+  /* PRODUCT ACTIONS */
+
+  .nm-card-actions {
+    grid-template-columns:
+      minmax(0, 1fr) !important;
+  }
+
+  .nm-card-actions .nm-btn {
+    min-height:
+      44px !important;
+
+    font-size:
+      12px !important;
+  }
+}
+
+
+/* =========================================================
+   10. 320PX EMERGENCY SAFETY
+========================================================= */
+
+@media (max-width: 340px) {
+
+  .orinoca-brand {
+    width:
+      118px !important;
+
+    flex-basis:
+      118px !important;
+  }
+
+  .orinoca-header-logo {
+    width:
+      118px !important;
+  }
+
+
+  .nm-ref-hero-copy h1 {
+    font-size:
+      31px !important;
+  }
+
+
+  .nm-ref-hero-bottle {
+    width:
+      195px !important;
+
+    height:
+      195px !important;
+  }
+
+  .nm-ref-ring {
+    width:
+      215px !important;
+
+    height:
+      215px !important;
+  }
+
+  .nm-ref-glow {
+    width:
+      230px !important;
+
+    height:
+      230px !important;
+  }
+
+
+  .nm-cart-product {
+    gap:
+      10px !important;
+  }
+
+  .nm-cart-product h2 {
+    font-size:
+      13px !important;
+  }
+
+
+  .nm-order-summary {
+    padding:
+      16px !important;
+  }
+
+
+  .nm-summary-row,
+  .nm-summary-total {
+    gap:
+      10px !important;
+  }
+}
+
+
+/* =========================================================
+   11. TOUCH DEVICE POLISH
+
+   Avoid desktop hover animations feeling weird on phones.
+========================================================= */
+
+@media (hover: none) {
+
+  .nm-product-card:hover,
+  .nm-catalog-card:hover,
+  .nm-pro-card:hover,
+  .nm-btn:hover {
+    transform:
+      none !important;
+  }
+}
+
+
+/* =========================================================
+   12. IOS INPUT ZOOM PROTECTION
+========================================================= */
+
+@media (max-width: 640px) {
+
+  input,
+  textarea,
+  select {
+    font-size:
+      16px;
+  }
+}
+
+
+/* =========================================================
+   ORINOCA — PRODUCT DETAIL PAGE FINAL POLISH
+   Paste at the VERY END of globals.css
+========================================================= */
+
+
+/* =========================================================
+   DESKTOP PRODUCT DETAIL
+========================================================= */
+
+@media (min-width: 981px) {
+
+  /* Main product detail area */
+  .nm-product-detail,
+  .nm-product-detail-grid,
+  .nm-product-page-grid,
+  .nm-product-layout {
+    align-items: start !important;
+  }
+
+
+  /* If product page is using either of these grid classes */
+  .nm-product-detail-grid,
+  .nm-product-page-grid,
+  .nm-product-layout {
+    grid-template-columns:
+      minmax(0, 0.9fr) minmax(0, 1.1fr) !important;
+
+    gap: clamp(48px, 5vw, 76px) !important;
+  }
+
+
+  /* =====================================================
+     LEFT IMAGE AREA
+  ===================================================== */
+
+  .nm-product-gallery,
+  .nm-product-image-panel,
+  .nm-product-main-image,
+  .nm-product-image-wrap {
+    min-width: 0 !important;
+  }
+
+
+  .nm-product-image-panel,
+  .nm-product-main-image {
+    width: 100% !important;
+
+    max-width: 520px !important;
+
+    min-height: 0 !important;
+
+    height: auto !important;
+
+    aspect-ratio: 1 / 1 !important;
+
+    margin-left: auto !important;
+    margin-right: auto !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding:
+      clamp(28px, 3vw, 46px) !important;
+
+    overflow: hidden !important;
+  }
+
+
+  /* Actual product image */
+  .nm-product-image-panel img,
+  .nm-product-main-image img,
+  .nm-product-image-wrap img,
+  .nm-product-gallery img {
+    width: auto !important;
+
+    height: auto !important;
+
+    max-width: 78% !important;
+    max-height: 430px !important;
+
+    object-fit: contain !important;
+
+    margin: auto !important;
+  }
+
+
+  /* =====================================================
+     RIGHT PRODUCT INFORMATION
+  ===================================================== */
+
+  .nm-product-info,
+  .nm-product-detail-info,
+  .nm-product-content {
+    min-width: 0 !important;
+
+    padding-top: 8px !important;
+  }
+
+
+  .nm-product-info h1,
+  .nm-product-detail-info h1,
+  .nm-product-content h1 {
+    margin-top: 14px !important;
+    margin-bottom: 18px !important;
+
+    font-size:
+      clamp(42px, 3.5vw, 56px) !important;
+
+    line-height: 1.02 !important;
+  }
+
+
+  /* Product description */
+  .nm-product-info>p,
+  .nm-product-detail-info>p,
+  .nm-product-content>p {
+    max-width: 610px !important;
+
+    font-size: 15px !important;
+
+    line-height: 1.75 !important;
+  }
+
+
+  /* Pack selector */
+  .nm-pack-grid,
+  .nm-pack-options,
+  .nm-product-options {
+    width: 100% !important;
+
+    gap: 10px !important;
+  }
+
+
+  .nm-pack-option,
+  .nm-pack-card {
+    min-width: 0 !important;
+  }
+}
+
+
+/* =========================================================
+   MEDIUM DESKTOP / LAPTOP
+========================================================= */
+
+@media (min-width: 981px) and (max-width: 1250px) {
+
+  .nm-product-detail-grid,
+  .nm-product-page-grid,
+  .nm-product-layout {
+    grid-template-columns:
+      minmax(0, 0.88fr) minmax(0, 1.12fr) !important;
+
+    gap: 40px !important;
+  }
+
+
+  .nm-product-image-panel,
+  .nm-product-main-image {
+    max-width: 460px !important;
+  }
+
+
+  .nm-product-image-panel img,
+  .nm-product-main-image img,
+  .nm-product-image-wrap img,
+  .nm-product-gallery img {
+    max-width: 75% !important;
+    max-height: 370px !important;
+  }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 980px) {
+
+  .nm-product-detail-grid,
+  .nm-product-page-grid,
+  .nm-product-layout {
+    grid-template-columns:
+      minmax(0, 1fr) !important;
+
+    gap: 34px !important;
+  }
+
+
+  .nm-product-gallery,
+  .nm-product-image-panel,
+  .nm-product-main-image {
+    width: 100% !important;
+
+    max-width: 580px !important;
+
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+
+  .nm-product-image-panel,
+  .nm-product-main-image {
+    min-height: 0 !important;
+
+    height: auto !important;
+
+    aspect-ratio: 1 / 1 !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 36px !important;
+
+    overflow: hidden !important;
+  }
+
+
+  .nm-product-image-panel img,
+  .nm-product-main-image img,
+  .nm-product-image-wrap img,
+  .nm-product-gallery img {
+    width: auto !important;
+    height: auto !important;
+
+    max-width: 76% !important;
+    max-height: 440px !important;
+
+    object-fit: contain !important;
+  }
+
+
+  .nm-product-info,
+  .nm-product-detail-info,
+  .nm-product-content {
+    width: 100% !important;
+
+    max-width: 680px !important;
+
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE PRODUCT DETAIL
+========================================================= */
+
+@media (max-width: 640px) {
+
+  .nm-product-detail-grid,
+  .nm-product-page-grid,
+  .nm-product-layout {
+    gap: 26px !important;
+  }
+
+
+  /* Product image box */
+  .nm-product-gallery,
+  .nm-product-image-panel,
+  .nm-product-main-image {
+    width: 100% !important;
+
+    max-width: 100% !important;
+  }
+
+
+  .nm-product-image-panel,
+  .nm-product-main-image {
+    aspect-ratio: 1 / 1 !important;
+
+    min-height: 0 !important;
+
+    padding: 24px !important;
+
+    border-radius: 22px !important;
+  }
+
+
+  /* Bottle should NEVER fill whole mobile card */
+  .nm-product-image-panel img,
+  .nm-product-main-image img,
+  .nm-product-image-wrap img,
+  .nm-product-gallery img {
+    width: auto !important;
+    height: auto !important;
+
+    max-width: 70% !important;
+    max-height: 320px !important;
+
+    object-fit: contain !important;
+  }
+
+
+  /* Product title */
+  .nm-product-info h1,
+  .nm-product-detail-info h1,
+  .nm-product-content h1 {
+    margin:
+      10px 0 14px !important;
+
+    font-size:
+      clamp(36px, 11vw, 46px) !important;
+
+    line-height: 1.05 !important;
+  }
+
+
+  /* Description */
+  .nm-product-info>p,
+  .nm-product-detail-info>p,
+  .nm-product-content>p {
+    font-size: 14px !important;
+
+    line-height: 1.7 !important;
+  }
+
+
+  /* Pack options */
+  .nm-pack-grid,
+  .nm-pack-options,
+  .nm-product-options {
+    grid-template-columns:
+      minmax(0, 1fr) !important;
+
+    gap: 10px !important;
+  }
+
+
+  .nm-pack-option,
+  .nm-pack-card {
+    width: 100% !important;
+
+    min-width: 0 !important;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 390px) {
+
+  .nm-product-image-panel,
+  .nm-product-main-image {
+    padding: 20px !important;
+  }
+
+
+  .nm-product-image-panel img,
+  .nm-product-main-image img,
+  .nm-product-image-wrap img,
+  .nm-product-gallery img {
+    max-width: 66% !important;
+    max-height: 275px !important;
+  }
+
+
+  .nm-product-info h1,
+  .nm-product-detail-info h1,
+  .nm-product-content h1 {
+    font-size: 35px !important;
+  }
+}
+
+
+/* =========================================================
+   ORINOCA HEADER LOGO — FINAL ALIGNMENT
+========================================================= */
+
+.orinoca-brand {
+  width: 215px !important;
+  height: 76px !important;
+  flex: 0 0 215px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  overflow: hidden !important;
+
+  padding: 0 !important;
+}
+
+.orinoca-header-logo {
+  width: 215px !important;
+  height: 76px !important;
+
+  max-width: none !important;
+
+  object-fit: contain !important;
+  object-position: center center !important;
+
+  /*
+    Your source logo has white space around it,
+    therefore a controlled zoom is still needed.
+    This value avoids cutting the upper O.
+  */
+  transform: translate(-68px, -3px) scale(2.28) !important;
+  transform-origin: center center !important;
+}
+
+@media (max-width: 640px) {
+  .orinoca-brand {
+    width: 155px !important;
+    height: 62px !important;
+    flex-basis: 155px !important;
+  }
+
+  .orinoca-header-logo {
+    width: 155px !important;
+    height: 62px !important;
+
+    transform:
+      translateY(2px) scale(2.18) !important;
+  }
+}
+
+
+/* =========================================================
+   ORINOCA — PREMIUM COMPACT STORE POLISH
+========================================================= */
+
+
+/* =========================================================
+   HOMEPAGE HERO IMAGE
+========================================================= */
+
+.nm-ref-hero-visual {
+  min-height: 360px !important;
+}
+
+.nm-ref-hero-bottle {
+  width: 300px !important;
+  height: 300px !important;
+
+  border-radius: 50% !important;
+
+  object-fit: cover !important;
+  object-position: center 58% !important;
+}
+
+
+/* =========================================================
+   REMOVE UNNECESSARY LARGE VERTICAL GAPS
+========================================================= */
+
+.nm-drop-divider {
+  height: 58px !important;
+  min-height: 58px !important;
+
+  padding: 0 !important;
+  margin: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.nm-drop-divider svg {
+  width: 24px !important;
+  height: 42px !important;
+}
+
+
+/* =========================================================
+   HOMEPAGE BENEFIT → SHOP SECTION SPACING
+========================================================= */
+
+.nm-ref-benefits {
+  padding-bottom: 58px !important;
+}
+
+.nm-ref-products,
+.nm-home-products,
+.nm-ref-shop {
+  padding-top: 56px !important;
+  padding-bottom: 64px !important;
+}
+
+
+/* =========================================================
+   SHOP ORINOCA HEADING
+========================================================= */
+
+.nm-ref-products .nm-ref-sec-head,
+.nm-home-products .nm-ref-sec-head,
+.nm-ref-shop .nm-ref-sec-head {
+  margin-bottom: 30px !important;
+}
+
+.nm-ref-products .nm-ref-sec-head h2,
+.nm-home-products .nm-ref-sec-head h2,
+.nm-ref-shop .nm-ref-sec-head h2 {
+  margin-top: 8px !important;
+
+  font-size: clamp(32px,
+      3.4vw,
+      44px) !important;
+
+  line-height: 1.08 !important;
+}
+
+.nm-ref-products .nm-ref-sec-head p,
+.nm-home-products .nm-ref-sec-head p,
+.nm-ref-shop .nm-ref-sec-head p {
+  max-width: 620px !important;
+
+  margin:
+    12px auto 0 !important;
+
+  line-height: 1.55 !important;
+}
+
+
+/* =========================================================
+   HOMEPAGE PRODUCT GRID — LESS HUGE
+========================================================= */
+
+.nm-product-grid {
+  max-width: 1050px !important;
+
+  margin-left: auto !important;
+  margin-right: auto !important;
+
+  gap: 20px !important;
+}
+
+.nm-product-card {
+  border-radius: 18px !important;
+}
+
+
+/* =========================================================
+   PRODUCT CARD IMAGE AREA
+========================================================= */
+
+.nm-product-thumb {
+  height: 235px !important;
+
+  padding: 18px !important;
+}
+
+.nm-product-thumb img {
+  width: auto !important;
+  height: auto !important;
+
+  max-width: 82% !important;
+  max-height: 195px !important;
+
+  margin: auto !important;
+
+  object-fit: contain !important;
+}
+
+
+/* =========================================================
+   PRODUCT CARD CONTENT
+========================================================= */
+
+.nm-product-body {
+  padding:
+    20px 18px 18px !important;
+}
+
+.nm-product-body h2 {
+  min-height: 0 !important;
+
+  font-size: 17px !important;
+  line-height: 1.25 !important;
+
+  margin-bottom: 6px !important;
+}
+
+.nm-product-description {
+  min-height: 42px !important;
+
+  margin:
+    5px 0 14px !important;
+
+  font-size: 12.5px !important;
+  line-height: 1.5 !important;
+}
+
+.nm-price-row {
+  min-height: 0 !important;
+
+  margin:
+    5px 0 15px !important;
+}
+
+.nm-price-new {
+  font-size: 19px !important;
+}
+
+.nm-card-actions .nm-btn {
+  min-height: 40px !important;
+
+  padding:
+    9px 12px !important;
+
+  font-size: 11.5px !important;
+}
+
+
+/* =========================================================
+   PRODUCT DETAIL PAGE
+   Smaller + first-view purchase controls visible
+========================================================= */
+
+@media (min-width: 1024px) {
+
+  /*
+    Targets the Tailwind product page structure.
+    Keeps product area from becoming excessively tall.
+  */
+
+  .nm-store main>section:first-child {
+    padding-top: 22px !important;
+    padding-bottom: 52px !important;
+  }
+
+  /*
+    Current main PDP max width is 1180.
+    Slightly tighter width looks more premium.
+  */
+
+  .nm-store main>section:first-child>div {
+    max-width: 1120px !important;
+  }
+
+  /*
+    Product image block
+  */
+
+  .nm-store main>section:first-child .lg\:grid-cols-\[0\.86fr_1\.14fr\] {
+    grid-template-columns:
+      minmax(0, 0.78fr) minmax(0, 1.22fr) !important;
+
+    gap: 48px !important;
+  }
+
+  /*
+    The actual image card has h-[455px].
+    Override it to a professional compact height.
+  */
+
+  .nm-store main>section:first-child .lg\:h-\[455px\] {
+    height: 405px !important;
+  }
+
+  /*
+    Product image should visually fill more
+    of the smaller card without becoming huge.
+  */
+
+  .nm-store main>section:first-child img[alt] {
+    max-height: 325px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 640px) {
+
+  .nm-ref-hero-visual {
+    min-height: 285px !important;
+  }
+
+  .nm-ref-hero-bottle {
+    width: 235px !important;
+    height: 235px !important;
+  }
+
+  .nm-drop-divider {
+    height: 42px !important;
+  }
+
+  .nm-ref-benefits {
+    padding-bottom: 42px !important;
+  }
+
+  .nm-ref-products,
+  .nm-home-products,
+  .nm-ref-shop {
+    padding-top: 42px !important;
+    padding-bottom: 48px !important;
+  }
+
+  .nm-product-grid {
+    gap: 16px !important;
+  }
+
+  .nm-product-thumb {
+    height: 230px !important;
+  }
+}
+
+
+/* =========================================================
+   ORINOCA FINAL STORE POLISH
+   - Remove decorative drop divider
+   - Reduce unnecessary section gaps
+   - Compact product cards/images
+   - Keep desktop + mobile balanced
+========================================================= */
+
+
+/* =========================================================
+   1. REMOVE DROP / WATER-DROP DIVIDER COMPLETELY
+========================================================= */
+
+.nm-drop-divider,
+.nm-ref-drop,
+.nm-section-drop,
+.nm-divider-drop {
+  display: none !important;
+}
+
+
+/* =========================================================
+   2. REMOVE EXTRA GAP AROUND SHOP ORINOCA
+========================================================= */
+
+.nm-ref-products,
+.nm-home-products,
+.nm-ref-shop,
+.nm-shop-section {
+  padding-top: 46px !important;
+  padding-bottom: 58px !important;
+}
+
+.nm-ref-products .nm-ref-sec-head,
+.nm-home-products .nm-ref-sec-head,
+.nm-ref-shop .nm-ref-sec-head,
+.nm-shop-section .nm-ref-sec-head {
+  margin-top: 0 !important;
+  margin-bottom: 26px !important;
+}
+
+.nm-ref-sec-head {
+  padding-top: 0 !important;
+}
+
+.nm-ref-sec-head .nm-eyebrow {
+  margin-bottom: 8px !important;
+}
+
+.nm-ref-sec-head h2 {
+  margin-top: 0 !important;
+  margin-bottom: 10px !important;
+
+  font-size: clamp(31px,
+      3vw,
+      42px) !important;
+
+  line-height: 1.08 !important;
+}
+
+.nm-ref-sec-head p {
+  margin-top: 0 !important;
+
+  max-width: 600px !important;
+
+  line-height: 1.55 !important;
+}
+
+
+/* =========================================================
+   3. HOMEPAGE PRODUCT GRID
+   More compact / premium proportions
+========================================================= */
+
+.nm-product-grid {
+  max-width: 1020px !important;
+
+  margin-left: auto !important;
+  margin-right: auto !important;
+
+  gap: 18px !important;
+}
+
+
+/* PRODUCT CARD */
+
+.nm-product-card {
+  width: 100% !important;
+
+  border-radius: 18px !important;
+}
+
+
+/* =========================================================
+   PRODUCT IMAGE AREA
+========================================================= */
+
+.nm-product-thumb {
+  height: 215px !important;
+
+  min-height: 0 !important;
+
+  padding: 16px !important;
+
+  display: flex !important;
+
+  align-items: center !important;
+  justify-content: center !important;
+
+  overflow: hidden !important;
+}
+
+.nm-product-thumb img {
+  width: auto !important;
+  height: auto !important;
+
+  max-width: 76% !important;
+  max-height: 180px !important;
+
+  object-fit: contain !important;
+
+  margin: auto !important;
+}
+
+
+/* =========================================================
+   PRODUCT BODY
+========================================================= */
+
+.nm-product-body {
+  padding:
+    17px 17px 16px !important;
+}
+
+.nm-product-body h2,
+.nm-home-product-name {
+  min-height: 0 !important;
+
+  margin:
+    0 0 6px !important;
+
+  font-size: 16px !important;
+  line-height: 1.3 !important;
+}
+
+.nm-product-description,
+.nm-home-product-description {
+  min-height: 0 !important;
+
+  margin:
+    0 0 12px !important;
+
+  font-size: 12px !important;
+
+  line-height: 1.5 !important;
+
+  display: -webkit-box;
+
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   PRICE
+========================================================= */
+
+.nm-price-row {
+  min-height: 0 !important;
+
+  margin:
+    0 0 13px !important;
+}
+
+.nm-price-new {
+  font-size: 18px !important;
+}
+
+.nm-price-old {
+  font-size: 12px !important;
+}
+
+
+/* =========================================================
+   CARD BUTTONS
+========================================================= */
+
+.nm-card-actions {
+  gap: 8px !important;
+}
+
+.nm-card-actions .nm-btn {
+  min-height: 38px !important;
+
+  padding:
+    9px 10px !important;
+
+  font-size: 11px !important;
+
+  border-radius: 10px !important;
+}
+
+
+/* =========================================================
+   SHOP PAGE — COMPACT HERO / HEADER AREA
+========================================================= */
+
+.nm-catalog-hero,
+.nm-shop-hero,
+.nm-catalog-header {
+  padding-top: 34px !important;
+  padding-bottom: 30px !important;
+}
+
+.nm-catalog-hero h1,
+.nm-shop-hero h1,
+.nm-catalog-header h1 {
+  margin-bottom: 10px !important;
+
+  font-size: clamp(34px,
+      4vw,
+      48px) !important;
+
+  line-height: 1.05 !important;
+}
+
+.nm-catalog-hero p,
+.nm-shop-hero p,
+.nm-catalog-header p {
+  margin-bottom: 0 !important;
+
+  line-height: 1.55 !important;
+}
+
+
+/* =========================================================
+   SHOP PAGE PRODUCT CARDS
+========================================================= */
+
+.nm-catalog-grid {
+  gap: 16px !important;
+}
+
+.nm-catalog-card,
+.nm-pro-card {
+  border-radius: 16px !important;
+}
+
+
+/* SHOP IMAGE AREA */
+
+.nm-catalog-image-area,
+.nm-pro-image {
+  height: 205px !important;
+
+  padding: 15px !important;
+
+  display: flex !important;
+
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.nm-catalog-image-area img,
+.nm-pro-image img {
+  width: auto !important;
+  height: auto !important;
+
+  max-width: 78% !important;
+  max-height: 172px !important;
+
+  object-fit: contain !important;
+}
+
+
+/* SHOP PRODUCT CONTENT */
+
+.nm-catalog-card-body,
+.nm-pro-info {
+  padding:
+    15px 15px 16px !important;
+}
+
+.nm-catalog-product-name,
+.nm-pro-title {
+  margin-bottom: 5px !important;
+
+  font-size: 14px !important;
+  line-height: 1.3 !important;
+}
+
+.nm-catalog-description {
+  margin-bottom: 10px !important;
+
+  font-size: 11.5px !important;
+  line-height: 1.45 !important;
+
+  display: -webkit-box;
+
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+}
+
+.nm-catalog-price,
+.nm-pro-prices {
+  margin-bottom: 12px !important;
+}
+
+.nm-catalog-price strong,
+.nm-pro-prices strong {
+  font-size: 17px !important;
+}
+
+
+/* =========================================================
+   SHOP CARD BUTTONS
+========================================================= */
+
+.nm-catalog-card .nm-btn,
+.nm-pro-card .nm-btn {
+  min-height: 38px !important;
+
+  padding:
+    9px 10px !important;
+
+  font-size: 11px !important;
+
+  border-radius: 10px !important;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 640px) {
+
+  .nm-ref-products,
+  .nm-home-products,
+  .nm-ref-shop,
+  .nm-shop-section {
+    padding-top: 36px !important;
+    padding-bottom: 44px !important;
+  }
+
+  .nm-ref-sec-head {
+    margin-bottom: 22px !important;
+  }
+
+  .nm-ref-sec-head h2 {
+    font-size: 30px !important;
+  }
+
+
+  /* HOME PRODUCT */
+
+  .nm-product-grid {
+    gap: 15px !important;
+  }
+
+  .nm-product-thumb {
+    height: 205px !important;
+  }
+
+  .nm-product-thumb img {
+    max-height: 168px !important;
+  }
+
+
+  /* SHOP CARDS */
+
+  .nm-catalog-image-area,
+  .nm-pro-image {
+    height: 175px !important;
+
+    padding: 10px !important;
+  }
+
+  .nm-catalog-image-area img,
+  .nm-pro-image img {
+    max-height: 145px !important;
+
+    max-width: 82% !important;
+  }
+
+  .nm-catalog-card-body,
+  .nm-pro-info {
+    padding:
+      12px 10px 13px !important;
+  }
+
+  .nm-catalog-product-name,
+  .nm-pro-title {
+    font-size: 12px !important;
+  }
+
+  .nm-catalog-description {
+    display: none !important;
+  }
+
+  .nm-catalog-price strong,
+  .nm-pro-prices strong {
+    font-size: 14px !important;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONE
+========================================================= */
+
+@media (max-width: 380px) {
+
+  .nm-product-thumb {
+    height: 215px !important;
+  }
+
+  .nm-product-thumb img {
+    max-height: 175px !important;
+  }
+
+  .nm-catalog-image-area,
+  .nm-pro-image {
+    height: 220px !important;
+  }
+
+  .nm-catalog-image-area img,
+  .nm-pro-image img {
+    max-height: 185px !important;
+  }
+}
+
+
+
+/* ============================================================
+   ORINOCA PRODUCT DETAIL — FINAL DESKTOP VIEWPORT FIX
+   Paste at the VERY END of globals.css
+============================================================ */
+
+
+/* ============================================================
+   PRODUCT PAGE — REDUCE TOP SPACE
+============================================================ */
+
+.nm-product-page {
+  padding-top: 0 !important;
+}
+
+.nm-product-page .nm-wrap {
+  max-width: 1180px !important;
+}
+
+
+/* Breadcrumb */
+
+.nm-product-breadcrumb,
+.nm-breadcrumb {
+  margin-top: 0 !important;
+  margin-bottom: 20px !important;
+  padding-top: 20px !important;
+  padding-bottom: 0 !important;
+
+  font-size: 13px !important;
+  line-height: 1.4 !important;
+}
+
+
+/* ============================================================
+   MAIN PRODUCT LAYOUT
+============================================================ */
+
+.nm-product-detail,
+.nm-product-detail-grid,
+.nm-product-layout,
+.nm-pdp-grid {
+  display: grid !important;
+
+  grid-template-columns:
+    minmax(360px, 450px) minmax(0, 1fr) !important;
+
+  align-items: start !important;
+
+  gap: clamp(42px, 5vw, 68px) !important;
+
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 40px !important;
+}
+
+
+/* ============================================================
+   LEFT PRODUCT IMAGE
+============================================================ */
+
+/*
+   IMPORTANT:
+   This removes the oversized/double-box appearance.
+*/
+
+.nm-product-gallery,
+.nm-product-image-wrap,
+.nm-product-image-panel,
+.nm-pdp-image {
+  width: 100% !important;
+
+  height: 430px !important;
+  min-height: 0 !important;
+
+  padding: 0 !important;
+
+  border: 0 !important;
+
+  border-radius: 22px !important;
+
+  background: #f7f4ee !important;
+
+  box-shadow: none !important;
+
+  overflow: hidden !important;
+
+  position: relative !important;
+
+  display: flex !important;
+
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+
+/* Remove inner box / second background */
+
+.nm-product-gallery-inner,
+.nm-product-image-inner,
+.nm-product-image-frame,
+.nm-pdp-image-inner {
+  width: 100% !important;
+  height: 100% !important;
+
+  padding: 28px !important;
+
+  margin: 0 !important;
+
+  border: 0 !important;
+
+  border-radius: inherit !important;
+
+  background: transparent !important;
+
+  box-shadow: none !important;
+
+  display: flex !important;
+
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+
+/* Actual product image */
+
+.nm-product-gallery img,
+.nm-product-image-wrap img,
+.nm-product-image-panel img,
+.nm-product-image-inner img,
+.nm-product-image-frame img,
+.nm-pdp-image img {
+  display: block !important;
+
+  width: auto !important;
+  height: auto !important;
+
+  max-width: 72% !important;
+  max-height: 315px !important;
+
+  object-fit: contain !important;
+
+  margin: auto !important;
+
+  border: 0 !important;
+
+  border-radius: 0 !important;
+
+  background: transparent !important;
+
+  box-shadow: none !important;
+}
+
+
+/* Save badge */
+
+.nm-product-gallery .nm-badge,
+.nm-product-image-wrap .nm-badge,
+.nm-product-image-panel .nm-badge,
+.nm-pdp-image .nm-badge {
+  position: absolute !important;
+
+  top: 18px !important;
+  left: 18px !important;
+
+  z-index: 2 !important;
+}
+
+
+/* ============================================================
+   RIGHT PRODUCT INFORMATION
+============================================================ */
+
+.nm-product-info,
+.nm-product-summary,
+.nm-pdp-info {
+  padding-top: 6px !important;
+
+  margin-top: 0 !important;
+
+  min-width: 0 !important;
+}
+
+
+/* Eyebrow */
+
+.nm-product-info .nm-eyebrow,
+.nm-product-summary .nm-eyebrow,
+.nm-pdp-info .nm-eyebrow {
+  margin-top: 0 !important;
+  margin-bottom: 16px !important;
+}
+
+
+/* Product title */
+
+.nm-product-info h1,
+.nm-product-summary h1,
+.nm-pdp-info h1 {
+  margin:
+    0 0 12px !important;
+
+  font-size: clamp(38px,
+      3.6vw,
+      48px) !important;
+
+  line-height: 1 !important;
+}
+
+
+/* ============================================================
+   PRICE AREA
+============================================================ */
+
+.nm-product-price,
+.nm-pdp-price {
+  margin:
+    0 0 10px !important;
+
+  display: flex !important;
+
+  align-items: center !important;
+
+  flex-wrap: wrap !important;
+
+  gap: 10px !important;
+}
+
+.nm-product-price-current,
+.nm-pdp-price-current {
+  line-height: 1 !important;
+}
+
+
+/* ============================================================
+   STOCK
+============================================================ */
+
+.nm-product-stock,
+.nm-stock-status,
+.nm-pdp-stock {
+  margin:
+    0 0 20px !important;
+}
+
+
+/* ============================================================
+   DESCRIPTION — COMPACT
+============================================================ */
+
+.nm-product-description,
+.nm-pdp-description {
+  margin:
+    0 0 20px !important;
+
+  max-width: 650px !important;
+
+  font-size: 14px !important;
+
+  line-height: 1.65 !important;
+}
+
+
+/* ============================================================
+   DIVIDERS
+============================================================ */
+
+.nm-product-info hr,
+.nm-product-summary hr,
+.nm-pdp-info hr {
+  margin:
+    20px 0 !important;
+
+  border: 0 !important;
+
+  border-top:
+    1px solid rgba(0, 78, 64, 0.12) !important;
+}
+
+
+/* ============================================================
+   PACK DETAILS — IF PRESENT
+============================================================ */
+
+.nm-pack-details,
+.nm-product-options,
+.nm-pdp-options {
+  margin-top: 18px !important;
+  margin-bottom: 18px !important;
+}
+
+.nm-pack-details-grid,
+.nm-product-options-grid {
+  gap: 10px !important;
+}
+
+
+/* Make option boxes compact */
+
+.nm-pack-option,
+.nm-product-option {
+  min-height: 64px !important;
+
+  padding:
+    12px 14px !important;
+
+  border-radius: 14px !important;
+}
+
+
+/* ============================================================
+   QUANTITY
+============================================================ */
+
+.nm-quantity-section,
+.nm-product-quantity,
+.nm-pdp-quantity {
+  margin-top: 18px !important;
+  margin-bottom: 14px !important;
+}
+
+.nm-quantity-section>label,
+.nm-product-quantity>label,
+.nm-pdp-quantity>label {
+  display: block !important;
+
+  margin-bottom: 8px !important;
+}
+
+
+/* Quantity selector */
+
+.nm-quantity,
+.nm-quantity-control,
+.nm-quantity-selector {
+  min-height: 42px !important;
+  height: 42px !important;
+
+  width: fit-content !important;
+
+  border-radius: 999px !important;
+}
+
+.nm-quantity button,
+.nm-quantity-control button,
+.nm-quantity-selector button {
+  min-width: 38px !important;
+  height: 40px !important;
+}
+
+
+/* ============================================================
+   ADD TO CART + BUY NOW
+============================================================ */
+
+.nm-product-actions,
+.nm-pdp-actions {
+  display: grid !important;
+
+  grid-template-columns:
+    minmax(0, 1fr) minmax(0, 1fr) !important;
+
+  gap: 10px !important;
+
+  margin-top: 14px !important;
+}
+
+.nm-product-actions .nm-btn,
+.nm-pdp-actions .nm-btn,
+.nm-product-actions button,
+.nm-pdp-actions button {
+  width: 100% !important;
+
+  min-height: 46px !important;
+
+  padding:
+    11px 18px !important;
+
+  border-radius: 999px !important;
+}
+
+
+/* ============================================================
+   DESKTOP HEIGHT OPTIMIZATION
+
+   Goal:
+   Product image + information + quantity + purchase buttons
+   should fit much better inside the initial viewport.
+============================================================ */
+
+@media (min-width: 1024px) {
+
+  .nm-product-detail,
+  .nm-product-detail-grid,
+  .nm-product-layout,
+  .nm-pdp-grid {
+    min-height: 0 !important;
+  }
+
+  .nm-product-gallery,
+  .nm-product-image-wrap,
+  .nm-product-image-panel,
+  .nm-pdp-image {
+    height: min(430px,
+        calc(100vh - 245px)) !important;
+
+    min-height: 370px !important;
+  }
+
+  .nm-product-gallery img,
+  .nm-product-image-wrap img,
+  .nm-product-image-panel img,
+  .nm-product-image-inner img,
+  .nm-product-image-frame img,
+  .nm-pdp-image img {
+    max-height: min(300px,
+        calc(100vh - 340px)) !important;
+  }
+}
+
+
+/* ============================================================
+   MEDIUM LAPTOPS
+   1366x768 / similar screens
+============================================================ */
+
+@media (min-width: 1024px) and (max-height: 800px) {
+
+  .nm-product-breadcrumb,
+  .nm-breadcrumb {
+    padding-top: 14px !important;
+    margin-bottom: 14px !important;
+  }
+
+  .nm-product-detail,
+  .nm-product-detail-grid,
+  .nm-product-layout,
+  .nm-pdp-grid {
+    gap: 46px !important;
+
+    grid-template-columns:
+      minmax(330px, 410px) minmax(0, 1fr) !important;
+  }
+
+  .nm-product-gallery,
+  .nm-product-image-wrap,
+  .nm-product-image-panel,
+  .nm-pdp-image {
+    height: 390px !important;
+  }
+
+  .nm-product-gallery img,
+  .nm-product-image-wrap img,
+  .nm-product-image-panel img,
+  .nm-product-image-inner img,
+  .nm-product-image-frame img,
+  .nm-pdp-image img {
+    max-height: 275px !important;
+  }
+
+  .nm-product-info,
+  .nm-product-summary,
+  .nm-pdp-info {
+    padding-top: 0 !important;
+  }
+
+  .nm-product-info .nm-eyebrow,
+  .nm-product-summary .nm-eyebrow,
+  .nm-pdp-info .nm-eyebrow {
+    margin-bottom: 10px !important;
+  }
+
+  .nm-product-info h1,
+  .nm-product-summary h1,
+  .nm-pdp-info h1 {
+    font-size: 40px !important;
+
+    margin-bottom: 10px !important;
+  }
+
+  .nm-product-description,
+  .nm-pdp-description {
+    font-size: 13.5px !important;
+
+    line-height: 1.55 !important;
+
+    margin-bottom: 14px !important;
+  }
+
+  .nm-product-info hr,
+  .nm-product-summary hr,
+  .nm-pdp-info hr {
+    margin:
+      14px 0 !important;
+  }
+
+  .nm-quantity-section,
+  .nm-product-quantity,
+  .nm-pdp-quantity {
+    margin-top: 12px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .nm-product-actions,
+  .nm-pdp-actions {
+    margin-top: 10px !important;
+  }
+}
+
+
+/* ============================================================
+   TABLET
+============================================================ */
+
+@media (max-width: 900px) {
+
+  .nm-product-detail,
+  .nm-product-detail-grid,
+  .nm-product-layout,
+  .nm-pdp-grid {
+    grid-template-columns:
+      1fr !important;
+
+    gap: 30px !important;
+  }
+
+  .nm-product-gallery,
+  .nm-product-image-wrap,
+  .nm-product-image-panel,
+  .nm-pdp-image {
+    max-width: 560px !important;
+
+    height: 420px !important;
+
+    margin:
+      0 auto !important;
+  }
+
+  .nm-product-gallery img,
+  .nm-product-image-wrap img,
+  .nm-product-image-panel img,
+  .nm-product-image-inner img,
+  .nm-product-image-frame img,
+  .nm-pdp-image img {
+    max-height: 300px !important;
+  }
+}
+
+
+/* ============================================================
+   MOBILE
+============================================================ */
+
+@media (max-width: 640px) {
+
+  .nm-product-breadcrumb,
+  .nm-breadcrumb {
+    padding-top: 14px !important;
+
+    margin-bottom: 14px !important;
+  }
+
+  .nm-product-detail,
+  .nm-product-detail-grid,
+  .nm-product-layout,
+  .nm-pdp-grid {
+    gap: 24px !important;
+
+    padding-bottom: 28px !important;
+  }
+
+  .nm-product-gallery,
+  .nm-product-image-wrap,
+  .nm-product-image-panel,
+  .nm-pdp-image {
+    width: 100% !important;
+
+    height: 330px !important;
+
+    border-radius: 18px !important;
+  }
+
+  .nm-product-gallery-inner,
+  .nm-product-image-inner,
+  .nm-product-image-frame,
+  .nm-pdp-image-inner {
+    padding: 20px !important;
+  }
+
+  .nm-product-gallery img,
+  .nm-product-image-wrap img,
+  .nm-product-image-panel img,
+  .nm-product-image-inner img,
+  .nm-product-image-frame img,
+  .nm-pdp-image img {
+    max-width: 78% !important;
+    max-height: 245px !important;
+  }
+
+  .nm-product-info h1,
+  .nm-product-summary h1,
+  .nm-pdp-info h1 {
+    font-size: 36px !important;
+  }
+
+  .nm-product-description,
+  .nm-pdp-description {
+    font-size: 13px !important;
+
+    line-height: 1.6 !important;
+  }
+
+  .nm-product-actions,
+  .nm-pdp-actions {
+    grid-template-columns:
+      1fr !important;
+  }
+}
+
+
+/* =========================================
+   PRODUCT CARD IMAGE — BIGGER PRODUCT ONLY
+   Nothing else changes
+========================================= */
+
+.nm-pro-image {
+  overflow: hidden !important;
+}
+
+.nm-pro-image img {
+  width: 100% !important;
+  height: 100% !important;
+
+  object-fit: contain !important;
+  object-position: center !important;
+
+  /* Bigger product inside same image area */
+  transform: scale(1.65) !important;
+  transform-origin: center center !important;
+
+  transition: transform 0.3s ease !important;
+}
+
+/* Small premium hover */
+.nm-pro-card:hover .nm-pro-image img {
+  transform: scale(1.72) !important;
+}
+
+@media (max-width: 768px) {
+  .nm-pro-image img {
+    transform: scale(1.5) !important;
+  }
+
+  .nm-pro-card:hover .nm-pro-image img {
+    transform: scale(1.5) !important;
+  }
+}
+
+/* =========================================================
+   ORINOCA PRODUCT IMAGE ZOOM
+   HOME + SHOP
+   Only product image changes
+========================================================= */
+
+
+/* SHOP PAGE */
+
+.nm-pro-image {
+  overflow: hidden !important;
+}
+
+.nm-pro-image img {
+  width: 100% !important;
+  height: 100% !important;
+
+  max-width: none !important;
+  max-height: none !important;
+
+  object-fit: contain !important;
+  object-position: center !important;
+
+  transform: scale(1.75) !important;
+  transform-origin: center center !important;
+}
+
+
+/* HOMEPAGE PRODUCT CARDS */
+
+.nm-product-thumb,
+.nm-home-product-image,
+.nm-product-image {
+  overflow: hidden !important;
+}
+
+.nm-product-thumb img,
+.nm-home-product-image img,
+.nm-product-image img {
+  width: 100% !important;
+  height: 100% !important;
+
+  max-width: none !important;
+  max-height: none !important;
+
+  object-fit: contain !important;
+  object-position: center !important;
+
+  transform: scale(1.75) !important;
+  transform-origin: center center !important;
+}
+
+
+/* PREMIUM HOVER */
+
+.nm-pro-card:hover .nm-pro-image img,
+.nm-product-card:hover .nm-product-thumb img {
+  transform: scale(1.82) !important;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+  .nm-pro-image img,
+  .nm-product-thumb img,
+  .nm-home-product-image img,
+  .nm-product-image img {
+    transform: scale(1.55) !important;
+  }
+
+  .nm-pro-card:hover .nm-pro-image img,
+  .nm-product-card:hover .nm-product-thumb img {
+    transform: scale(1.55) !important;
+  }
+}
+
+
+/* =========================================================
+   ORINOCA — FINAL PRODUCT IMAGE SIZING
+   Different sizing per layout, NOT per product.
+========================================================= */
+
+
+/* ---------------------------------------------------------
+   1. HOMEPAGE PRODUCT CARDS
+   Slight zoom only — card/text/buttons unchanged
+--------------------------------------------------------- */
+
+.nm-product-thumb,
+.nm-home-product-image,
+.nm-product-image {
+  overflow: hidden !important;
+}
+
+.nm-product-thumb img,
+.nm-home-product-image img,
+.nm-product-image img {
+  width: 100% !important;
+  height: 100% !important;
+
+  max-width: none !important;
+  max-height: none !important;
+
+  object-fit: contain !important;
+  object-position: center !important;
+
+  /* only a gentle zoom */
+  transform: scale(1.26) !important;
+  transform-origin: center center !important;
+}
+
+
+/* ---------------------------------------------------------
+   2. SHOP PAGE CARDS
+   Previous 1.75 was too much.
+   Product remains FULLY visible.
+--------------------------------------------------------- */
+
+.nm-pro-image {
+  overflow: hidden !important;
+}
+
+.nm-pro-image img {
+  width: 100% !important;
+  height: 100% !important;
+
+  max-width: none !important;
+  max-height: none !important;
+
+  object-fit: contain !important;
+  object-position: center center !important;
+
+  /* balanced shop zoom */
+  transform: scale(1.18) !important;
+  transform-origin: center center !important;
+
+  transition: transform 0.25s ease !important;
+}
+
+
+/* subtle hover only */
+.nm-pro-card:hover .nm-pro-image img {
+  transform: scale(1.22) !important;
+}
+
+
+/* ---------------------------------------------------------
+   MOBILE
+--------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+  .nm-product-thumb img,
+  .nm-home-product-image img,
+  .nm-product-image img {
+    transform: scale(1.18) !important;
+  }
+
+  .nm-pro-image img {
+    transform: scale(1.12) !important;
+  }
+
+  .nm-pro-card:hover .nm-pro-image img {
+    transform: scale(1.12) !important;
+  }
+}
+
+
+
+/* =========================================================
+   ORINOCA HERO — PREMIUM EDITORIAL PRODUCT VISUAL
+   Removes old circle/ring hero design only
+========================================================= */
+
+.nm-ref-hero .nm-premium-hero-visual {
+  position: relative !important;
+  display: flex !important;
+
+  min-height: 430px !important;
+
+  align-items: center !important;
+  justify-content: center !important;
+
+  isolation: isolate;
+}
+
+
+/* =========================================================
+   PREMIUM PRODUCT FRAME
+========================================================= */
+
+.nm-premium-hero-frame {
+  position: relative;
+
+  width: min(100%, 410px);
+
+  aspect-ratio: 0.84;
+
+  overflow: hidden;
+
+  border:
+    1px solid rgba(18, 53, 41, 0.08);
+
+  border-radius:
+    34px 34px 18px 18px;
+
+  background:
+    #f3ecdf;
+
+  box-shadow:
+    0 30px 70px rgba(18, 53, 41, 0.12),
+    0 6px 20px rgba(18, 53, 41, 0.06);
+}
+
+
+/* subtle premium inner border */
+
+.nm-premium-hero-frame::before {
+  position: absolute;
+
+  z-index: 2;
+
+  inset: 0;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.55);
+
+  border-radius:
+    inherit;
+
+  pointer-events:
+    none;
+
+  content:
+    "";
+}
+
+
+/* small gold detail */
+
+.nm-premium-hero-frame::after {
+  position: absolute;
+
+  z-index: 2;
+
+  right: 22px;
+  bottom: 18px;
+
+  width: 58px;
+  height: 1px;
+
+  background:
+    linear-gradient(90deg,
+      transparent,
+      rgba(212, 175, 55, 0.75));
+
+  pointer-events:
+    none;
+
+  content:
+    "";
+}
+
+
+/* =========================================================
+   HERO IMAGE
+========================================================= */
+
+.nm-premium-hero-image {
+  position: absolute !important;
+
+  z-index: 1 !important;
+
+  inset: 0 !important;
+
+  display:
+    block !important;
+
+  width:
+    100% !important;
+
+  height:
+    100% !important;
+
+  max-width:
+    none !important;
+
+  max-height:
+    none !important;
+
+  border-radius:
+    0 !important;
+
+  object-fit:
+    cover !important;
+
+  object-position:
+    center center !important;
+
+  filter:
+    none !important;
+
+  transform:
+    none !important;
+
+  animation:
+    none !important;
+}
+
+
+/* =========================================================
+   IMAGE OVERLAY
+========================================================= */
+
+.nm-premium-hero-shade {
+  position: absolute;
+
+  z-index: 2;
+
+  inset: 0;
+
+  background:
+    linear-gradient(180deg,
+      rgba(255, 255, 255, 0.02) 58%,
+      rgba(18, 53, 41, 0.08) 100%),
+    linear-gradient(110deg,
+      rgba(255, 255, 255, 0.07),
+      transparent 42%);
+
+  pointer-events:
+    none;
+}
+
+
+/* =========================================================
+   DECORATIVE CORNER DETAILS
+========================================================= */
+
+.nm-premium-hero-accent {
+  position: absolute;
+
+  z-index: 3;
+
+  pointer-events:
+    none;
+}
+
+
+.nm-premium-hero-accent-top {
+  top: 22px;
+
+  right: -14px;
+
+  width: 74px;
+  height: 74px;
+
+  border-top:
+    1px solid rgba(212, 175, 55, 0.7);
+
+  border-right:
+    1px solid rgba(212, 175, 55, 0.7);
+}
+
+
+.nm-premium-hero-accent-bottom {
+  bottom: 24px;
+
+  left: -14px;
+
+  width: 82px;
+  height: 82px;
+
+  border-bottom:
+    1px solid rgba(0, 90, 73, 0.28);
+
+  border-left:
+    1px solid rgba(0, 90, 73, 0.28);
+}
+
+
+/* =========================================================
+   FLOATING BADGES
+========================================================= */
+
+.nm-ref-hero .nm-premium-hero-badge {
+  z-index:
+    6 !important;
+
+  min-height:
+    42px;
+
+  border:
+    1px solid rgba(18, 53, 41, 0.07);
+
+  border-radius:
+    14px !important;
+
+  padding:
+    10px 14px !important;
+
+  background:
+    rgba(255,
+      255,
+      255,
+      0.94) !important;
+
+  box-shadow:
+    0 14px 36px rgba(18,
+      53,
+      41,
+      0.10) !important;
+
+  backdrop-filter:
+    blur(10px);
+
+  font-size:
+    11px !important;
+}
+
+
+.nm-ref-hero .nm-premium-hero-badge span {
+  width:
+    7px !important;
+
+  height:
+    7px !important;
+
+  background:
+    #d4af37 !important;
+}
+
+
+.nm-ref-hero .nm-premium-hero-visual .nm-ref-badge-one {
+  top:
+    17% !important;
+
+  left:
+    -18px !important;
+}
+
+
+.nm-ref-hero .nm-premium-hero-visual .nm-ref-badge-two {
+  right:
+    -16px !important;
+
+  bottom:
+    13% !important;
+}
+
+
+/* =========================================================
+   IMPORTANT
+   Disable old circle/ring if any old CSS still exists
+========================================================= */
+
+.nm-ref-ring,
+.nm-ref-glow {
+  display:
+    none !important;
+}
+
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media (min-width: 981px) {
+
+  .nm-ref-hero .nm-premium-hero-visual {
+    min-height:
+      420px !important;
+  }
+
+  .nm-premium-hero-frame {
+    width:
+      390px;
+
+    max-height:
+      430px;
+  }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 980px) {
+
+  .nm-ref-hero .nm-premium-hero-visual {
+    order:
+      -1;
+
+    min-height:
+      390px !important;
+
+    margin-bottom:
+      10px !important;
+  }
+
+  .nm-premium-hero-frame {
+    width:
+      min(88vw,
+        390px);
+  }
+
+  .nm-ref-hero .nm-premium-hero-visual .nm-ref-badge-one {
+    left:
+      max(8px,
+        calc(50% - 225px)) !important;
+  }
+
+  .nm-ref-hero .nm-premium-hero-visual .nm-ref-badge-two {
+    right:
+      max(8px,
+        calc(50% - 225px)) !important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 640px) {
+
+  .nm-ref-hero .nm-premium-hero-visual {
+    min-height:
+      330px !important;
+  }
+
+  .nm-premium-hero-frame {
+    width:
+      min(86vw,
+        300px);
+
+    border-radius:
+      26px 26px 15px 15px;
+  }
+
+  .nm-ref-hero .nm-premium-hero-badge {
+    min-height:
+      36px;
+
+    padding:
+      8px 10px !important;
+
+    font-size:
+      9px !important;
+  }
+
+  .nm-ref-hero .nm-premium-hero-visual .nm-ref-badge-one {
+    top:
+      13% !important;
+
+    left:
+      4px !important;
+  }
+
+  .nm-ref-hero .nm-premium-hero-visual .nm-ref-badge-two {
+    right:
+      4px !important;
+
+    bottom:
+      9% !important;
+  }
+}
+
+
+
+/* =========================================================
+   ORINOCA HOMEPAGE HERO
+   FINAL APPROVED PREMIUM EDITORIAL DESIGN
+========================================================= */
+
+
+/* =========================================================
+   HERO BACKGROUND
+========================================================= */
+
+.nm-store .nm-approved-hero {
+  position: relative !important;
+
+  overflow: hidden !important;
+
+  padding:
+    34px 0 30px !important;
+
+  background:
+    linear-gradient(106deg,
+      #ffffff 0%,
+      #ffffff 33%,
+      #fdfaf4 57%,
+      #f3e7d1 100%) !important;
+}
+
+
+/* subtle warm light behind image */
+
+.nm-store .nm-approved-hero::before {
+  position: absolute;
+
+  top: -190px;
+  right: -120px;
+
+  width: 680px;
+  height: 680px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(circle,
+      rgba(212, 175, 55, 0.14) 0%,
+      rgba(212, 175, 55, 0.05) 42%,
+      transparent 70%);
+
+  pointer-events: none;
+
+  content: "";
+}
+
+
+/* =========================================================
+   DESKTOP GRID
+========================================================= */
+
+.nm-store .nm-approved-hero-grid {
+  position: relative !important;
+
+  z-index: 2 !important;
+
+  display: grid !important;
+
+  grid-template-columns:
+    minmax(0, 0.96fr) minmax(500px, 1.04fr) !important;
+
+  min-height: 500px !important;
+
+  align-items: center !important;
+
+  gap:
+    clamp(32px,
+      4vw,
+      68px) !important;
+}
+
+
+/* =========================================================
+   LEFT COPY
+========================================================= */
+
+.nm-store .nm-approved-hero-copy {
+  position: relative !important;
+
+  z-index: 5 !important;
+
+  min-width: 0 !important;
+
+  padding:
+    8px 0 !important;
+}
+
+
+/* keep heading premium */
+
+.nm-store .nm-approved-hero-copy h1 {
+  max-width:
+    560px !important;
+}
+
+
+/* =========================================================
+   RIGHT VISUAL
+========================================================= */
+
+.nm-store .nm-approved-hero-visual {
+  position: relative !important;
+
+  display: flex !important;
+
+  width: 100% !important;
+
+  height: 470px !important;
+
+  min-width: 0 !important;
+  min-height: 0 !important;
+
+  align-items: center !important;
+  justify-content: flex-end !important;
+
+  overflow: visible !important;
+
+  margin: 0 !important;
+
+  padding: 0 !important;
+}
+
+
+/* =========================================================
+   PHOTO AREA
+   IMPORTANT:
+   NO CARD
+   NO BORDER
+   NO CIRCLE
+========================================================= */
+
+.nm-store .nm-approved-hero-photo {
+  position: relative !important;
+
+  width:
+    min(100%,
+      620px) !important;
+
+  height:
+    100% !important;
+
+  overflow: hidden !important;
+
+  margin-left:
+    auto !important;
+
+  border:
+    0 !important;
+
+  border-radius:
+    0 !important;
+
+  background:
+    transparent !important;
+
+  box-shadow:
+    none !important;
+
+  isolation: isolate;
+}
+
+
+/* =========================================================
+   ACTUAL IMAGE
+========================================================= */
+
+.nm-store .nm-approved-hero-image {
+  position: absolute !important;
+
+  z-index: 1 !important;
+
+  inset: 0 !important;
+
+  display: block !important;
+
+  width: 100% !important;
+  height: 100% !important;
+
+  max-width:
+    none !important;
+
+  max-height:
+    none !important;
+
+  border:
+    0 !important;
+
+  border-radius:
+    0 !important;
+
+  object-fit:
+    cover !important;
+
+  /*
+    Bottle remains prominent,
+    while retaining enough lifestyle background.
+  */
+
+  object-position:
+    52% 52% !important;
+
+  filter:
+    saturate(0.96) contrast(0.98) brightness(1.025) !important;
+
+  transform:
+    scale(1.035) !important;
+
+  transform-origin:
+    center !important;
+
+  animation:
+    none !important;
+}
+
+
+/* =========================================================
+   SEAMLESS LEFT BLEND
+
+   Makes image merge into hero instead of looking like
+   a separate rectangular card.
+========================================================= */
+
+.nm-store .nm-approved-hero-photo-blend {
+  position: absolute !important;
+
+  z-index: 3 !important;
+
+  inset: 0 !important;
+
+  pointer-events:
+    none !important;
+
+  background:
+    linear-gradient(90deg,
+      #ffffff 0%,
+      rgba(255,
+        255,
+        255,
+        0.98) 4%,
+      rgba(255,
+        255,
+        255,
+        0.82) 11%,
+      rgba(255,
+        255,
+        255,
+        0.42) 20%,
+      rgba(255,
+        255,
+        255,
+        0.10) 31%,
+      transparent 43%),
+    linear-gradient(0deg,
+      rgba(255,
+        255,
+        255,
+        0.32) 0%,
+      transparent 20%);
+}
+
+
+/* soft luxury lighting */
+
+.nm-store .nm-approved-hero-photo-light {
+  position: absolute !important;
+
+  z-index: 2 !important;
+
+  inset: 0 !important;
+
+  pointer-events:
+    none !important;
+
+  background:
+    linear-gradient(180deg,
+      rgba(255,
+        255,
+        255,
+        0.10) 0%,
+      transparent 35%,
+      rgba(239,
+        220,
+        182,
+        0.04) 100%);
+}
+
+
+/* =========================================================
+   BOTANICAL DETAIL
+========================================================= */
+
+.nm-approved-hero-plant {
+  position: absolute;
+
+  z-index: 5;
+
+  right: 8px;
+  bottom: 20px;
+
+  width: 150px;
+  height: 95px;
+
+  pointer-events: none;
+}
+
+
+.nm-approved-leaf-stem {
+  position: absolute;
+
+  right: 4px;
+  bottom: 22px;
+
+  width: 132px;
+  height: 2px;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(90deg,
+      rgba(61,
+        88,
+        38,
+        0.18),
+      rgba(61,
+        88,
+        38,
+        0.75));
+
+  transform:
+    rotate(-16deg);
+
+  transform-origin:
+    right center;
+}
+
+
+.nm-approved-leaf {
+  position: absolute;
+
+  display: block;
+
+  width: 47px;
+  height: 21px;
+
+  border-radius:
+    100% 0 100% 0;
+
+  background:
+    linear-gradient(135deg,
+      #627342,
+      #89925c);
+
+  box-shadow:
+    0 6px 18px rgba(51,
+      74,
+      36,
+      0.08);
+}
+
+
+.nm-approved-leaf-1 {
+  right: 3px;
+  bottom: 39px;
+
+  transform:
+    rotate(-29deg);
+}
+
+
+.nm-approved-leaf-2 {
+  right: 42px;
+  bottom: 26px;
+
+  width: 42px;
+  height: 19px;
+
+  transform:
+    rotate(24deg);
+}
+
+
+.nm-approved-leaf-3 {
+  right: 76px;
+  bottom: 45px;
+
+  width: 39px;
+  height: 18px;
+
+  transform:
+    rotate(-39deg);
+}
+
+
+.nm-approved-leaf-4 {
+  right: 105px;
+  bottom: 33px;
+
+  width: 33px;
+  height: 15px;
+
+  opacity: 0.76;
+
+  transform:
+    rotate(22deg);
+}
+
+
+/* =========================================================
+   DESTROY OLD HERO DECORATION
+========================================================= */
+
+.nm-store .nm-approved-hero .nm-ref-ring,
+
+.nm-store .nm-approved-hero .nm-ref-glow,
+
+.nm-store .nm-approved-hero .nm-premium-hero-frame,
+
+.nm-store .nm-approved-hero .nm-premium-hero-badge,
+
+.nm-store .nm-approved-hero .nm-ref-float-badge {
+  display:
+    none !important;
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+========================================================= */
+
+@media (min-width: 1400px) {
+
+  .nm-store .nm-approved-hero-grid {
+    min-height:
+      515px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-visual {
+    height:
+      490px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-photo {
+    width:
+      min(100%,
+        650px) !important;
+  }
+}
+
+
+/* =========================================================
+   LAPTOP
+   1024 — 1399
+========================================================= */
+
+@media (min-width: 1024px) and (max-width: 1399px) {
+
+  .nm-store .nm-approved-hero {
+    padding:
+      28px 0 !important;
+  }
+
+
+  .nm-store .nm-approved-hero-grid {
+    grid-template-columns:
+      minmax(0, 1fr) minmax(430px, 0.96fr) !important;
+
+    min-height:
+      470px !important;
+
+    gap:
+      28px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-visual {
+    height:
+      430px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-photo {
+    width:
+      min(100%,
+        550px) !important;
+  }
+
+
+  .nm-store .nm-approved-hero-image {
+    object-position:
+      52% 52% !important;
+  }
+}
+
+
+/* =========================================================
+   SMALL LAPTOP / LARGE TABLET
+   769 — 1023
+========================================================= */
+
+@media (min-width: 769px) and (max-width: 1023px) {
+
+  .nm-store .nm-approved-hero {
+    padding:
+      30px 0 34px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-grid {
+    display:
+      grid !important;
+
+    grid-template-columns:
+      minmax(0, 1fr) minmax(330px, 0.86fr) !important;
+
+    min-height:
+      440px !important;
+
+    gap:
+      20px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-copy {
+    order:
+      1 !important;
+
+    text-align:
+      left !important;
+  }
+
+
+  .nm-store .nm-approved-hero-visual {
+    order:
+      2 !important;
+
+    height:
+      390px !important;
+
+    min-height:
+      0 !important;
+  }
+
+
+  .nm-store .nm-approved-hero-photo {
+    width:
+      100% !important;
+  }
+
+
+  .nm-store .nm-approved-hero-image {
+    object-position:
+      53% 52% !important;
+  }
+
+
+  .nm-approved-hero-plant {
+    transform:
+      scale(0.80);
+
+    transform-origin:
+      right bottom;
+  }
+}
+
+
+/* =========================================================
+   TABLET
+   641 — 768
+========================================================= */
+
+@media (min-width: 641px) and (max-width: 768px) {
+
+  .nm-store .nm-approved-hero {
+    padding:
+      28px 0 36px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-grid {
+    display:
+      flex !important;
+
+    min-height:
+      auto !important;
+
+    flex-direction:
+      column !important;
+
+    gap:
+      26px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-copy {
+    order:
+      1 !important;
+
+    width:
+      100% !important;
+
+    text-align:
+      center !important;
+  }
+
+
+  .nm-store .nm-approved-hero-copy h1,
+
+  .nm-store .nm-approved-hero-copy>p {
+    margin-left:
+      auto !important;
+
+    margin-right:
+      auto !important;
+  }
+
+
+  .nm-store .nm-approved-hero-visual {
+    order:
+      2 !important;
+
+    width:
+      100% !important;
+
+    height:
+      420px !important;
+
+    min-height:
+      0 !important;
+
+    justify-content:
+      center !important;
+  }
+
+
+  .nm-store .nm-approved-hero-photo {
+    width:
+      min(100%,
+        620px) !important;
+  }
+
+
+  .nm-store .nm-approved-hero-photo-blend {
+    background:
+      linear-gradient(180deg,
+        #ffffff 0%,
+        rgba(255,
+          255,
+          255,
+          0.35) 11%,
+        transparent 29%);
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   640 AND BELOW
+========================================================= */
+
+@media (max-width: 640px) {
+
+  .nm-store .nm-approved-hero {
+    padding:
+      22px 0 28px !important;
+
+    background:
+      linear-gradient(180deg,
+        #ffffff 0%,
+        #ffffff 56%,
+        #f6ecda 100%) !important;
+  }
+
+
+  .nm-store .nm-approved-hero-grid {
+    display:
+      flex !important;
+
+    min-height:
+      auto !important;
+
+    flex-direction:
+      column !important;
+
+    gap:
+      24px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-copy {
+    order:
+      1 !important;
+
+    width:
+      100% !important;
+
+    text-align:
+      center !important;
+  }
+
+
+  .nm-store .nm-approved-hero-copy h1 {
+    max-width:
+      100% !important;
+
+    margin-left:
+      auto !important;
+
+    margin-right:
+      auto !important;
+  }
+
+
+  .nm-store .nm-approved-hero-copy>p {
+    margin-left:
+      auto !important;
+
+    margin-right:
+      auto !important;
+  }
+
+
+  .nm-store .nm-approved-hero-actions {
+    justify-content:
+      center !important;
+  }
+
+
+  .nm-store .nm-ref-hero-trust {
+    justify-content:
+      center !important;
+  }
+
+
+  .nm-store .nm-approved-hero-visual {
+    order:
+      2 !important;
+
+    width:
+      100% !important;
+
+    height:
+      340px !important;
+
+    min-height:
+      340px !important;
+
+    overflow:
+      hidden !important;
+
+    justify-content:
+      center !important;
+
+    margin:
+      0 !important;
+  }
+
+
+  /*
+    Edge-to-edge photograph on mobile.
+  */
+
+  .nm-store .nm-approved-hero-photo {
+    width:
+      calc(100% + 32px) !important;
+
+    height:
+      100% !important;
+
+    margin-left:
+      -16px !important;
+
+    margin-right:
+      -16px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-image {
+    object-position:
+      center 51% !important;
+
+    transform:
+      scale(1.025) !important;
+  }
+
+
+  /*
+    Mobile blend is vertical rather than
+    desktop's left-to-right transition.
+  */
+
+  .nm-store .nm-approved-hero-photo-blend {
+    background:
+      linear-gradient(180deg,
+        #ffffff 0%,
+        rgba(255,
+          255,
+          255,
+          0.62) 8%,
+        rgba(255,
+          255,
+          255,
+          0.12) 22%,
+        transparent 38%),
+      linear-gradient(0deg,
+        rgba(247,
+          239,
+          224,
+          0.16),
+        transparent 25%);
+  }
+
+
+  .nm-approved-hero-plant {
+    right:
+      2px;
+
+    bottom:
+      10px;
+
+    transform:
+      scale(0.78);
+
+    transform-origin:
+      right bottom;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 430px) {
+
+  .nm-store .nm-approved-hero-visual {
+    height:
+      315px !important;
+
+    min-height:
+      315px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-image {
+    object-position:
+      51% 51% !important;
+  }
+
+
+  .nm-approved-hero-plant {
+    transform:
+      scale(0.68);
+
+    transform-origin:
+      right bottom;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .nm-store .nm-approved-hero-visual {
+    height:
+      285px !important;
+
+    min-height:
+      285px !important;
+  }
+
+
+  .nm-approved-hero-plant {
+    display:
+      none;
+  }
+}
+
+/* =========================================================
+   ORINOCA HERO — FINAL CORRECTION
+   Approved clean editorial version
+   IMPORTANT:
+   Paste this block at the VERY END of globals.css
+========================================================= */
+
+
+/* =========================================================
+   DESKTOP BASE
+========================================================= */
+
+.nm-store .nm-approved-hero {
+  position: relative !important;
+  overflow: hidden !important;
+
+  padding: 30px 0 28px !important;
+
+  background:
+    linear-gradient(108deg,
+      #ffffff 0%,
+      #ffffff 43%,
+      #fbf7ee 70%,
+      #f3e6cf 100%) !important;
+}
+
+
+.nm-store .nm-approved-hero-grid {
+  position: relative !important;
+
+  display: grid !important;
+
+  grid-template-columns:
+    minmax(0, 1fr) minmax(420px, 0.92fr) !important;
+
+  min-height: 490px !important;
+
+  align-items: center !important;
+
+  gap: clamp(30px,
+      4vw,
+      62px) !important;
+}
+
+
+/* =========================================================
+   RIGHT VISUAL
+========================================================= */
+
+.nm-store .nm-approved-hero-visual {
+  position: relative !important;
+
+  display: flex !important;
+
+  width: 100% !important;
+  height: 440px !important;
+
+  min-width: 0 !important;
+  min-height: 0 !important;
+
+  align-items: center !important;
+  justify-content: center !important;
+
+  overflow: visible !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+
+/* =========================================================
+   PHOTO COMPOSITION
+   No card / no border / no circle
+========================================================= */
+
+.nm-store .nm-approved-hero-photo {
+  position: relative !important;
+
+  width: 100% !important;
+  max-width: 540px !important;
+
+  height: 420px !important;
+
+  display: flex !important;
+
+  align-items: center !important;
+  justify-content: center !important;
+
+  overflow: visible !important;
+
+  margin: 0 auto !important;
+
+  border: 0 !important;
+  border-radius: 0 !important;
+
+  background: transparent !important;
+
+  box-shadow: none !important;
+
+  isolation: isolate;
+}
+
+
+/* =========================================================
+   IMAGE
+   CRITICAL FIX:
+   NO COVER
+   NO ZOOM
+   FULL BOTTLE VISIBLE
+========================================================= */
+
+.nm-store .nm-approved-hero-image {
+  position: relative !important;
+
+  z-index: 2 !important;
+
+  inset: auto !important;
+
+  display: block !important;
+
+  width: auto !important;
+  height: 100% !important;
+
+  max-width: 100% !important;
+  max-height: 420px !important;
+
+  object-fit: contain !important;
+  object-position: center center !important;
+
+  border: 0 !important;
+  border-radius: 0 !important;
+
+  transform: none !important;
+
+  filter:
+    saturate(0.97) contrast(0.98) brightness(1.02) !important;
+
+  animation: none !important;
+}
+
+
+/* =========================================================
+   CREATE EDITORIAL ENVIRONMENT AROUND PHOTO
+========================================================= */
+
+.nm-store .nm-approved-hero-photo::before {
+  position: absolute;
+
+  z-index: 0;
+
+  top: 7%;
+  right: -9%;
+  bottom: 7%;
+  left: 7%;
+
+  border-radius: 48% 52% 44% 56%;
+
+  background:
+    radial-gradient(circle at 65% 44%,
+      rgba(232, 210, 169, 0.46),
+      rgba(246, 238, 223, 0.28) 45%,
+      transparent 72%);
+
+  filter: blur(8px);
+
+  pointer-events: none;
+
+  content: "";
+}
+
+
+/* subtle marble floor extension */
+
+.nm-store .nm-approved-hero-photo::after {
+  position: absolute;
+
+  z-index: 1;
+
+  right: -7%;
+  bottom: 6%;
+
+  width: 92%;
+  height: 24%;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(180deg,
+      rgba(255, 255, 255, 0),
+      rgba(238, 226, 207, 0.30));
+
+  filter: blur(11px);
+
+  pointer-events: none;
+
+  content: "";
+}
+
+
+/* =========================================================
+   REMOVE PREVIOUS FADE THAT WAS COVERING IMAGE
+========================================================= */
+
+.nm-store .nm-approved-hero-photo-blend {
+  position: absolute !important;
+
+  z-index: 4 !important;
+
+  inset: 0 !important;
+
+  pointer-events: none !important;
+
+  background:
+    linear-gradient(90deg,
+      rgba(255, 255, 255, 0.94) 0%,
+      rgba(255, 255, 255, 0.42) 8%,
+      rgba(255, 255, 255, 0.06) 18%,
+      transparent 30%) !important;
+}
+
+
+/* soft lighting only */
+
+.nm-store .nm-approved-hero-photo-light {
+  position: absolute !important;
+
+  z-index: 3 !important;
+
+  inset: 0 !important;
+
+  pointer-events: none !important;
+
+  background:
+    radial-gradient(circle at 65% 38%,
+      rgba(255, 255, 255, 0.13),
+      transparent 47%) !important;
+}
+
+
+/* =========================================================
+   BOTANICAL DETAIL
+   Smaller + more natural
+========================================================= */
+
+.nm-store .nm-approved-hero-plant {
+  z-index: 6 !important;
+
+  right: 0 !important;
+  bottom: 25px !important;
+
+  width: 125px !important;
+  height: 72px !important;
+
+  opacity: 0.88 !important;
+
+  transform: scale(0.82) !important;
+  transform-origin: right bottom !important;
+}
+
+
+/* =========================================================
+   REMOVE ALL OLD HERO ELEMENTS
+========================================================= */
+
+.nm-store .nm-approved-hero .nm-ref-ring,
+.nm-store .nm-approved-hero .nm-ref-glow,
+.nm-store .nm-approved-hero .nm-premium-hero-frame,
+.nm-store .nm-approved-hero .nm-premium-hero-badge,
+.nm-store .nm-approved-hero .nm-ref-float-badge {
+  display: none !important;
+}
+
+
+/* =========================================================
+   NORMAL LAPTOP
+========================================================= */
+
+@media (min-width: 1024px) and (max-width: 1399px) {
+
+  .nm-store .nm-approved-hero-grid {
+    grid-template-columns:
+      minmax(0, 1fr) minmax(390px, 0.88fr) !important;
+
+    min-height: 470px !important;
+
+    gap: 26px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-visual {
+    height: 420px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-photo {
+    max-width: 485px !important;
+    height: 400px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-image {
+    max-height: 400px !important;
+  }
+}
+
+
+/* =========================================================
+   TABLET / SMALL LAPTOP
+========================================================= */
+
+@media (min-width: 769px) and (max-width: 1023px) {
+
+  .nm-store .nm-approved-hero {
+    padding: 30px 0 34px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-grid {
+    grid-template-columns:
+      minmax(0, 1fr) minmax(315px, 0.82fr) !important;
+
+    min-height: 430px !important;
+
+    gap: 20px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-visual {
+    height: 370px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-photo {
+    max-width: 390px !important;
+    height: 355px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-image {
+    max-height: 355px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-plant {
+    transform: scale(0.68) !important;
+  }
+}
+
+
+/* =========================================================
+   TABLET PORTRAIT
+========================================================= */
+
+@media (min-width: 641px) and (max-width: 768px) {
+
+  .nm-store .nm-approved-hero-grid {
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    gap: 22px !important;
+
+    min-height: auto !important;
+  }
+
+
+  .nm-store .nm-approved-hero-copy {
+    order: 1 !important;
+
+    width: 100% !important;
+
+    text-align: center !important;
+  }
+
+
+  .nm-store .nm-approved-hero-visual {
+    order: 2 !important;
+
+    height: 385px !important;
+
+    width: 100% !important;
+  }
+
+
+  .nm-store .nm-approved-hero-photo {
+    width: 100% !important;
+    max-width: 470px !important;
+
+    height: 370px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-image {
+    max-height: 370px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-photo-blend {
+    background:
+      linear-gradient(180deg,
+        rgba(255, 255, 255, 0.62) 0%,
+        rgba(255, 255, 255, 0.10) 15%,
+        transparent 30%) !important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 640px) {
+
+  .nm-store .nm-approved-hero {
+    padding:
+      24px 0 30px !important;
+
+    background:
+      linear-gradient(180deg,
+        #ffffff 0%,
+        #ffffff 59%,
+        #f8f0e2 100%) !important;
+  }
+
+
+  .nm-store .nm-approved-hero-grid {
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    gap: 22px !important;
+
+    min-height: auto !important;
+  }
+
+
+  .nm-store .nm-approved-hero-copy {
+    order: 1 !important;
+
+    width: 100% !important;
+
+    text-align: center !important;
+  }
+
+
+  .nm-store .nm-approved-hero-copy h1 {
+    max-width: 100% !important;
+  }
+
+
+  .nm-store .nm-approved-hero-actions {
+    justify-content: center !important;
+  }
+
+
+  .nm-store .nm-ref-hero-trust {
+    justify-content: center !important;
+  }
+
+
+  .nm-store .nm-approved-hero-visual {
+    order: 2 !important;
+
+    width: 100% !important;
+
+    height: 330px !important;
+    min-height: 330px !important;
+
+    overflow: hidden !important;
+  }
+
+
+  .nm-store .nm-approved-hero-photo {
+    width: 100% !important;
+
+    max-width: 340px !important;
+
+    height: 320px !important;
+
+    overflow: visible !important;
+  }
+
+
+  .nm-store .nm-approved-hero-image {
+    width: auto !important;
+    height: 100% !important;
+
+    max-width: 100% !important;
+    max-height: 320px !important;
+
+    object-fit: contain !important;
+
+    transform: none !important;
+  }
+
+
+  .nm-store .nm-approved-hero-photo-blend {
+    background:
+      linear-gradient(180deg,
+        rgba(255, 255, 255, 0.72) 0%,
+        rgba(255, 255, 255, 0.10) 14%,
+        transparent 28%) !important;
+  }
+
+
+  .nm-store .nm-approved-hero-plant {
+    right: -5px !important;
+    bottom: 12px !important;
+
+    transform: scale(0.60) !important;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 430px) {
+
+  .nm-store .nm-approved-hero-visual {
+    height: 300px !important;
+    min-height: 300px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-photo {
+    max-width: 300px !important;
+
+    height: 290px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-image {
+    max-height: 290px !important;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .nm-store .nm-approved-hero-visual {
+    height: 275px !important;
+    min-height: 275px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-photo {
+    max-width: 270px !important;
+
+    height: 265px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-image {
+    max-height: 265px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-plant {
+    display: none !important;
+  }
+}
+
+
+
+/* =========================================================
+   ORINOCA HERO
+   FINAL APPROVED COMPOSITION
+   Paste at VERY END of globals.css
+========================================================= */
+
+
+/* ==========================
+   HERO
+========================== */
+
+.nm-store .nm-approved-hero {
+  position: relative !important;
+  overflow: hidden !important;
+
+  padding: 30px 0 26px !important;
+
+  background:
+    linear-gradient(105deg,
+      #ffffff 0%,
+      #ffffff 43%,
+      #fbf7ee 69%,
+      #f3e5cc 100%) !important;
+}
+
+
+/* ==========================
+   GRID
+========================== */
+
+.nm-store .nm-approved-hero-grid {
+  display: grid !important;
+
+  grid-template-columns:
+    minmax(0, 1.02fr) minmax(460px, 0.98fr) !important;
+
+  min-height: 500px !important;
+
+  align-items: center !important;
+
+  gap: clamp(26px, 3.5vw, 58px) !important;
+}
+
+
+/* ==========================
+   RIGHT SIDE
+========================== */
+
+.nm-store .nm-approved-hero-visual {
+  position: relative !important;
+
+  display: flex !important;
+
+  width: 100% !important;
+  height: 455px !important;
+
+  min-height: 0 !important;
+
+  align-items: center !important;
+  justify-content: center !important;
+
+  overflow: visible !important;
+}
+
+
+/* ==========================
+   LANDSCAPE EDITORIAL SCENE
+========================== */
+
+.nm-final-hero-scene {
+  position: relative;
+
+  width: 100%;
+  max-width: 585px;
+  height: 420px;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(125deg,
+      #f8f2e7 0%,
+      #edddc1 52%,
+      #d9b78e 100%);
+
+  isolation: isolate;
+}
+
+
+/* soft left fade so scene becomes part of hero */
+
+.nm-final-hero-scene::before {
+  position: absolute;
+
+  z-index: 8;
+
+  inset: 0;
+
+  background:
+    linear-gradient(90deg,
+      #ffffff 0%,
+      rgba(255, 255, 255, .92) 5%,
+      rgba(255, 255, 255, .48) 14%,
+      rgba(255, 255, 255, .10) 25%,
+      transparent 38%);
+
+  pointer-events: none;
+
+  content: "";
+}
+
+
+/* warm light */
+
+.nm-final-hero-scene::after {
+  position: absolute;
+
+  z-index: 1;
+
+  top: -100px;
+  right: -50px;
+
+  width: 430px;
+  height: 430px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(circle,
+      rgba(255, 248, 230, .52),
+      rgba(255, 238, 200, .12) 48%,
+      transparent 72%);
+
+  pointer-events: none;
+
+  content: "";
+}
+
+
+/* ==========================
+   CURTAIN / FABRIC SHAPE
+========================== */
+
+.nm-final-hero-curtain {
+  position: absolute;
+
+  z-index: 2;
+
+  top: -130px;
+  left: -65px;
+
+  width: 385px;
+  height: 350px;
+
+  border-radius: 0 0 100% 0;
+
+  background:
+    linear-gradient(132deg,
+      #ffffff 0%,
+      #f6f1e8 42%,
+      #d7c3a6 100%);
+
+  box-shadow:
+    18px 28px 40px rgba(85, 62, 32, .08);
+
+  transform: rotate(-4deg);
+}
+
+
+/* ==========================
+   MARBLE / COUNTER
+========================== */
+
+.nm-final-hero-floor {
+  position: absolute;
+
+  z-index: 3;
+
+  right: -30px;
+  bottom: -24px;
+  left: -20px;
+
+  height: 175px;
+
+  background:
+    linear-gradient(174deg,
+      #f7f3ec 0%,
+      #e6ded1 100%);
+}
+
+
+.nm-final-hero-floor::before {
+  position: absolute;
+
+  inset: 20px 0 auto 0;
+
+  height: 1px;
+
+  background:
+    linear-gradient(90deg,
+      transparent,
+      rgba(120, 105, 84, .26),
+      transparent);
+
+  transform: rotate(-4deg);
+
+  content: "";
+}
+
+
+.nm-final-hero-floor::after {
+  position: absolute;
+
+  top: 60px;
+  left: 15%;
+
+  width: 80%;
+  height: 1px;
+
+  background:
+    linear-gradient(90deg,
+      transparent,
+      rgba(119, 105, 89, .16),
+      transparent);
+
+  transform: rotate(5deg);
+
+  content: "";
+}
+
+
+/* ==========================
+   PRODUCT PHOTO
+========================== */
+
+.nm-final-hero-product {
+  position: absolute !important;
+
+  z-index: 5 !important;
+
+  top: 50% !important;
+  right: 17% !important;
+
+  width: auto !important;
+  height: 365px !important;
+
+  max-width: none !important;
+  max-height: none !important;
+
+  object-fit: contain !important;
+
+  /*
+   Blend the existing portrait photo into
+   the editorial background instead of
+   showing it as a rectangular card.
+  */
+
+  mix-blend-mode: multiply;
+
+  filter:
+    saturate(.97) contrast(.96) brightness(1.06);
+
+  transform:
+    translateY(-47%) !important;
+
+  transform-origin: center !important;
+}
+
+
+/* hide white/beige edges of source photo */
+
+.nm-final-hero-product {
+  -webkit-mask-image:
+    radial-gradient(ellipse 43% 48% at 50% 52%,
+      #000 52%,
+      rgba(0, 0, 0, .88) 66%,
+      rgba(0, 0, 0, .30) 82%,
+      transparent 100%);
+
+  mask-image:
+    radial-gradient(ellipse 43% 48% at 50% 52%,
+      #000 52%,
+      rgba(0, 0, 0, .88) 66%,
+      rgba(0, 0, 0, .30) 82%,
+      transparent 100%);
+}
+
+
+/* ==========================
+   BOTANICAL LEAVES
+========================== */
+
+.nm-final-hero-leaves {
+  position: absolute;
+
+  z-index: 7;
+
+  right: 3px;
+  bottom: 3px;
+
+  width: 155px;
+  height: auto;
+
+  opacity: .92;
+
+  transform: rotate(-2deg);
+
+  transform-origin: right bottom;
+}
+
+
+/* ==========================
+   REMOVE EVERY OLD HERO UI
+========================== */
+
+.nm-store .nm-approved-hero .nm-approved-hero-photo,
+.nm-store .nm-approved-hero .nm-approved-hero-image,
+.nm-store .nm-approved-hero .nm-approved-hero-photo-light,
+.nm-store .nm-approved-hero .nm-approved-hero-photo-blend,
+.nm-store .nm-approved-hero .nm-approved-hero-plant,
+.nm-store .nm-approved-hero .nm-ref-ring,
+.nm-store .nm-approved-hero .nm-ref-glow,
+.nm-store .nm-approved-hero .nm-premium-hero-frame,
+.nm-store .nm-approved-hero .nm-premium-hero-badge,
+.nm-store .nm-approved-hero .nm-ref-float-badge {
+  display: none !important;
+}
+
+
+/* =========================================================
+   LAPTOP
+========================================================= */
+
+@media (min-width: 1024px) and (max-width: 1399px) {
+
+  .nm-store .nm-approved-hero-grid {
+    grid-template-columns:
+      minmax(0, 1fr) minmax(410px, .92fr) !important;
+
+    min-height: 470px !important;
+
+    gap: 25px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-visual {
+    height: 420px !important;
+  }
+
+
+  .nm-final-hero-scene {
+    max-width: 520px;
+    height: 395px;
+  }
+
+
+  .nm-final-hero-product {
+    height: 340px !important;
+
+    right: 15% !important;
+  }
+
+
+  .nm-final-hero-leaves {
+    width: 135px;
+  }
+}
+
+
+/* =========================================================
+   TABLET / SMALL LAPTOP
+========================================================= */
+
+@media (min-width: 769px) and (max-width: 1023px) {
+
+  .nm-store .nm-approved-hero-grid {
+    grid-template-columns:
+      minmax(0, 1fr) minmax(320px, .84fr) !important;
+
+    min-height: 435px !important;
+
+    gap: 18px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-visual {
+    height: 370px !important;
+  }
+
+
+  .nm-final-hero-scene {
+    max-width: 385px;
+    height: 350px;
+  }
+
+
+  .nm-final-hero-curtain {
+    width: 290px;
+    height: 275px;
+
+    top: -105px;
+  }
+
+
+  .nm-final-hero-product {
+    height: 300px !important;
+
+    right: 12% !important;
+  }
+
+
+  .nm-final-hero-floor {
+    height: 145px;
+  }
+
+
+  .nm-final-hero-leaves {
+    width: 105px;
+  }
+}
+
+
+/* =========================================================
+   TABLET PORTRAIT
+========================================================= */
+
+@media (min-width: 641px) and (max-width: 768px) {
+
+  .nm-store .nm-approved-hero-grid {
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    min-height: auto !important;
+
+    gap: 24px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-copy {
+    order: 1 !important;
+
+    width: 100% !important;
+
+    text-align: center !important;
+  }
+
+
+  .nm-store .nm-approved-hero-visual {
+    order: 2 !important;
+
+    width: 100% !important;
+    height: 395px !important;
+  }
+
+
+  .nm-final-hero-scene {
+    width: min(100%, 560px);
+    height: 380px;
+  }
+
+
+  .nm-final-hero-product {
+    height: 330px !important;
+  }
+}
+
+
+/* =========================================================
+   PHONE
+========================================================= */
+
+@media (max-width: 640px) {
+
+  .nm-store .nm-approved-hero {
+    padding: 24px 0 28px !important;
+
+    background:
+      linear-gradient(180deg,
+        #ffffff 0%,
+        #ffffff 59%,
+        #f7eddb 100%) !important;
+  }
+
+
+  .nm-store .nm-approved-hero-grid {
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    min-height: auto !important;
+
+    gap: 22px !important;
+  }
+
+
+  .nm-store .nm-approved-hero-copy {
+    order: 1 !important;
+
+    width: 100% !important;
+
+    text-align: center !important;
+  }
+
+
+  .nm-store .nm-approved-hero-actions {
+    justify-content: center !important;
+  }
+
+
+  .nm-store .nm-ref-hero-trust {
+    justify-content: center !important;
+  }
+
+
+  .nm-store .nm-approved-hero-visual {
+    order: 2 !important;
+
+    width: 100% !important;
+
+    height: 330px !important;
+    min-height: 330px !important;
+
+    overflow: hidden !important;
+  }
+
+
+  .nm-final-hero-scene {
+    width: calc(100% + 32px);
+    max-width: none;
+
+    height: 320px;
+
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+
+
+  .nm-final-hero-scene::before {
+    background:
+      linear-gradient(180deg,
+        #ffffff 0%,
+        rgba(255, 255, 255, .50) 8%,
+        rgba(255, 255, 255, .06) 20%,
+        transparent 32%);
+  }
+
+
+  .nm-final-hero-curtain {
+    top: -100px;
+    left: -80px;
+
+    width: 310px;
+    height: 285px;
+  }
+
+
+  .nm-final-hero-floor {
+    height: 130px;
+  }
+
+
+  .nm-final-hero-product {
+    top: 50% !important;
+    right: 22% !important;
+
+    height: 275px !important;
+
+    transform:
+      translateY(-47%) !important;
+  }
+
+
+  .nm-final-hero-leaves {
+    width: 100px;
+
+    right: 9px;
+  }
+}
+
+
+/* =========================================================
+   SMALL PHONE
+========================================================= */
+
+@media (max-width: 430px) {
+
+  .nm-store .nm-approved-hero-visual {
+    height: 300px !important;
+    min-height: 300px !important;
+  }
+
+
+  .nm-final-hero-scene {
+    height: 292px;
+  }
+
+
+  .nm-final-hero-product {
+    right: 17% !important;
+
+    height: 250px !important;
+  }
+
+
+  .nm-final-hero-leaves {
+    width: 82px;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONE
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .nm-store .nm-approved-hero-visual {
+    height: 275px !important;
+    min-height: 275px !important;
+  }
+
+
+  .nm-final-hero-scene {
+    height: 268px;
+  }
+
+
+  .nm-final-hero-product {
+    right: 15% !important;
+
+    height: 228px !important;
+  }
+
+
+  .nm-final-hero-leaves {
+    display: none;
+  }
 }

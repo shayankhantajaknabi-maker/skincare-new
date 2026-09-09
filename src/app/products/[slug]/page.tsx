@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+
 import { connectToDatabase } from "@/lib/mongodb";
 import { Product } from "@/models/Product";
+import { formatPrice } from "@/lib/format-price";
+
 import StoreFooter from "../../store-footer";
 import StoreHeader from "../../store-header";
 import ProductPurchase from "./product-purchase";
@@ -12,8 +15,31 @@ type StoreProduct = {
   _id: unknown;
   name: string;
   slug: string;
+  category?: string;
   shortDescription?: string;
   description?: string;
+
+  benefits?: string[];
+
+  ingredients?: {
+    name: string;
+    description: string;
+    image?: string;
+  }[];
+
+  howToUse?: {
+    title: string;
+    description: string;
+    image?: string;
+  }[];
+
+  story?: string;
+  beforeAfter?: {
+    beforeImage: string;
+    afterImage: string;
+    description: string;
+  };
+
   price: number;
   compareAtPrice?: number | null;
   images?: string[];
@@ -23,163 +49,1247 @@ type StoreProduct = {
   badge?: string;
 };
 
-function formatPrice(value: number) {
-  return `Rs. ${value.toLocaleString("en-PK")}`;
-}
-
 export default async function ProductPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{
+    slug: string;
+  }>;
 }) {
   const { slug } = await params;
+
   await connectToDatabase();
 
-  const rawProduct = await Product.findOne({ slug, isActive: true }).lean();
+  const rawProduct = await Product.findOne({
+    slug,
+    isActive: true,
+  }).lean();
 
   if (!rawProduct) {
     notFound();
   }
 
-  const product = rawProduct as unknown as StoreProduct;
+  const product =
+    rawProduct as unknown as StoreProduct;
+
   const rawRelated = await Product.find({
     isActive: true,
-    _id: { $ne: product._id },
+    _id: {
+      $ne: product._id,
+    },
   })
-    .sort({ createdAt: 1 })
+    .sort({
+      createdAt: -1,
+    })
     .limit(2)
     .lean();
 
-  const relatedProducts = rawRelated as unknown as StoreProduct[];
-  const image = product.images?.[0];
-  const units = product.units || 1;
+  const relatedProducts =
+    rawRelated as unknown as StoreProduct[];
+
+  const image =
+    product.images?.[0] || "";
+
   const oldPrice =
-    product.compareAtPrice && product.compareAtPrice > product.price
+    product.compareAtPrice &&
+      product.compareAtPrice > product.price
       ? product.compareAtPrice
       : null;
+
   const discount =
     oldPrice && oldPrice > 0
-      ? Math.round(((oldPrice - product.price) / oldPrice) * 100)
+      ? Math.round(
+        ((oldPrice - product.price) / oldPrice) *
+        100
+      )
       : null;
+
+  const heroDescription =
+    product.shortDescription?.trim() ||
+    product.description?.trim() ||
+    "";
+
+  const fullDescription =
+    product.description?.trim() ||
+    product.shortDescription?.trim() ||
+    "";
 
   return (
     <div className="nm-store">
       <StoreHeader />
 
+
+
       <main>
-        <section className="bg-white px-5 pb-16 pt-10 sm:px-8 lg:px-10">
-          <div className="mx-auto max-w-[1180px]">
-            <div className="mb-10 flex items-center gap-2 text-sm text-[#6d766f]">
-              <Link href="/" className="hover:text-[#005746]">Home</Link>
-              <span>/</span>
-              <Link href="/shop" className="hover:text-[#005746]">Shop</Link>
-              <span>/</span>
-              <span>{product.name}</span>
+        <section
+          id="product"
+          className="bg-white px-4 pb-10 pt-4 sm:px-6 sm:pb-12 sm:pt-5 lg:px-8 lg:pb-12 lg:pt-4"
+        >
+          <div className="mx-auto max-w-[1160px]">
+            <div className="mb-5 flex flex-wrap items-center gap-2 text-[13px] text-[#7a827e] sm:mb-6">
+              <Link
+                href="/"
+                className="transition hover:text-[#005746]"
+              >
+                Home
+              </Link>
+
+              <span className="text-[#bbc0bd]">
+                /
+              </span>
+
+              <Link
+                href="/shop"
+                className="transition hover:text-[#005746]"
+              >
+                Shop
+              </Link>
+
+              <span className="text-[#bbc0bd]">
+                /
+              </span>
+
+              <span className="truncate text-[#315147]">
+                {product.name}
+              </span>
             </div>
 
-            <div className="grid items-start gap-12 lg:grid-cols-[0.93fr_1.07fr] lg:gap-16">
-              <div className="rounded-[28px] bg-[#f5f2eb] p-7 sm:p-12">
-                <div className="flex min-h-[370px] items-center justify-center sm:min-h-[500px]">
+            <div className="grid items-start gap-7 lg:grid-cols-[440px_minmax(0,1fr)] lg:gap-8 xl:grid-cols-[420px_minmax(0,1fr)] xl:gap-10">
+              <div className="w-full">
+                <div
+                  className="
+                    relative
+                    mx-auto
+                    flex
+                    h-[360px]
+                    w-full
+                    max-w-[520px]
+                    items-center
+                    justify-center
+                    overflow-hidden
+                    rounded-[24px]
+                    border
+                    border-[#123529]/[0.07]
+                    bg-white
+                    px-4
+                    py-4
+                    shadow-[0_14px_40px_rgba(18,53,41,0.045)]
+
+                    sm:h-[390px]
+                    sm:max-w-[420px]
+                    sm:px-3
+                    sm:py-3
+
+                    lg:mx-[-78px]
+                    lg:h-[410px]
+                    lg:max-w-[420px]
+
+                    xl:h-[420px]
+                    xl:max-w-[430px]
+                  "
+                >
+                  {product.badge ? (
+                    <span
+                      className="
+                        absolute
+                        left-5
+                        top-5
+                        z-10
+                        rounded-full
+                        bg-[#005746]
+                        px-3
+                        py-1.5
+                        text-[9px]
+                        font-bold
+                        uppercase
+                        tracking-[0.08em]
+                        text-white
+                      "
+                    >
+                      {product.badge}
+                    </span>
+                  ) : null}
+
                   {image ? (
-                    <img src={image} alt={product.name} className="max-h-[440px] max-w-full object-contain" />
+                    <img
+                      src={image}
+
+
+                      alt={product.name}
+                      className="
+                        block
+                        h-auto
+                        w-auto
+                        object-contain
+                        object-center
+                        max-h-[390px]
+                        max-w-[95%]
+                        sm:max-h-[430px]
+                        sm:max-w-[95%]
+                        lg:max-h-[460px]
+                        lg:max-w-[95%]
+                        xl:max-h-[480px]
+                        xl:max-w-[95%]
+                      "
+                    />
                   ) : (
-                    <div className="flex h-64 w-52 flex-col items-center justify-center rounded-2xl bg-[#ebe4d6] text-center text-[#123529]">
-                      <strong className="text-4xl" style={{ fontFamily: "var(--nm-serif)" }}>NM</strong>
-                      <span className="mt-2 text-sm tracking-[0.18em]">SKIN CARE</span>
+                    <div className="flex h-[210px] w-[170px] flex-col items-center justify-center rounded-2xl bg-[#f4f6f4] text-center text-[#123529]">
+                      <strong className="text-3xl font-semibold">
+                        ON
+                      </strong>
+
+                      <span className="mt-2 text-[10px] uppercase tracking-[0.18em]">
+                        ORINOCA
+                      </span>
                     </div>
                   )}
                 </div>
               </div>
 
-              <div className="pt-2">
-                <p className="text-[13px] font-semibold uppercase tracking-[0.2em] text-[#005746]">— ORINOCA NATURAL · Pure &amp; Natural</p>
-                <div className="mt-5 flex items-center gap-3 text-sm">
-                  <span className="tracking-[0.12em] text-[#e5ad1b]">★★★★★</span>
-                  <span className="text-[#8a8f8b]">4.9 out of 5 · 1,240 reviews</span>
-                </div>
-                <h1 className="mt-3 text-[42px] leading-[1.08] text-[#123529] sm:text-[52px]" style={{ fontFamily: "var(--nm-serif)" }}>{product.name}</h1>
-                <div className="mt-5 flex flex-wrap items-center gap-3">
-                  <span className="text-[38px] leading-none text-[#123529] sm:text-[46px]" style={{ fontFamily: "var(--nm-serif)" }}>{formatPrice(product.price)}</span>
-                  {oldPrice ? (
+              <div className="min-w-0 lg:pt-1">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="h-px w-5 bg-[#d4af37]" />
+
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#005746]">
+                    ORINOCA NATURAL
+                  </p>
+
+                  {product.category ? (
                     <>
-                      <span className="text-lg text-[#9b9c99] line-through">{formatPrice(oldPrice)}</span>
-                      {discount ? <span className="rounded-full bg-[#edf2ee] px-3 py-1 text-xs font-semibold text-[#266b59]">Save {discount}%</span> : null}
+                      <span className="text-[#a3aaa6]">
+                        ·
+                      </span>
+
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#70827a]">
+                        {product.category}
+                      </p>
                     </>
                   ) : null}
                 </div>
-                <p className="mt-6 max-w-[610px] text-[16px] leading-7 text-[#5d625e]">
-                  {product.description || product.shortDescription || "A lightweight, fast-absorbing botanical serum formulated to nourish, repair and restore your skin’s natural radiance."}
-                </p>
 
-                <div className="mt-8">
-                  <p className="mb-3 font-serif text-[13px] font-semibold uppercase tracking-[0.16em] text-[#123529]">Choose your pack</p>
-                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-                    <Link href="/shop" className="rounded-2xl border border-[#005746] bg-[#eff5f1] px-4 py-4 text-left">
-                      <strong className="block text-sm text-[#123529]">{product.packType === "single" ? "Single Bottle" : product.name}</strong>
-                      <span className="mt-1 block text-xs text-[#68716b]">{units} × 20ml</span>
-                    </Link>
-                    <Link href="/shop" className="rounded-2xl border border-[#d3ded9] bg-white px-4 py-4 text-left transition hover:border-[#005746]">
-                      <strong className="block text-sm text-[#123529]">Twin Pack</strong>
-                      <span className="mt-1 block text-xs text-[#68716b]">2 × 20ml</span>
-                    </Link>
-                    <Link href="/shop" className="rounded-2xl border border-[#d3ded9] bg-white px-4 py-4 text-left transition hover:border-[#005746]">
-                      <strong className="block text-sm text-[#123529]">Family Pack</strong>
-                      <span className="mt-1 block text-xs text-[#68716b]">3 × 20ml</span>
-                    </Link>
-                  </div>
+                <h1
+                  className="mt-3 text-[38px] leading-none text-[#123529] sm:text-[42px] lg:text-[44px]"
+                  style={{
+                    fontFamily:
+                      "var(--nm-serif)",
+                  }}
+                >
+                  {product.name}
+                </h1>
+
+                <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2">
+                  <span
+                    className="text-[32px] leading-none text-[#123529] sm:text-[36px]"
+                    style={{
+                      fontFamily:
+                        "var(--nm-serif)",
+                    }}
+                  >
+                    {formatPrice(
+                      product.price
+                    )}
+                  </span>
+
+                  {oldPrice ? (
+                    <span className="text-[14px] text-[#999f9b] line-through">
+                      {formatPrice(
+                        oldPrice
+                      )}
+                    </span>
+                  ) : null}
+
+                  {discount ? (
+                    <span className="rounded-full bg-[#edf5f1] px-3 py-1.5 text-[9px] font-semibold text-[#17604d]">
+                      Save {discount}%
+                    </span>
+                  ) : null}
                 </div>
 
-                <ProductPurchase product={{ _id: String(product._id), name: product.name, slug: product.slug, price: product.price, stock: product.stock, image }} />
+                <div className="mt-3 flex items-center gap-2">
+                  <span
+                    className={`h-2 w-2 rounded-full ${product.stock > 0
+                      ? "bg-[#168566]"
+                      : "bg-red-500"
+                      }`}
+                  />
+
+                  <span className="text-[11px] font-medium text-[#68736e]">
+                    {product.stock > 0
+                      ? `${product.stock} in stock`
+                      : "Out of stock"}
+                  </span>
+                </div>
+
+                {heroDescription ? (
+                  <p className="mt-4 max-w-[650px] text-[13.5px] leading-[1.65] text-[#5f6863]">
+                    {heroDescription}
+                  </p>
+                ) : null}
+
+                <div className="mt-5 border-t border-[#e5ebe8] pt-5">
+                  <ProductPurchase
+                    product={{
+                      _id: String(
+                        product._id
+                      ),
+                      name:
+                        product.name,
+                      slug:
+                        product.slug,
+                      price:
+                        product.price,
+                      stock:
+                        product.stock,
+                      image,
+                    }}
+                  />
+                </div>
+
+                <div className="mt-5 grid gap-3 border-t border-[#e9eeeb] pt-4 sm:grid-cols-3">
+                  <div>
+                    <p className="text-[10px] font-semibold text-[#123529]">
+                      Secure Order
+                    </p>
+                    <p className="mt-0.5 text-[9px] leading-4 text-[#89918d]">
+                      Simple checkout
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="text-[10px] font-semibold text-[#123529]">
+                      Cash on Delivery
+                    </p>
+                    <p className="mt-0.5 text-[9px] leading-4 text-[#89918d]">
+                      Pay on arrival
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="text-[10px] font-semibold text-[#123529]">
+                      Nationwide
+                    </p>
+                    <p className="mt-0.5 text-[9px] leading-4 text-[#89918d]">
+                      Delivery in Pakistan
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="border-t border-[#edf0ed] bg-[#fafafa] px-5 py-16 sm:px-8 lg:px-10">
-          <div className="mx-auto max-w-[1180px]">
+
+        {product.benefits &&
+          product.benefits.length > 0 ? (
+          <section
+            id="benefits"
+            className="relative overflow-hidden bg-white px-4 py-12 sm:px-6 lg:px-8"
+          >
+            <div
+              aria-hidden="true"
+              className="
+    pointer-events-none
+    absolute
+    -right-24
+    top-8
+    z-0
+    h-[380px]
+    w-[420px]
+    opacity-[0.06]
+    blur-[4px]
+  "
+            >
+              <div
+                className="
+      absolute
+      right-10
+      top-8
+      h-[240px]
+      w-[95px]
+      rotate-[38deg]
+      rounded-[100%_0_100%_0]
+      bg-[#8f9991]
+    "
+              />
+
+              <div
+                className="
+      absolute
+      right-28
+      top-[125px]
+      h-[190px]
+      w-[72px]
+      rotate-[-32deg]
+      rounded-[100%_0_100%_0]
+      bg-[#8f9991]
+    "
+              />
+
+              <div
+                className="
+      absolute
+      right-2
+      top-[215px]
+      h-[165px]
+      w-[65px]
+      rotate-[42deg]
+      rounded-[100%_0_100%_0]
+      bg-[#8f9991]
+    "
+              />
+            </div>
+
+
+            <div className="mx-auto max-w-[1160px]">
+
+              <span className="nm-eyebrow">
+                Benefits
+              </span>
+
+              <h2
+                className="mt-3 text-3xl text-[#123529] sm:text-4xl"
+                style={{
+                  fontFamily: "var(--nm-serif)",
+                }}
+              >
+                Why choose ORINOCA NATURAL?
+              </h2>
+
+
+              <div
+                className={`mt-10 ${product.benefits.length === 1
+                  ? "flex justify-center"
+                  : "grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
+                  }`}
+              >
+
+                {product.benefits.map(
+                  (item, index) => (
+
+                    <div
+                      key={index}
+                      className={`
+                        group
+                        w-full
+                        ${(product.benefits?.length ?? 0) === 1
+                          ? "max-w-none"
+                          : "max-w-[420px] mx-auto"
+                        }
+                        rounded-[26px]
+                        border
+                        border-[#e7ece9]
+                        bg-[#fafafa]
+                        p-7
+                        transition-all
+                        duration-300
+                        hover:-translate-y-2
+                        hover:bg-white
+                        hover:shadow-[0_20px_50px_rgba(18,53,41,0.08)]
+                      `}
+                    >
+
+                      <div
+                        className="
+flex
+h-11
+w-11
+items-center
+justify-center
+rounded-full
+bg-[#edf5f1]
+text-xs
+font-semibold
+text-[#005746]
+"
+                      >
+                        0{index + 1}
+                      </div>
+
+
+                      <h3
+                        className="
+mt-5
+text-lg
+text-[#123529]
+"
+                        style={{
+                          fontFamily: "var(--nm-serif)"
+                        }}
+                      >
+                        {
+                          item.split(" ").slice(0, 3).join(" ")
+                        }
+                      </h3>
+
+
+                      <p
+                        className="
+mt-3
+text-sm
+leading-6
+text-[#5f6863]
+"
+                      >
+                        {
+                          item
+                        }
+                      </p>
+
+
+                    </div>
+
+                  )
+
+                )}
+
+              </div>
+
+            </div>
+
+          </section>
+
+        ) : null}
+
+
+
+        {product.ingredients &&
+          product.ingredients.length > 0 ? (
+          <section
+            id="ingredients"
+            className="bg-[#fafafa] px-4 py-12 sm:px-6 lg:px-8"
+          >
+
+            <div className="mx-auto max-w-[1100px]">
+
+              <span className="nm-eyebrow">
+                Ingredients
+              </span>
+
+              <h2
+                className="mt-3 text-3xl text-[#123529] sm:text-4xl"
+                style={{
+                  fontFamily:
+                    "var(--nm-serif)",
+                }}
+              >
+                Powered by nature
+              </h2>
+
+
+              <div
+                className={`mt-10 ${product.ingredients.length === 1
+                  ? "flex justify-center"
+                  : "grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+                  }`}
+              >
+
+                {product.ingredients.map(
+                  (item, index) => (
+
+                    <div
+                      key={index}
+                      className={`
+    group
+    w-full
+    ${(product.ingredients?.length ?? 0) === 1
+                          ? "max-w-none"
+                          : "max-w-[520px] mx-auto"
+                        }
+    min-h-[390px]
+    rounded-[26px]
+    border
+    border-[#e7ece9]
+    bg-white
+    p-7
+    transition-all
+    duration-300
+    hover:-translate-y-2
+    hover:shadow-[0_20px_50px_rgba(18,53,41,0.08)]
+  `}
+                    >
+
+                      <div
+                        className="
+    flex
+    h-12
+    w-12
+    items-center
+    justify-center
+    rounded-full
+    bg-[#edf5f1]
+    text-xs
+    font-semibold
+    tracking-[0.15em]
+    text-[#005746]
+  "
+                      >
+                        0{index + 1}
+                      </div>
+
+                      {item.image ? (
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="
+                            mt-6
+                            h-[190px]
+                            w-[320px]
+                            max-w-full
+                            rounded-[20px]
+                            object-cover
+                            object-center
+                          "
+                        />
+                      ) : null}
+
+
+                      <h3
+                        className="
+    mt-5
+    text-xl
+    text-[#123529]
+  "
+                        style={{
+                          fontFamily: "var(--nm-serif)"
+                        }}
+                      >
+                        {item.name}
+                      </h3>
+
+
+                      <p
+                        className="
+    mt-3
+    text-sm
+    leading-7
+    text-[#5f6863]
+  "
+                      >
+                        {item.description}
+                      </p>
+
+
+                      <div
+                        className="
+    mt-6
+    h-px
+    w-12
+    bg-[#d8c9a3]
+    transition-all
+    duration-300
+    group-hover:w-20
+  "
+                      />
+
+
+                    </div>
+
+                  ))}
+
+              </div>
+
+            </div>
+
+          </section>
+        ) : null}
+
+
+
+
+        {product.howToUse &&
+          product.howToUse.length > 0 ? (
+          <section
+            id="how-to-use"
+            className="bg-white px-4 py-12 sm:px-6 lg:px-8"
+          >
+
+            <div className="mx-auto max-w-[1160px]">
+
+              <span className="nm-eyebrow">
+                How To Use
+              </span>
+
+              <h2
+                className="mt-3 text-3xl text-[#123529] sm:text-4xl"
+                style={{
+                  fontFamily:
+                    "var(--nm-serif)",
+                }}
+              >
+                Simple steps for your routine
+              </h2>
+
+
+              <div
+                className={`mt-10 ${product.howToUse.length === 1
+                  ? "flex justify-center"
+                  : "grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
+                  }`}
+              >
+
+                {product.howToUse.map(
+                  (step, index) => (
+
+                    <div
+                      key={index}
+                      className={`
+    group
+    relative
+    flex
+    min-h-[410px]
+    w-full
+    ${(product.howToUse?.length ?? 0) === 1
+                          ? "max-w-none"
+                          : "max-w-[520px] mx-auto"
+                        }
+    flex-col
+    rounded-[26px]
+    border
+    border-[#e7ece9]
+    bg-white
+    p-7
+    transition-all
+    duration-300
+    hover:-translate-y-2
+    hover:shadow-[0_20px_50px_rgba(18,53,41,0.08)]
+  `}
+                    >
+
+                      <div
+                        className="
+ absolute
+ top-5
+ right-5
+ text-5xl
+ font-serif
+ text-[#edf0ed]
+ "
+                      >
+                        0{index + 1}
+                      </div>
+
+                      {step.image ? (
+                        <img
+                          src={step.image}
+                          alt={step.title}
+                          className="
+                            mb-6
+                            h-[190px]
+                            w-[320px]
+                            max-w-full
+                            rounded-[20px]
+                            object-cover
+                            object-center
+                          "
+                        />
+                      ) : null}
+
+
+                      <span
+                        className="
+text-[10px]
+font-semibold
+uppercase
+tracking-[0.18em]
+text-[#005746]
+"
+                      >
+                        Step {String(index + 1).padStart(2, "0")}
+                      </span>
+
+
+                      <h3
+                        className="
+mt-5
+text-xl
+text-[#123529]
+"
+                        style={{
+                          fontFamily: "var(--nm-serif)"
+                        }}
+                      >
+                        {step.title}
+                      </h3>
+
+
+                      <p
+                        className="
+mt-3
+text-sm
+leading-7
+text-[#5f6863]
+"
+                      >
+                        {step.description}
+                      </p>
+
+
+                      <div
+                        className="
+mt-6
+h-px
+w-12
+bg-[#d8c9a3]
+group-hover:w-20
+transition-all
+duration-300
+"
+                      />
+
+
+                    </div>
+
+                  ))}
+
+              </div>
+
+            </div>
+
+          </section>
+        ) : null}
+
+        {product.beforeAfter?.beforeImage && (
+          <section
+            id="results"
+            className="
+    mt-24
+    px-4
+    sm:px-6
+    lg:px-8
+  "
+          >
+
+            <div className="mx-auto max-w-[1160px]">
+
+
+              <span
+                className="
+        text-[11px]
+        uppercase
+        tracking-[0.35em]
+        font-semibold
+        text-[#005746]
+      "
+              >
+                Results
+              </span>
+
+
+              <h2
+                className="
+        mt-5
+        text-3xl
+        sm:text-5xl
+        text-[#123529]
+      "
+                style={{
+                  fontFamily: "var(--nm-serif)"
+                }}
+              >
+                Visible transformation with ORINOCA NATURAL
+              </h2>
+
+
+
+              <div
+                className="
+    mx-auto
+    mt-10
+    grid
+    max-w-[980px]
+    gap-6
+    md:grid-cols-2
+  "
+              >
+
+
+                {/* BEFORE */}
+
+                <div
+                  className="
+    overflow-hidden
+    rounded-[24px]
+    border
+    border-[#edf0ed]
+    bg-white
+    shadow-[0_20px_50px_rgba(18,53,41,0.06)]
+  "
+                >
+
+                  <div className="relative">
+
+                    <span
+                      className="
+        absolute
+        left-5
+        top-5
+        z-10
+        rounded-full
+        bg-white/90
+        px-4
+        py-2
+        text-[10px]
+        font-semibold
+        uppercase
+        tracking-[0.25em]
+        text-[#123529]
+      "
+                    >
+                      Before
+                    </span>
+
+
+                    <img
+                      src={product.beforeAfter.beforeImage}
+                      alt="Before result"
+                      className="
+    mx-auto
+    block
+    h-[1900px]
+    w-[78%]
+    rounded-[20px]
+    object-cover
+    object-center
+    sm:h-[200px]
+    sm:w-[78%]
+    lg:h-[220px]
+    lg:w-[80%]
+  "
+                    />
+
+                  </div>
+
+
+                  <div className="p-7">
+
+                    <h3
+                      className="
+        text-xl
+        text-[#123529]
+      "
+                      style={{
+                        fontFamily: "var(--nm-serif)"
+                      }}
+                    >
+                      Before starting routine
+                    </h3>
+
+
+                    <p
+                      className="
+        mt-3
+        text-sm
+        leading-7
+        text-[#5f6863]
+      "
+                    >
+                      Skin concerns, uneven texture and visible imperfections before starting a consistent skincare routine.
+                    </p>
+
+                  </div>
+
+                </div>
+
+
+
+
+                {/* AFTER */}
+
+                <div
+                  className="
+    overflow-hidden
+    rounded-[24px]
+    border
+    border-[#edf0ed]
+    bg-white
+    shadow-[0_20px_50px_rgba(18,53,41,0.06)]
+  "
+                >
+
+                  <div className="relative">
+
+                    <span
+                      className="
+        absolute
+        left-5
+        top-5
+        z-10
+        rounded-full
+        bg-[#005746]
+        px-4
+        py-2
+        text-[10px]
+        font-semibold
+        uppercase
+        tracking-[0.25em]
+        text-white
+      "
+                    >
+                      After
+                    </span>
+
+
+                    <img
+                      src={product.beforeAfter.afterImage}
+                      alt="After result"
+                      className="
+    mx-auto
+    block
+    h-[190px]
+    w-[78%]
+    rounded-[20px]
+    object-cover
+    object-center
+    sm:h-[200px]
+    sm:w-[78%]
+    lg:h-[220px]
+    lg:w-[80%]
+  "
+                    />
+
+                  </div>
+
+
+                  <div className="p-7">
+
+                    <h3
+                      className="
+        text-xl
+        text-[#123529]
+      "
+                      style={{
+                        fontFamily: "var(--nm-serif)"
+                      }}
+                    >
+                      Visible improvement
+                    </h3>
+
+
+                    <p
+                      className="
+        mt-3
+        text-sm
+        leading-7
+        text-[#5f6863]
+      "
+                    >
+                      {product.beforeAfter.description}
+                    </p>
+
+                  </div>
+
+                </div>
+
+
+              </div>
+
+            </div>
+
+
+          </section>
+        )}
+
+
+        {product.story ? (
+          <section
+            id="our-story"
+            className="
+              mt-24
+              rounded-[36px]
+              bg-[#f8f7f3]
+              px-6
+              py-24
+              sm:px-10
+              lg:px-16
+            "
+          >
+
+            <div
+              className="
+        mx-auto
+        max-w-[900px]
+        text-center
+      "
+            >
+
+              <span
+                className="
+          text-[11px]
+          font-semibold
+          uppercase
+          tracking-[0.35em]
+          text-[#005746]
+        "
+              >
+                Our Story
+              </span>
+
+
+              <h2
+                className="
+                  mt-5
+                  text-4xl
+                  sm:text-5xl
+                  text-[#123529]
+                "
+                style={{
+                  fontFamily: "var(--nm-serif)"
+                }}
+              >
+                Inspired by nature, created for your skin
+              </h2>
+
+
+              <p
+                className="
+                  max-w-4xl
+                  mt-10
+                  text-[15px]
+                  leading-9
+                  text-[#59635e]
+                  sm:text-base
+                "
+              >
+                {product.story}
+              </p>
+
+              <div className="mt-10 h-px w-24 mx-auto bg-[#d8c9a3]" />
+
+
+            </div>
+
+          </section>
+        ) : null}
+
+        <section className="border-t border-[#edf0ed] bg-[#fafafa] px-4 py-10 sm:px-6 sm:py-12 lg:px-8 lg:py-14">
+          <div className="mx-auto max-w-[1160px]">
             <div className="border-b border-[#d8e2dd]">
-              <div className="flex flex-wrap gap-7 text-sm font-medium text-[#737873]">
-                <span className="border-b-2 border-[#e5ad1b] pb-4 text-[#123529]">Description</span>
-                <span className="pb-4">Ingredients</span><span className="pb-4">How to Use</span><span className="pb-4">Reviews (1,240)</span>
+              <div className="flex gap-6 overflow-x-auto text-sm font-medium text-[#737873] [scrollbar-width:none]">
+                <span className="shrink-0 border-b-2 border-[#d4af37] pb-3 text-[#123529]">
+                  Description
+                </span>
               </div>
             </div>
-            <div className="max-w-[850px] py-10 text-[15.5px] leading-8 text-[#5b605d]">
-              <p>{product.description || "ORINOCA NATURAL Serum is crafted in small batches from natural plant extracts and oils. It is made to nourish dry patches, support an even-looking tone and help your skin feel soft and refreshed."}</p>
-              <ul className="mt-7 space-y-2"><li>— 100% pure &amp; natural formula</li><li>— Lightweight, fast-absorbing texture</li><li>— Suitable for normal, dry and combination skin</li><li>— Free from parabens and synthetic fragrance</li></ul>
-            </div>
+
+            {fullDescription ? (
+              <div className="max-w-[820px] py-7 text-[14px] leading-7 text-[#5b605d] sm:py-8">
+                <p>
+                  {fullDescription}
+                </p>
+              </div>
+            ) : null}
           </div>
         </section>
 
         {relatedProducts.length > 0 ? (
-          <section className="bg-white px-5 py-20 sm:px-8 lg:px-10">
-            <div className="mx-auto max-w-[1180px]">
-              <div className="text-center"><span className="nm-eyebrow">Complete your ritual</span><h2 className="mt-4 text-4xl text-[#123529] sm:text-5xl" style={{ fontFamily: "var(--nm-serif)" }}>Other packs you might like</h2></div>
-              <div className="mx-auto mt-12 grid max-w-[760px] gap-7 sm:grid-cols-2">
-                {relatedProducts.map((related) => {
-                  const relatedImage = related.images?.[0];
-                  return (
-                    <article key={String(related._id)} className="overflow-hidden rounded-[22px] border border-[#edf0ed] bg-white">
-                      <div className="relative flex h-64 items-center justify-center bg-[#f5f2eb] p-7">
-                        <span className="absolute left-4 top-4 rounded-full bg-[#e8b32a] px-3 py-1 text-[10px] font-bold tracking-[0.1em] text-[#123529]">{related.badge || "BEST VALUE"}</span>
-                        {relatedImage ? <img src={relatedImage} alt={related.name} className="h-48 max-w-full object-contain" /> : null}
-                      </div>
-                      <div className="p-6">
-                        <div className="text-sm tracking-[0.12em] text-[#e5ad1b]">★★★★★</div>
-                        <h3 className="mt-3 text-2xl text-[#123529]" style={{ fontFamily: "var(--nm-serif)" }}>{related.name}</h3>
-                        <p className="mt-2 text-sm text-[#68716b]">{related.shortDescription || "Pure & Natural Serum pack for your daily ritual."}</p>
-                        <p className="mt-4 text-2xl text-[#123529]" style={{ fontFamily: "var(--nm-serif)" }}>{formatPrice(related.price)}</p>
-                        <Link href={`/products/${related.slug}`} className="mt-5 block rounded-full bg-[#005746] px-5 py-3 text-center text-sm font-semibold text-white transition hover:bg-[#003f33]">View Product</Link>
-                      </div>
-                    </article>
-                  );
-                })}
+          <section className="bg-white px-4 py-12 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
+            <div className="mx-auto max-w-[1160px]">
+              <div className="text-center">
+                <span className="nm-eyebrow">
+                  Complete your ritual
+                </span>
+
+                <h2
+                  className="mt-3 text-3xl text-[#123529] sm:text-4xl"
+                  style={{
+                    fontFamily:
+                      "var(--nm-serif)",
+                  }}
+                >
+                  You may also like
+                </h2>
+              </div>
+
+              <div className="mx-auto mt-8 grid max-w-[720px] gap-5 sm:grid-cols-2">
+                {relatedProducts.map(
+                  (related) => {
+                    const relatedImage =
+                      related.images?.[0] ||
+                      "";
+
+                    return (
+                      <article
+                        key={String(
+                          related._id
+                        )}
+                        className="overflow-hidden rounded-[20px] border border-[#edf0ed] bg-white transition hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(18,53,41,0.08)]"
+                      >
+                        <div className="relative flex h-[225px] items-center justify-center overflow-hidden bg-white p-3">
+                          {related.badge ? (
+                            <span className="absolute left-4 top-4 z-10 rounded-full bg-[#005746] px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.08em] text-white">
+                              {
+                                related.badge
+                              }
+                            </span>
+                          ) : null}
+
+                          {relatedImage ? (
+                            <img
+                              src={
+                                relatedImage
+                              }
+                              alt={
+                                related.name
+                              }
+                              className="block h-auto w-auto max-h-[210px] max-w-[90%] object-contain object-center"
+                            />
+                          ) : (
+                            <div className="grid h-[150px] w-[130px] place-items-center rounded-xl bg-[#f4f6f4] text-sm font-semibold text-[#123529]">
+                              ORINOCA
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="p-5">
+                          {related.category ? (
+                            <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#769087]">
+                              {
+                                related.category
+                              }
+                            </p>
+                          ) : null}
+
+                          <h3 className="mt-2 text-lg font-semibold text-[#123529]">
+                            {related.name}
+                          </h3>
+
+                          {related.shortDescription ? (
+                            <p className="mt-2 line-clamp-2 text-[12px] leading-5 text-[#68716b]">
+                              {
+                                related.shortDescription
+                              }
+                            </p>
+                          ) : null}
+
+                          <p className="mt-3 text-lg font-semibold text-[#005746]">
+                            {formatPrice(
+                              related.price
+                            )}
+                          </p>
+
+                          <Link
+                            href={`/products/${related.slug}`}
+                            className="mt-4 block rounded-full bg-[#005746] px-5 py-2.5 text-center text-xs font-semibold text-white transition hover:bg-[#003f33]"
+                          >
+                            View Product
+                          </Link>
+                        </div>
+                      </article>
+                    );
+                  }
+                )}
               </div>
             </div>
           </section>
         ) : null}
       </main>
 
-      <StoreFooter ctaTitle="Ready to start your skincare ritual?" ctaDescription="Join 10,000+ customers already using ORINOCA NATURAL daily." ctaButtonText="Shop Now" ctaHref="/shop" />
+      <StoreFooter
+        ctaTitle="Ready to start your skincare ritual?"
+        ctaDescription="Explore ORINOCA NATURAL products and find the right addition to your routine."
+        ctaButtonText="Shop Now"
+        ctaHref="/shop"
+      />
     </div>
   );
 }

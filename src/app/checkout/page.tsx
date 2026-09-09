@@ -11,6 +11,7 @@ import {
   AppliedPromo,
   useCart,
 } from "@/app/cart-provider";
+import { formatPrice } from "@/lib/format-price";
 
 const initialForm = {
   name: "",
@@ -362,7 +363,7 @@ export default function CheckoutPage() {
 
           <p className="mt-3 text-sm leading-6 text-[#747d78]">
             Add an ORINOCA NATURAL
-            serum before proceeding to
+            product before proceeding to
             checkout.
           </p>
 
@@ -381,12 +382,8 @@ export default function CheckoutPage() {
     <main className="min-h-screen bg-white text-[#171b19]">
       <form onSubmit={handleSubmit}>
         <div className="mx-auto grid min-h-screen max-w-[1450px] lg:grid-cols-[1.06fr_0.94fr]">
-          {/* LEFT */}
-
           <section className="px-5 py-7 sm:px-8 lg:border-r lg:border-[#123529]/10 lg:px-12 lg:py-10 xl:px-16">
             <div className="mx-auto max-w-[620px]">
-              {/* BRAND */}
-
               <div className="flex items-center justify-between border-b border-[#123529]/8 pb-7 lg:border-b-0">
                 <Link href="/">
                   <p className="font-serif text-[30px] font-semibold leading-none text-[#123529]">
@@ -415,8 +412,6 @@ export default function CheckoutPage() {
                   </svg>
                 </Link>
               </div>
-
-              {/* CONTACT */}
 
               <section className="mt-8">
                 <h1 className="text-xl font-semibold">
@@ -447,8 +442,6 @@ export default function CheckoutPage() {
                 ) : null}
               </section>
 
-              {/* DELIVERY */}
-
               <section className="mt-8">
                 <h2 className="text-xl font-semibold">
                   Delivery
@@ -463,8 +456,6 @@ export default function CheckoutPage() {
                     Pakistan
                   </p>
                 </div>
-
-                {/* NAME */}
 
                 <input
                   value={form.name}
@@ -488,8 +479,6 @@ export default function CheckoutPage() {
                   </p>
                 ) : null}
 
-                {/* ADDRESS */}
-
                 <input
                   value={form.address}
                   onChange={(event) =>
@@ -511,8 +500,6 @@ export default function CheckoutPage() {
                     {errors.address}
                   </p>
                 ) : null}
-
-                {/* CITY + POSTAL */}
 
                 <div className="mt-3 grid gap-3 sm:grid-cols-2">
                   <div>
@@ -540,9 +527,7 @@ export default function CheckoutPage() {
                   </div>
 
                   <input
-                    value={
-                      form.postalCode
-                    }
+                    value={form.postalCode}
                     onChange={(event) =>
                       updateField(
                         "postalCode",
@@ -553,8 +538,6 @@ export default function CheckoutPage() {
                     className="w-full rounded-xl border border-[#cfd4d1] px-4 py-3.5 text-sm outline-none transition placeholder:text-[#757d79] focus:border-[#073c31] focus:ring-1 focus:ring-[#073c31]"
                   />
                 </div>
-
-                {/* PHONE */}
 
                 <input
                   type="tel"
@@ -585,8 +568,6 @@ export default function CheckoutPage() {
                   </p>
                 )}
 
-                {/* NOTES */}
-
                 <textarea
                   rows={3}
                   value={form.notes}
@@ -600,8 +581,6 @@ export default function CheckoutPage() {
                   className="mt-3 w-full resize-none rounded-xl border border-[#cfd4d1] px-4 py-3.5 text-sm outline-none transition placeholder:text-[#757d79] focus:border-[#073c31] focus:ring-1 focus:ring-[#073c31]"
                 />
               </section>
-
-              {/* SHIPPING */}
 
               <section className="mt-8">
                 <h2 className="text-lg font-semibold">
@@ -618,15 +597,16 @@ export default function CheckoutPage() {
                       </p>
 
                       <p className="mt-1 text-xs text-[#68716d]">
-                        Estimated delivery:
-                        2–4 working days
+                        Estimated delivery: 2–4 working days
                       </p>
                     </div>
 
                     <span className="shrink-0 text-sm font-semibold">
                       {deliveryFee === 0
                         ? "FREE"
-                        : `Rs. ${deliveryFee}`}
+                        : formatPrice(
+                            deliveryFee
+                          )}
                     </span>
                   </div>
                 </div>
@@ -637,13 +617,10 @@ export default function CheckoutPage() {
                   </span>
 
                   <p className="text-xs leading-5 text-[#65706a]">
-                    Delivery available
-                    across Pakistan.
+                    Delivery available across Pakistan.
                   </p>
                 </div>
               </section>
-
-              {/* PAYMENT */}
 
               <section className="mt-8">
                 <h2 className="text-xl font-semibold">
@@ -651,8 +628,7 @@ export default function CheckoutPage() {
                 </h2>
 
                 <p className="mt-1 text-sm text-[#777f7b]">
-                  Pay securely when your
-                  order arrives.
+                  Pay securely when your order arrives.
                 </p>
 
                 <div className="mt-4 rounded-xl border-2 border-[#073c31] bg-[#f8faf8] px-4 py-4">
@@ -663,29 +639,22 @@ export default function CheckoutPage() {
 
                     <div>
                       <p className="text-sm font-semibold">
-                        Cash on Delivery
-                        (COD)
+                        Cash on Delivery (COD)
                       </p>
 
                       <p className="mt-1 text-xs text-[#7d8581]">
-                        Pay when your
-                        ORINOCA NATURAL
-                        order arrives.
+                        Pay when your ORINOCA NATURAL order arrives.
                       </p>
                     </div>
                   </div>
                 </div>
               </section>
 
-              {/* DIFFERENT BILLING ADDRESS REMOVED */}
-
               {message ? (
                 <div className="mt-6 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-700">
                   {message}
                 </div>
               ) : null}
-
-              {/* MOBILE SUMMARY */}
 
               <div className="mt-8 rounded-[20px] border border-[#123529]/10 bg-[#f7f5ef] p-5 lg:hidden">
                 <h2 className="text-lg font-semibold">
@@ -704,19 +673,15 @@ export default function CheckoutPage() {
                         </p>
 
                         <p className="mt-1 text-xs text-[#7d8581]">
-                          Qty{" "}
-                          {
-                            item.quantity
-                          }
+                          Qty {item.quantity}
                         </p>
                       </div>
 
                       <p className="shrink-0 text-sm font-medium">
-                        Rs.{" "}
-                        {(
+                        {formatPrice(
                           item.price *
-                          item.quantity
-                        ).toLocaleString()}
+                            item.quantity
+                        )}
                       </p>
                     </div>
                   ))}
@@ -724,25 +689,13 @@ export default function CheckoutPage() {
 
                 <PromoBox
                   promo={promo}
-                  promoInput={
-                    promoInput
-                  }
-                  setPromoInput={
-                    setPromoInput
-                  }
-                  promoMessage={
-                    promoMessage
-                  }
-                  checkingPromo={
-                    checkingPromo
-                  }
+                  promoInput={promoInput}
+                  setPromoInput={setPromoInput}
+                  promoMessage={promoMessage}
+                  checkingPromo={checkingPromo}
                   total={total}
-                  applyPromo={
-                    applyPromo
-                  }
-                  removePromo={
-                    removePromo
-                  }
+                  applyPromo={applyPromo}
+                  removePromo={removePromo}
                 />
 
                 <div className="mt-5 border-t border-[#123529]/10 pt-4">
@@ -762,8 +715,6 @@ export default function CheckoutPage() {
                 </div>
               </div>
 
-              {/* COMPLETE ORDER */}
-
               <button
                 type="submit"
                 disabled={submitting}
@@ -772,25 +723,22 @@ export default function CheckoutPage() {
                 {submitting ? (
                   <>
                     <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-
                     Placing Order...
                   </>
                 ) : (
                   <>
-                    Complete Order · Rs.{" "}
-                    {grandTotal.toLocaleString()}
+                    Complete Order ·{" "}
+                    {formatPrice(
+                      grandTotal
+                    )}
                   </>
                 )}
               </button>
 
               <p className="mt-3 text-center text-[11px] leading-5 text-[#8a938f]">
-                By placing your order,
-                you confirm that the
-                delivery details above
-                are correct.
+                By placing your order, you confirm that
+                the delivery details above are correct.
               </p>
-
-              {/* POLICIES */}
 
               <div className="mt-10 flex flex-wrap gap-x-5 gap-y-2 border-t border-[#123529]/10 pt-5 text-xs text-[#626b66]">
                 <Link href="/privacy">
@@ -808,12 +756,8 @@ export default function CheckoutPage() {
             </div>
           </section>
 
-          {/* RIGHT SUMMARY */}
-
           <aside className="hidden bg-[#f7f5ef] px-8 py-10 lg:block xl:px-12">
             <div className="sticky top-8 mx-auto max-w-[500px]">
-              {/* PRODUCTS */}
-
               <div className="space-y-5">
                 {items.map((item) => (
                   <div
@@ -823,12 +767,8 @@ export default function CheckoutPage() {
                     <div className="relative flex h-[66px] w-[66px] shrink-0 items-center justify-center overflow-hidden rounded-xl border border-[#d7dbd8] bg-white">
                       {item.image ? (
                         <img
-                          src={
-                            item.image
-                          }
-                          alt={
-                            item.name
-                          }
+                          src={item.image}
+                          alt={item.name}
                           className="h-full w-full object-contain p-1"
                         />
                       ) : (
@@ -838,9 +778,7 @@ export default function CheckoutPage() {
                       )}
 
                       <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-[#073c31] px-1 text-[10px] font-semibold text-white">
-                        {
-                          item.quantity
-                        }
+                        {item.quantity}
                       </span>
                     </div>
 
@@ -855,42 +793,25 @@ export default function CheckoutPage() {
                     </div>
 
                     <p className="shrink-0 text-sm font-medium">
-                      Rs.{" "}
-                      {(
+                      {formatPrice(
                         item.price *
-                        item.quantity
-                      ).toLocaleString()}
+                          item.quantity
+                      )}
                     </p>
                   </div>
                 ))}
               </div>
 
-              {/* PROMO */}
-
               <PromoBox
                 promo={promo}
-                promoInput={
-                  promoInput
-                }
-                setPromoInput={
-                  setPromoInput
-                }
-                promoMessage={
-                  promoMessage
-                }
-                checkingPromo={
-                  checkingPromo
-                }
+                promoInput={promoInput}
+                setPromoInput={setPromoInput}
+                promoMessage={promoMessage}
+                checkingPromo={checkingPromo}
                 total={total}
-                applyPromo={
-                  applyPromo
-                }
-                removePromo={
-                  removePromo
-                }
+                applyPromo={applyPromo}
+                removePromo={removePromo}
               />
-
-              {/* TOTAL */}
 
               <div className="mt-7">
                 <SummaryRows
@@ -908,33 +829,27 @@ export default function CheckoutPage() {
                 />
               </div>
 
-              {/* DELIVERY TRUST */}
-
               <div className="mt-8 rounded-[20px] border border-[#123529]/10 bg-white p-5">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#8a9a86]">
                   ORINOCA NATURAL
                 </p>
 
                 <p className="mt-2 text-sm leading-6 text-[#65706a]">
-                  Your order is packed
-                  carefully and delivered
-                  across Pakistan.
+                  Your order is packed carefully and
+                  delivered across Pakistan.
                 </p>
 
                 <div className="mt-4 space-y-2 border-t border-[#123529]/8 pt-4 text-xs text-[#68716d]">
                   <p>
-                    ✓ Estimated delivery:
-                    2–4 working days
+                    ✓ Estimated delivery: 2–4 working days
                   </p>
 
                   <p>
-                    ✓ Cash on Delivery
-                    available
+                    ✓ Cash on Delivery available
                   </p>
 
                   <p>
-                    ✓ Secure order
-                    processing
+                    ✓ Secure order processing
                   </p>
                 </div>
               </div>
@@ -945,10 +860,6 @@ export default function CheckoutPage() {
     </main>
   );
 }
-
-/* ======================
-   PROMO BOX
-====================== */
 
 function PromoBox({
   promo,
@@ -1023,10 +934,7 @@ function PromoBox({
             </p>
 
             <p className="mt-0.5 text-xs text-emerald-700">
-              {
-                promo.discountPercent
-              }
-              % discount applied
+              {promo.discountPercent}% discount applied
             </p>
           </div>
 
@@ -1055,10 +963,6 @@ function PromoBox({
   );
 }
 
-/* ======================
-   SUMMARY
-====================== */
-
 function SummaryRows({
   subtotal,
   promo,
@@ -1075,11 +979,14 @@ function SummaryRows({
   return (
     <div>
       <div className="flex items-center justify-between text-sm">
-        <span>Subtotal</span>
+        <span>
+          Subtotal
+        </span>
 
         <span>
-          Rs.{" "}
-          {subtotal.toLocaleString()}
+          {formatPrice(
+            subtotal
+          )}
         </span>
       </div>
 
@@ -1090,19 +997,25 @@ function SummaryRows({
           </span>
 
           <span className="shrink-0">
-            − Rs.{" "}
-            {discountAmount.toLocaleString()}
+            −{" "}
+            {formatPrice(
+              discountAmount
+            )}
           </span>
         </div>
       ) : null}
 
       <div className="mt-3 flex items-center justify-between text-sm">
-        <span>Shipping</span>
+        <span>
+          Shipping
+        </span>
 
         <span>
           {deliveryFee === 0
             ? "FREE"
-            : `Rs. ${deliveryFee}`}
+            : formatPrice(
+                deliveryFee
+              )}
         </span>
       </div>
 
@@ -1117,8 +1030,9 @@ function SummaryRows({
           </span>
 
           <strong className="text-2xl">
-            Rs.{" "}
-            {grandTotal.toLocaleString()}
+            {formatPrice(
+              grandTotal
+            )}
           </strong>
         </div>
       </div>

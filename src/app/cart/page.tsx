@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useCart } from "@/app/cart-provider";
 import StoreFooter from "@/app/store-footer";
 import StoreHeader from "@/app/store-header";
+import { formatPrice } from "@/lib/format-price";
 
 export default function CartPage() {
   const {
@@ -14,8 +15,11 @@ export default function CartPage() {
     updateQuantity,
   } = useCart();
 
-  const deliveryFee = total >= 3000 ? 0 : 200;
-  const grandTotal = total + deliveryFee;
+  const deliveryFee =
+    total >= 3000 ? 0 : 200;
+
+  const grandTotal =
+    total + deliveryFee;
 
   return (
     <div>
@@ -24,13 +28,21 @@ export default function CartPage() {
       <main className="nm-cart-page">
         <div className="nm-container">
           <div className="nm-breadcrumb">
-            <Link href="/">Home</Link>
+            <Link href="/">
+              Home
+            </Link>
+
             <span>/</span>
-            <span>Cart</span>
+
+            <span>
+              Cart
+            </span>
           </div>
 
           <div className="nm-cart-heading">
-            <h1>Your Cart</h1>
+            <h1>
+              Your Cart
+            </h1>
 
             <Link
               href="/shop"
@@ -42,11 +54,13 @@ export default function CartPage() {
 
           {items.length === 0 ? (
             <section className="nm-empty-cart">
-              <h2>Your cart is empty</h2>
+              <h2>
+                Your cart is empty
+              </h2>
 
               <p>
-                Browse our serum packs and find what fits
-                your routine.
+                Browse our products and find
+                what fits your routine.
               </p>
 
               <Link
@@ -60,9 +74,17 @@ export default function CartPage() {
             <div className="nm-cart-grid">
               <section className="nm-cart-items">
                 <div className="nm-cart-table-head">
-                  <span>Product</span>
-                  <span>Price</span>
-                  <span>Quantity</span>
+                  <span>
+                    Product
+                  </span>
+
+                  <span>
+                    Price
+                  </span>
+
+                  <span>
+                    Quantity
+                  </span>
                 </div>
 
                 {items.map((item) => (
@@ -81,18 +103,27 @@ export default function CartPage() {
                             unoptimized
                           />
                         ) : (
-                          <span>ON</span>
+                          <span>
+                            ON
+                          </span>
                         )}
                       </div>
 
                       <div>
-                        <h2>{item.name}</h2>
-                        <p>Premium serum pack</p>
+                        <h2>
+                          {item.name}
+                        </h2>
+
+                        <p>
+                          ORINOCA NATURAL
+                        </p>
                       </div>
                     </div>
 
                     <p className="nm-cart-price">
-                      Rs. {item.price.toLocaleString()}
+                      {formatPrice(
+                        item.price
+                      )}
                     </p>
 
                     <div className="nm-cart-actions">
@@ -106,12 +137,16 @@ export default function CartPage() {
                               item.quantity - 1
                             )
                           }
-                          disabled={item.quantity <= 1}
+                          disabled={
+                            item.quantity <= 1
+                          }
                         >
                           −
                         </button>
 
-                        <span>{item.quantity}</span>
+                        <span>
+                          {item.quantity}
+                        </span>
 
                         <button
                           type="button"
@@ -123,7 +158,8 @@ export default function CartPage() {
                             )
                           }
                           disabled={
-                            item.quantity >= item.stock
+                            item.quantity >=
+                            item.stock
                           }
                         >
                           +
@@ -135,7 +171,9 @@ export default function CartPage() {
                         className="nm-remove-button"
                         aria-label={`Remove ${item.name}`}
                         onClick={() =>
-                          removeItem(item._id)
+                          removeItem(
+                            item._id
+                          )
                         }
                       >
                         ×
@@ -146,33 +184,48 @@ export default function CartPage() {
               </section>
 
               <aside className="nm-order-summary">
-                <h2>Order Summary</h2>
+                <h2>
+                  Order Summary
+                </h2>
 
                 <div className="nm-summary-row">
                   <span>
-                    Subtotal ({items.length} items)
+                    Subtotal (
+                    {items.length}{" "}
+                    {items.length === 1
+                      ? "item"
+                      : "items"}
+                    )
                   </span>
 
                   <span>
-                    Rs. {total.toLocaleString()}
+                    {formatPrice(total)}
                   </span>
                 </div>
 
                 <div className="nm-summary-row">
-                  <span>Shipping</span>
+                  <span>
+                    Shipping
+                  </span>
 
                   <span>
                     {deliveryFee === 0
                       ? "Free"
-                      : `Rs. ${deliveryFee}`}
+                      : formatPrice(
+                          deliveryFee
+                        )}
                   </span>
                 </div>
 
                 <div className="nm-summary-total">
-                  <span>Total</span>
+                  <span>
+                    Total
+                  </span>
 
                   <strong>
-                    Rs. {grandTotal.toLocaleString()}
+                    {formatPrice(
+                      grandTotal
+                    )}
                   </strong>
                 </div>
 
@@ -186,7 +239,7 @@ export default function CartPage() {
                 <p className="nm-free-shipping-note">
                   {total >= 3000
                     ? "You qualify for free shipping."
-                    : "Free shipping on orders above Rs. 3,000"}
+                    : "Free shipping on orders above Rs. 3,000.0"}
                 </p>
               </aside>
             </div>
@@ -196,7 +249,7 @@ export default function CartPage() {
 
       <StoreFooter
         ctaTitle="Not done browsing?"
-        ctaDescription="Explore every serum pack and find what fits your routine."
+        ctaDescription="Explore the ORINOCA NATURAL collection and discover what fits your routine."
         ctaButtonText="Back to Shop"
         ctaHref="/shop"
       />
