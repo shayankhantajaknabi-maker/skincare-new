@@ -20,7 +20,7 @@ export default function FloatingWhatsApp() {
       target="_blank"
       rel="noreferrer"
       aria-label="Contact ORINOCA NATURAL on WhatsApp"
-      className="fixed bottom-5 right-5 z-50 flex items-center gap-2 rounded-full bg-[#1b4d3e] px-5 py-4 text-sm font-semibold text-white shadow-xl transition hover:scale-105"
+      className="fixed bottom-20 right-4 z-50 flex items-center gap-2 rounded-full bg-[#1b4d3e] px-4 py-3 text-xs font-semibold text-white shadow-xl transition hover:scale-105 sm:bottom-5 sm:right-5 sm:px-5 sm:py-4 sm:text-sm"
     >
       <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs text-[#1b4d3e]">
         ✓

@@ -577,7 +577,7 @@ text-[#5f6863]
 
 
               <div
-                className={`mt-10 ${product.ingredients.length === 1
+                className={`mt-7 ${product.ingredients.length === 1
                   ? "flex justify-center"
                   : "grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
                   }`}
@@ -595,12 +595,12 @@ text-[#5f6863]
                           ? "max-w-none"
                           : "max-w-[520px] mx-auto"
                         }
-    min-h-[390px]
+    min-h-[340px]
     rounded-[26px]
     border
     border-[#e7ece9]
     bg-white
-    p-7
+    p-5
     transition-all
     duration-300
     hover:-translate-y-2
@@ -631,8 +631,8 @@ text-[#5f6863]
                           src={item.image}
                           alt={item.name}
                           className="
-                            mt-6
-                            h-[190px]
+                            mt-4
+                            h-[170px]
                             w-[320px]
                             max-w-full
                             rounded-[20px]
@@ -645,7 +645,7 @@ text-[#5f6863]
 
                       <h3
                         className="
-    mt-5
+    mt-4
     text-xl
     text-[#123529]
   "
@@ -659,9 +659,9 @@ text-[#5f6863]
 
                       <p
                         className="
-    mt-3
+    mt-2
     text-sm
-    leading-7
+    leading-6
     text-[#5f6863]
   "
                       >
@@ -671,7 +671,7 @@ text-[#5f6863]
 
                       <div
                         className="
-    mt-6
+    mt-4
     h-px
     w-12
     bg-[#d8c9a3]
@@ -736,7 +736,7 @@ text-[#5f6863]
     group
     relative
     flex
-    min-h-[410px]
+    min-h-[340px]
     w-full
     ${(product.howToUse?.length ?? 0) === 1
                           ? "max-w-none"
@@ -747,7 +747,7 @@ text-[#5f6863]
     border
     border-[#e7ece9]
     bg-white
-    p-7
+    p-5
     transition-all
     duration-300
     hover:-translate-y-2
@@ -773,8 +773,8 @@ text-[#5f6863]
                           src={step.image}
                           alt={step.title}
                           className="
-                            mb-6
-                            h-[190px]
+                            mb-5
+                            h-[170px]
                             w-[320px]
                             max-w-full
                             rounded-[20px]
@@ -800,7 +800,7 @@ text-[#005746]
 
                       <h3
                         className="
-mt-5
+mt-3
 text-xl
 text-[#123529]
 "
@@ -814,9 +814,9 @@ text-[#123529]
 
                       <p
                         className="
-mt-3
+mt-2
 text-sm
-leading-7
+leading-6
 text-[#5f6863]
 "
                       >
@@ -826,7 +826,7 @@ text-[#5f6863]
 
                       <div
                         className="
-mt-6
+mt-4  
 h-px
 w-12
 bg-[#d8c9a3]
@@ -852,7 +852,7 @@ duration-300
           <section
             id="results"
             className="
-    mt-24
+    mt-14
     px-4
     sm:px-6
     lg:px-8
@@ -877,7 +877,7 @@ duration-300
 
               <h2
                 className="
-        mt-5
+        mt-3
         text-3xl
         sm:text-5xl
         text-[#123529]
@@ -894,10 +894,11 @@ duration-300
               <div
                 className="
     mx-auto
-    mt-10
+    mt-6
     grid
-    max-w-[980px]
-    gap-6
+    max-w-[760px]
+    
+    gap-4
     md:grid-cols-2
   "
               >
@@ -945,22 +946,17 @@ duration-300
                       className="
     mx-auto
     block
-    h-[1900px]
-    w-[78%]
-    rounded-[20px]
+    h-[200px]
+    w-full
     object-cover
     object-center
-    sm:h-[200px]
-    sm:w-[78%]
-    lg:h-[220px]
-    lg:w-[80%]
   "
                     />
 
                   </div>
 
 
-                  <div className="p-7">
+                  <div className="p-5">
 
                     <h3
                       className="
@@ -1035,22 +1031,17 @@ duration-300
                       className="
     mx-auto
     block
-    h-[190px]
-    w-[78%]
-    rounded-[20px]
+    h-[200px]
+    w-full
     object-cover
     object-center
-    sm:h-[200px]
-    sm:w-[78%]
-    lg:h-[220px]
-    lg:w-[80%]
   "
                     />
 
                   </div>
 
 
-                  <div className="p-7">
+                  <div className="p-5">
 
                     <h3
                       className="
