@@ -1,3 +1,5 @@
+
+import RevenueFilter from "./components/revenue-filter";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getAdminSession } from "@/lib/admin-session";
@@ -27,8 +29,81 @@ type DashboardProduct = {
   featured?: boolean;
 };
 
+type RangeKey =
+  | "today"
+  | "this_week"
+  | "this_month"
+  | "last_month"
+  | "this_year"
+  | "all_time";
+
 function money(value: number) {
   return `Rs. ${Number(value || 0).toLocaleString("en-PK")}`;
+}
+
+function getRangeLabel(range: RangeKey) {
+  const labels = {
+    today: "Today",
+    this_week: "This Week",
+    this_month: "This Month",
+    last_month: "Last Month",
+    this_year: "This Year",
+    all_time: "All Time",
+  };
+
+  return labels[range];
+}
+
+function getDateRange(range: RangeKey) {
+
+
+  const start = new Date();
+  const end = new Date();
+
+  start.setHours(0, 0, 0, 0);
+  end.setHours(23, 59, 59, 999);
+
+  switch (range) {
+    case "today":
+      return { start, end };
+
+    case "this_week": {
+      const day = start.getDay();
+
+      start.setDate(
+        start.getDate() - day
+      );
+
+      return { start, end };
+    }
+
+    case "this_month":
+      start.setDate(1);
+
+      return { start, end };
+
+    case "last_month":
+      start.setMonth(
+        start.getMonth() - 1
+      );
+      start.setDate(1);
+
+      end.setDate(0);
+
+      return { start, end };
+
+    case "this_year":
+      start.setMonth(0);
+      start.setDate(1);
+
+      return { start, end };
+
+    case "all_time":
+      return {
+        start: undefined,
+        end: undefined,
+      };
+  }
 }
 
 function statusClass(status: string) {
@@ -53,22 +128,42 @@ function statusClass(status: string) {
   }
 }
 
+function getGreeting() {
+  const hour = new Date().getHours();
+
+  if (hour < 12) {
+    return "Good Morning";
+  }
+
+  if (hour < 18) {
+    return "Good Afternoon";
+  }
+
+  return "Good Evening";
+}
+
+
 function StatIcon({
   type,
 }: {
-  type: "revenue" | "orders" | "products" | "pending";
+  type:
+  | "revenue"
+  | "orders"
+  | "products"
+  | "pending";
 }) {
   if (type === "revenue") {
     return (
       <svg
+        width="20"
+        height="20"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        strokeWidth="1.7"
-        className="h-5 w-5"
+        strokeWidth="2"
       >
-        <circle cx="12" cy="12" r="9" />
-        <path d="M8.5 9.5c0-1.2 1.2-2 3.3-2 1.9 0 3.2.7 3.2 2 0 3-6.5 1.2-6.5 4.8 0 1.4 1.4 2.2 3.6 2.2 2.1 0 3.5-.8 3.5-2.2M12 5.5v13" />
+        <path d="M12 1v22" />
+        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
       </svg>
     );
   }
@@ -76,14 +171,15 @@ function StatIcon({
   if (type === "orders") {
     return (
       <svg
+        width="20"
+        height="20"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        strokeWidth="1.7"
-        className="h-5 w-5"
+        strokeWidth="2"
       >
-        <path d="M6 8h12l1 13H5L6 8Z" />
-        <path d="M9 9V6a3 3 0 0 1 6 0v3" />
+        <path d="M6 2h12l2 20H4L6 2z" />
+        <path d="M9 6h6" />
       </svg>
     );
   }
@@ -91,47 +187,42 @@ function StatIcon({
   if (type === "products") {
     return (
       <svg
+        width="20"
+        height="20"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        strokeWidth="1.7"
-        className="h-5 w-5"
+        strokeWidth="2"
       >
-        <path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5v-9Z" />
-        <path d="m4 7.5 8 4.5 8-4.5M12 12v9" />
+        <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8z" />
+        <polyline points="3.3 7 12 12 20.7 7" />
       </svg>
     );
   }
 
   return (
     <svg
+      width="20"
+      height="20"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.7"
-      className="h-5 w-5"
+      strokeWidth="2"
     >
-      <circle cx="12" cy="12" r="9" />
-      <path d="M12 7v5M12 16.5v.5" />
+      <circle cx="12" cy="12" r="10" />
+      <line x1="12" y1="8" x2="12" y2="12" />
+      <line x1="12" y1="16" x2="12" y2="16" />
     </svg>
   );
 }
 
-function getGreeting() {
-  const hour = Number(
-    new Intl.DateTimeFormat("en-US", {
-      hour: "2-digit",
-      hour12: false,
-      timeZone: "Asia/Karachi",
-    }).format(new Date())
-  );
-
-  if (hour < 12) return "Good morning";
-  if (hour < 17) return "Good afternoon";
-  return "Good evening";
-}
-
-export default async function AdminDashboardPage() {
+export default async function AdminDashboardPage({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    range?: string;
+  }>;
+}) {
   const admin = await getAdminSession();
 
   if (!admin) {
@@ -140,10 +231,44 @@ export default async function AdminDashboardPage() {
 
   await connectToDatabase();
 
+  const params = await searchParams;
+
+  const allowedRanges: RangeKey[] = [
+    "today",
+    "this_week",
+    "this_month",
+    "last_month",
+    "this_year",
+    "all_time",
+  ];
+
+  const selectedRange: RangeKey = allowedRanges.includes(
+    params.range as RangeKey
+  )
+    ? (params.range as RangeKey)
+    : "this_month";
+
+  const {
+    start,
+    end,
+  } = getDateRange(selectedRange);
+
+  const dateFilter =
+    start && end
+      ? {
+        createdAt: {
+          $gte: start,
+          $lte: end,
+        },
+      }
+      : {};
+
   const sevenDaysAgo = new Date();
 
   sevenDaysAgo.setHours(0, 0, 0, 0);
-  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6);
+  sevenDaysAgo.setDate(
+    sevenDaysAgo.getDate() - 6
+  );
 
   const [
     productCount,
@@ -152,27 +277,37 @@ export default async function AdminDashboardPage() {
     lowStockCount,
     outOfStockCount,
     deliveredOrders,
+    
     recentOrdersRaw,
     chartOrdersRaw,
     featuredProductRaw,
   ] = await Promise.all([
     Product.countDocuments(),
 
-    Order.countDocuments(),
+    Order.countDocuments(
+      dateFilter
+    ),
 
     Order.countDocuments({
+      ...dateFilter,
       status: "pending",
     }),
 
     Product.countDocuments({
-      stock: { $gt: 0, $lte: 5 },
+      stock: {
+        $gt: 0,
+        $lte: 5,
+      },
     }),
 
     Product.countDocuments({
-      stock: { $lte: 0 },
+      stock: {
+        $lte: 0,
+      },
     }),
 
     Order.find({
+      ...dateFilter,
       status: "delivered",
     })
       .select("total")
@@ -187,7 +322,6 @@ export default async function AdminDashboardPage() {
         "orderNumber customer total status createdAt"
       )
       .lean(),
-
     Order.find({
       createdAt: {
         $gte: sevenDaysAgo,
@@ -196,7 +330,9 @@ export default async function AdminDashboardPage() {
         $ne: "cancelled",
       },
     })
-      .select("total status createdAt")
+      .select(
+        "total status createdAt"
+      )
       .lean(),
 
     Product.findOne({
@@ -282,13 +418,13 @@ export default async function AdminDashboardPage() {
         chartData.length === 1
           ? 50
           : (index /
-              (chartData.length - 1)) *
-            100;
+            (chartData.length - 1)) *
+          100;
 
       const y =
         90 -
         (item.value / maxChartValue) *
-          70;
+        70;
 
       return `${x},${y}`;
     })
@@ -344,6 +480,9 @@ export default async function AdminDashboardPage() {
                 <p className="text-sm text-[#6c7570]">
                   Total Revenue
                 </p>
+                <div className="mt-3">
+                  <RevenueFilter />
+                </div>
 
                 <p className="mt-3 break-words text-2xl font-semibold tracking-tight sm:text-3xl">
                   {money(totalRevenue)}
@@ -446,8 +585,8 @@ export default async function AdminDashboardPage() {
             </div>
 
             {pendingCount === 0 &&
-            lowStockCount === 0 &&
-            outOfStockCount === 0 ? (
+              lowStockCount === 0 &&
+              outOfStockCount === 0 ? (
               <span className="w-fit rounded-full border border-emerald-100 bg-emerald-50 px-3 py-1.5 text-[10px] font-semibold text-emerald-700">
                 Everything looks good
               </span>
@@ -461,11 +600,10 @@ export default async function AdminDashboardPage() {
           <div className="grid gap-4 p-4 sm:p-5 md:grid-cols-3">
             <Link
               href="/admin/orders"
-              className={`group rounded-[20px] border p-5 transition hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(18,53,41,0.06)] ${
-                pendingCount > 0
-                  ? "border-[#ead9a4] bg-[#fffaf0]"
-                  : "border-[#123529]/10 bg-[#fbfaf7]"
-              }`}
+              className={`group rounded-[20px] border p-5 transition hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(18,53,41,0.06)] ${pendingCount > 0
+                ? "border-[#ead9a4] bg-[#fffaf0]"
+                : "border-[#123529]/10 bg-[#fbfaf7]"
+                }`}
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
@@ -500,11 +638,10 @@ export default async function AdminDashboardPage() {
 
             <Link
               href="/admin/products"
-              className={`group rounded-[20px] border p-5 transition hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(18,53,41,0.06)] ${
-                lowStockCount > 0
-                  ? "border-amber-200 bg-amber-50/50"
-                  : "border-[#123529]/10 bg-[#fbfaf7]"
-              }`}
+              className={`group rounded-[20px] border p-5 transition hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(18,53,41,0.06)] ${lowStockCount > 0
+                ? "border-amber-200 bg-amber-50/50"
+                : "border-[#123529]/10 bg-[#fbfaf7]"
+                }`}
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
@@ -539,11 +676,10 @@ export default async function AdminDashboardPage() {
 
             <Link
               href="/admin/products"
-              className={`group rounded-[20px] border p-5 transition hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(18,53,41,0.06)] ${
-                outOfStockCount > 0
-                  ? "border-red-200 bg-red-50/50"
-                  : "border-[#123529]/10 bg-[#fbfaf7]"
-              }`}
+              className={`group rounded-[20px] border p-5 transition hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(18,53,41,0.06)] ${outOfStockCount > 0
+                ? "border-red-200 bg-red-50/50"
+                : "border-[#123529]/10 bg-[#fbfaf7]"
+                }`}
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
@@ -552,11 +688,10 @@ export default async function AdminDashboardPage() {
                   </p>
 
                   <p
-                    className={`mt-3 text-3xl font-semibold ${
-                      outOfStockCount > 0
-                        ? "text-red-700"
-                        : "text-[#123529]"
-                    }`}
+                    className={`mt-3 text-3xl font-semibold ${outOfStockCount > 0
+                      ? "text-red-700"
+                      : "text-[#123529]"
+                      }`}
                   >
                     {outOfStockCount}
                   </p>
@@ -567,11 +702,10 @@ export default async function AdminDashboardPage() {
                 </div>
 
                 <div
-                  className={`flex h-10 w-10 items-center justify-center rounded-full ${
-                    outOfStockCount > 0
-                      ? "bg-red-100 text-red-700"
-                      : "bg-[#edf3ef] text-[#073c31]"
-                  }`}
+                  className={`flex h-10 w-10 items-center justify-center rounded-full ${outOfStockCount > 0
+                    ? "bg-red-100 text-red-700"
+                    : "bg-[#edf3ef] text-[#073c31]"
+                    }`}
                 >
                   <StatIcon type="products" />
                 </div>
@@ -670,15 +804,15 @@ export default async function AdminDashboardPage() {
                         chartData.length === 1
                           ? 50
                           : (index /
-                              (chartData.length -
-                                1)) *
-                            100;
+                            (chartData.length -
+                              1)) *
+                          100;
 
                       const y =
                         90 -
                         (item.value /
                           maxChartValue) *
-                          70;
+                        70;
 
                       return (
                         <circle
@@ -710,8 +844,8 @@ export default async function AdminDashboardPage() {
                         <p className="mt-1 hidden truncate text-[9px] text-[#123529] sm:block">
                           {item.value > 0
                             ? money(
-                                item.value
-                              )
+                              item.value
+                            )
                             : "—"}
                         </p>
                       </div>
@@ -786,12 +920,11 @@ export default async function AdminDashboardPage() {
                       </p>
 
                       <p
-                        className={`mt-2 text-sm font-semibold ${
-                          featuredProduct.stock <=
+                        className={`mt-2 text-sm font-semibold ${featuredProduct.stock <=
                           5
-                            ? "text-red-600"
-                            : "text-[#073c31]"
-                        }`}
+                          ? "text-red-600"
+                          : "text-[#073c31]"
+                          }`}
                       >
                         {
                           featuredProduct.stock
@@ -802,7 +935,7 @@ export default async function AdminDashboardPage() {
                   </div>
 
                   {featuredProduct.stock <=
-                  5 ? (
+                    5 ? (
                     <div className="mt-3 rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-xs font-semibold text-red-700">
                       Low stock — consider
                       restocking soon.
